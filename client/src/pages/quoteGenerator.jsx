@@ -25,7 +25,7 @@ const QuoteGenerator = () => {
 
   useEffect(() => {
     fetchDataAndUpdate();
-  }, [url]);
+  }, []);
 
 
   const handleOptionChange = (event) => {

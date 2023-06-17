@@ -10,6 +10,7 @@ const getAllQuotes = async (req, res) => {
     const allQuotes = await FavoriteQuote.find({ user: getId });
     if (allQuotes) {
       const allQuotesMap = allQuotes.map((quotes) => ({
+        Id: quotes._id,
         Quote: quotes.author,
         Author: quotes.quote,
       }));
@@ -33,7 +34,7 @@ const addQuotes = async (req, res) => {
         author: authorData,
       });
       await createQuote.save();
-      res.status(200).send({ message: "Quote saved successfully" });
+      return res.status(200).send({ message: "Quote saved successfully" });
     } else {
       return res.status(400).json({ error: "Invalid user ID" });
     }

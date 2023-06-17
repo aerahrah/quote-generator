@@ -24,3 +24,12 @@ export const fetchData = async (selectedOption, url) => {
     throw new Error("Request failed:", error);
   }
 };
+
+export const fetchAllData = async (url) =>{
+  try{
+    const response = await Axios.get(`${url}/get-all`);
+    return response.data;
+  }catch(error){
+     throw new Error("Request failed:", error);
+  }
+}

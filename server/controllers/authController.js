@@ -30,6 +30,8 @@ const signin = async (req, res) => {
     if (!existingUser) {
       return res.status(400).send({ message: "invalid username or password" });
     }
+    console.log(password);
+    console.log(existingUser.password);
     const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password
