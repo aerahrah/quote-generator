@@ -34,30 +34,34 @@ const Signup = () =>{
     }
     return (
         <>
-            <div>
-                <h2>Sign up</h2>
+        <menu className="w-full h-screen text-center">
+            <div className="flex items-center justify-center w-96 m-auto h-full">
+                <div className="flex flex-col m-2 bg-gray-100 px-10 py-12 rounded-lg shadow-md">
+                <h2 className="text-3xl mb-6 uppercase font-semibold">Sign up</h2>
                 <input 
+                className="w-72 my-3 px-2 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-blue-500"
                 type="text" 
                 placeholder="username"
                 value= {username}
                 onChange={(e) => setUsername(e.target.value)}
                 />
                 <input 
+                className="w-72 px-2 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-blue-500 mb-6"
                 type="password" 
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 />
-                <button onClick={handleSignup}>Sign up</button>
-                <button onClick={handleGuestSignin}>Signin with guest account</button>
-                <Link to = "/signin">sign in</Link>
-            </div>
-            {message && (
-                <>
-                <p>{message}</p>
+                <div className={`transition duration-200 transform scale-${message ? '100' : '0'} mb-6`}>
+                    {message && <p>{message}</p>}
+                </div>
                 <Timer message={message} setMessage={setMessage} />
-                </>
-           )}
+                <button className="bg-blue-400 mb-3 px-2 py-2 rounded-lg shadow-sm hover:bg-opacity-75 focus:shadow-md transition duration-100 ease-in-out" onClick={handleSignup}>Sign up</button>
+                <button className="bg-green-400 mb-3 px-2 py-2 rounded-lg shadow-sm hover:bg-opacity-75 focus:shadow-md transition duration-100 ease-in-out" onClick={handleGuestSignin}>Sign in with guest account</button>
+                <Link className="text-gray-500" to = "/signin">Sign in</Link>
+            </div>
+            </div>
+        </menu>
         </>
     )
 }

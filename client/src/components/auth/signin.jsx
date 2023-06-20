@@ -23,8 +23,9 @@ const Signin = () =>{
     }
     return (<>
         <div>
-            <h1>Sign In</h1>
+            <h1 >Sign In</h1>
             <input 
+            
             type="text" 
             value={username}
             placeholder="username"
