@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { setCookie, getCookie } from "../utils/cookieUtils";
 import AuthWrapper from "./authwrapper";
+import Timer from "../utils/messageTimeout";
 
 const Signin = () =>{
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Signin = () =>{
             setCookie("token", token, 1)
             navigate("/quote-generator");
         } catch (error) {
-            console.log(error.response.data.message);
+            setMessage(error.response.data.message);
         }
     }
     return (<>
@@ -40,10 +41,13 @@ const Signin = () =>{
             placeholder="password"
             onChange={(e)=>setPassword(e.target.value)}
             />
+            <div className={`w-72 transition duration-200 ${message ? 'scale-100' : 'scale-0'} mb-6`}>
+            {message && <p>{message}</p>}
+            </div>
+            <Timer message={message} setMessage={setMessage} />
             <button className="btn bg-green-500" onClick={handleSignin}>Sign in</button>
             <Link className="text-gray-500" to = "/">Sign up</Link>
         </div>
-        {message && <p>{message}</p>}
     </AuthWrapper>
     </>)
 }

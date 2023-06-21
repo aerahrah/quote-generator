@@ -1,6 +1,6 @@
 import { fetchAllData } from "../components/utils/apiUtils";
 import { useState, useEffect } from "react";
-
+import Spinner from "../components/utils/spinner";
 const Library = () =>{
     const url = "http://localhost:3500/quote";
     const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +25,8 @@ const Library = () =>{
     return (
         <div>
             {isLoading ?(
-                <p>loading...</p>
+
+             <Spinner />
             ): (<div>
                 {quoteData.map((data)=>(
                 <ul key={data.Id}>
