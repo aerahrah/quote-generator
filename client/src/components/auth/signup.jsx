@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Link, useNavigate  } from "react-router-dom";
 import Timer from "../utils/messageTimeout";
 import { setCookie, getCookie } from "../utils/cookieUtils";
+import AuthWrapper from "./authwrapper";
 
 const Signup = () =>{
     const navigate = useNavigate();
@@ -34,34 +35,32 @@ const Signup = () =>{
     }
     return (
         <>
-        <menu className="w-full h-screen text-center">
-            <div className="flex items-center justify-center w-96 m-auto h-full">
-                <div className="flex flex-col m-2 bg-gray-100 px-10 py-12 rounded-lg shadow-md">
-                <h2 className="text-3xl mb-6 uppercase font-semibold">Sign up</h2>
+        <AuthWrapper>
+                <div className="flex flex-col bg-gray-800 px-10 py-12 rounded-lg shadow-xl">
+                <h2 className="text-4xl mb-6 uppercase font-bold">Sign up</h2>
                 <input 
-                className="w-72 my-3 px-2 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-blue-500"
+                className="input-box my-3 focus:border-blue-500 focus:border-2"
                 type="text" 
                 placeholder="username"
                 value= {username}
                 onChange={(e) => setUsername(e.target.value)}
                 />
                 <input 
-                className="w-72 px-2 py-2 rounded-lg border border-gray-400 focus:outline-none focus:border-blue-500 mb-6"
+                className="input-box focus:border-blue-500 focus:border-2 mb-6"
                 type="password" 
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 />
-                <div className={`transition duration-200 transform scale-${message ? '100' : '0'} mb-6`}>
-                    {message && <p>{message}</p>}
+                <div className={`w-72 transition duration-200 ${message ? 'scale-100' : 'scale-0'} mb-6`}>
+                {message && <p>{message}</p>}
                 </div>
                 <Timer message={message} setMessage={setMessage} />
-                <button className="bg-blue-400 mb-3 px-2 py-2 rounded-lg shadow-sm hover:bg-opacity-75 focus:shadow-md transition duration-100 ease-in-out" onClick={handleSignup}>Sign up</button>
-                <button className="bg-green-400 mb-3 px-2 py-2 rounded-lg shadow-sm hover:bg-opacity-75 focus:shadow-md transition duration-100 ease-in-out" onClick={handleGuestSignin}>Sign in with guest account</button>
+                <button className="btn bg-blue-600" onClick={handleSignup}>Sign up</button>
+                <button className="btn bg-green-600" onClick={handleGuestSignin}>Sign in with guest account</button>
                 <Link className="text-gray-500" to = "/signin">Sign in</Link>
             </div>
-            </div>
-        </menu>
+        </AuthWrapper>
         </>
     )
 }
