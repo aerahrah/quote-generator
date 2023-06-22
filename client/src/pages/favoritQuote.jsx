@@ -25,7 +25,6 @@ const Library = () =>{
     return (
         <div>
             {isLoading ?(
-
              <Spinner />
             ): (<div>
                 {quoteData.map((data)=>(
