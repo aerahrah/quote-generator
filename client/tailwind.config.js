@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  variants: {
+    scrollbar: ["rounded"],
+  },
   theme: {
     screens: {
       sm: "348px",
@@ -29,6 +32,13 @@ export default {
       "3/4": "75%",
       full: "100%",
       sm: "380px",
+      nav: "60px",
+    },
+    height: {
+      sm: "70vh",
+      md: "85vh",
+      full: "100%",
+      screen: "100vh",
     },
     inset: {
       0: 0,
@@ -38,5 +48,5 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

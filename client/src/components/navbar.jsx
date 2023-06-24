@@ -9,7 +9,7 @@ const NavBar = () =>{
         navigate('/');
     };
     return(
-        <div className='bg-gray-800 flex justify-around h-16 items-center shadow-md text-gray-200 text capitalize'>
+        <div className='bg-gray-800 flex justify-around min-h-nav items-center shadow-md text-gray-200 text capitalize'>
             <Link className='text-3xl font-bold' to = '/generate'>QG</Link>
             <ul className='flex text-xl w-96 justify-evenly'>
                 <li className='hover:opacity-70'><Link to = '/favorite'>favorite</Link></li>

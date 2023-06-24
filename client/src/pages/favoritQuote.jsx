@@ -1,6 +1,10 @@
 import { fetchAllData } from "../components/utils/apiUtils";
 import { useState, useEffect } from "react";
 import Spinner from "../components/utils/spinner";
+import NavBar from "../components/navbar";
+import CardContainer from "./cardContainer";
+import CardFavorites from "./cardFavorite";
+
 const Library = () =>{
     const url = "http://localhost:3500/quote";
     const [isLoading, setIsLoading] = useState(false);
@@ -23,19 +27,18 @@ const Library = () =>{
     }, []);
 
     return (
+        <div className="w-full h-screen bg-gray-900 flex flex-col relative">
+        <NavBar />
         <div>
             {isLoading ?(
              <Spinner />
-            ): (<div>
-                {quoteData.map((data)=>(
-                <ul key={data.Id}>
-                    <li>{data.Quote}</li>
-                    <li>{data.Author}</li>
-                </ul>
-            ))}
-            </div>
+            ): ( <CardContainer>
+                <CardFavorites quoteData= {quoteData}/>
+            </CardContainer>
             )}
         </div>
+        </div>
+      
     );
 };
 

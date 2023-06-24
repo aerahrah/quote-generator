@@ -11,8 +11,8 @@ const getAllQuotes = async (req, res) => {
     if (allQuotes) {
       const allQuotesMap = allQuotes.map((quotes) => ({
         Id: quotes._id,
-        Quote: quotes.author,
-        Author: quotes.quote,
+        Quote: quotes.quote,
+        Author: quotes.author,
       }));
       return res.status(200).json(allQuotesMap);
     } else {
