@@ -21,7 +21,7 @@ export const fetchData = async (selectedOption, url) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error("Request failed:", error);
+   throw new Error(error.response.data.message);
   }
 };
 
@@ -30,6 +30,6 @@ export const fetchAllData = async (url) =>{
     const response = await Axios.get(`${url}/get-all`);
     return response.data;
   }catch(error){
-     throw new Error("Request failed:", error);
+     console.log("Request failed:", error.response.data.message);
   }
 }
