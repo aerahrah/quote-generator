@@ -23,7 +23,7 @@ export default {
       "1/2": "50%",
       "3/4": "75%",
       full: "100%",
-      sm: "380px",
+      sm: "364px",
     },
     minHeight: {
       0: "0",
