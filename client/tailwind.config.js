@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   variants: {
     scrollbar: ["rounded"],
+    extend: {
+      animation: ["motion-safe"],
+    },
   },
   theme: {
     screens: {
@@ -46,7 +49,22 @@ export default {
       "1/2": "50%",
       4: "4%",
     },
-    extend: {},
+    extend: {
+      animation: {
+        "fade-scale-enter": "fade-scale-enter 100ms ease-out",
+        "fade-scale-exit": "fade-scale-exit 100ms ease-out",
+      },
+      keyframes: {
+        "fade-scale-enter": {
+          "0%": { opacity: "0", transform: "scale(0)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "fade-scale-exit": {
+          "0%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "0", transform: "scale(0)" },
+        },
+      },
+    },
   },
   plugins: [require("tailwind-scrollbar")],
 };

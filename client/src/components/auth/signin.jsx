@@ -1,27 +1,29 @@
-import { useState, useEffect, useContext } from 'react';
-import Axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { setCookie, getCookie } from '../utils/cookieUtils';
-import AuthWrapper from './authwrapper';
-import Timer from '../utils/messageTimeout';
-import { HandleGuestSignin } from './guestAcc';
-import { ErrorMessage } from '../utils/errorUtils';
-import { ErrorContext } from '../utils/errorContext';
+import { useState, useEffect, useContext } from "react";
+import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { setCookie, getCookie } from "../utils/cookieUtils";
+import AuthWrapper from "./authwrapper";
+import Timer from "../utils/messageTimeout";
+import { HandleGuestSignin } from "./guestAcc";
+import { ErrorMessage } from "../utils/errorUtils";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const url = 'http://localhost:3500/';
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const { setError, clearError } = useContext(ErrorContext);
+  const url = "http://localhost:3500/";
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
   const handleSignin = async () => {
     try {
-      const response = await Axios.post(`${url}auth/signin`, { username: username, password: password });
+      const response = await Axios.post(`${url}auth/signin`, {
+        username: username,
+        password: password,
+      });
       const { message, token } = response.data;
       setMessage(message);
-      setCookie('token', token, 1);
-      navigate('/quote-generator');
+      setCookie("token", token, 1);
+      navigate("/quote-generator");
     } catch (error) {
       setMessage(error.response.data.message);
     }
@@ -46,14 +48,21 @@ const Signin = () => {
             placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className={`w-72 transition duration-200 ${message ? 'scale-100' : 'scale-0'} mb-6`}>
+          <div
+            className={`w-72 transition duration-200 ${
+              message ? "scale-100" : "scale-0"
+            } mb-6`}
+          >
             {message && <p>{message}</p>}
           </div>
           <Timer message={message} setMessage={setMessage} />
           <button className="btn bg-blue-600" onClick={handleSignin}>
             Sign in
           </button>
-          <button className="btn bg-green-600" onClick={() => HandleGuestSignin(setMessage, navigate)}>
+          <button
+            className="btn bg-green-600"
+            onClick={() => HandleGuestSignin(setMessage, navigate)}
+          >
             Sign in with guest account
           </button>
           <Link className="text-gray-500" to="/">

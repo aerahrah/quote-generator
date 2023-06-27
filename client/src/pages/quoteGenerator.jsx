@@ -1,21 +1,21 @@
-import { useState, useEffect, useContext } from 'react';
-import { saveData, fetchData } from '../components/utils/apiUtils';
-import Timer from '../components/utils/messageTimeout';
-import Spinner from '../components/utils/spinner';
-import Card from './card';
-import { AiOutlineHeart } from 'react-icons/ai';
-import NavBar from '../components/navbar';
-import { useNavigate } from 'react-router-dom';
-import { ErrorContext } from '../components/utils/errorContext';
+import { useState, useEffect, useContext } from "react";
+import { saveData, fetchData } from "../components/utils/apiUtils";
+import Timer from "../components/utils/messageTimeout";
+import Spinner from "../components/utils/spinner";
+import Card from "./card";
+import { FaRegHeart } from "react-icons/fa";
+import NavBar from "../components/navbar";
+import { useNavigate } from "react-router-dom";
+import { ErrorContext } from "../components/utils/errorContext";
 
 const QuoteGenerator = () => {
   const { setError } = useContext(ErrorContext);
   const navigate = useNavigate();
-  const url = 'http://localhost:3500/quote';
+  const url = "http://localhost:3500/quote";
   const [quoteData, setQuoteData] = useState([]);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const fetchDataAndUpdate = () => {
     setIsLoading(true);
@@ -24,10 +24,10 @@ const QuoteGenerator = () => {
         setQuoteData(data);
       })
       .catch((error) => {
-        console.error('Request failed:', error.message);
-        if (error.message == 'unauthorized') {
+        console.error("Request failed:", error.message);
+        if (error.message == "unauthorized") {
           setError(`Request Failed:  ${error.message}. please sign in`);
-          navigate('/signin');
+          navigate("/signin");
         }
       })
       .finally(() => {
@@ -43,7 +43,8 @@ const QuoteGenerator = () => {
     setSelectedOption(event.target.value);
   };
 
-  const { author, quote } = quoteData && quoteData.length > 0 ? quoteData[0] : {};
+  const { author, quote } =
+    quoteData && quoteData.length > 0 ? quoteData[0] : {};
 
   const handleSave = () => {
     saveData(quoteData, url)
@@ -98,15 +99,26 @@ const QuoteGenerator = () => {
           ) : (
             <div className="flex flex-col text-gray-200 ">
               {quote && (
-                <p className="mt-5 mb-10 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">"{quote}"</p>
+                <p className="mt-5 mb-10 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
+                  "{quote}"
+                </p>
               )}
-              {author && <p className="mb-10 text-md md:text-lg font-thin flex self-end text-blue-300"> - {author}</p>}
+              {author && (
+                <p className="mb-10 text-md md:text-lg font-thin flex self-end text-blue-300">
+                  {" "}
+                  - {author}
+                </p>
+              )}
               <button className="absolute top-4 right-4" onClick={handleSave}>
-                {' '}
-                <AiOutlineHeart size={'34px'} color="pink"></AiOutlineHeart>
+                {" "}
+                <FaRegHeart size={"24px"} color="#0ea5e9"></FaRegHeart>
               </button>
               <div className="text-center">
-                <div className={`m-auto w-72 transition duration-200 ${message ? 'scale-100' : 'scale-0'} mb-6`}>
+                <div
+                  className={`m-auto w-72 transition duration-200 ${
+                    message ? "scale-100" : "scale-0"
+                  } mb-6`}
+                >
                   {message && <p>{message}</p>}
                 </div>
                 <Timer message={message} setMessage={setMessage} />

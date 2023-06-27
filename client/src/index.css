@@ -10,3 +10,25 @@
     @apply text-gray-800 w-72 px-2 py-2 rounded-md border border-gray-400 focus:outline-none shadow-inner;
   }
 }
+
+.fade-scale-enter {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.fade-scale-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 100ms ease-out, transform 100ms ease-out;
+}
+
+.fade-scale-exit {
+  opacity: 1;
+  transform: scale(0.8);
+}
+
+.fade-scale-exit-active {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 100ms ease-out, transform 100ms ease-out;
+}
