@@ -4,9 +4,11 @@ const authenticate = require("../middleware/authValidation");
 const {
   getAllQuotes,
   addQuotes,
+  deleteQuote,
 } = require("../controllers/favoriteQuoteController");
 
 router.post("/add", authenticate, addQuotes);
 router.get("/get-all", authenticate, getAllQuotes);
+router.delete("/delete/:id", authenticate, deleteQuote);
 
 module.exports = router;

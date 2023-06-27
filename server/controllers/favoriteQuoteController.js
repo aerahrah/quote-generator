@@ -1,9 +1,19 @@
 const FavoriteQuote = require("../model/favoriteQuote");
 
-// const deleteById = async (req, res) => {
-//   try {
-//   } catch (error) {}
-// };
+const deleteQuote = async (req, res) => {
+  try {
+    const quoteId = req.params.id;
+    const deleteById = await FavoriteQuote.deleteOne({ _id: quoteId });
+
+    if (deleteById.deletedCount === 1) {
+      return res.status(200).json({ message: "Successfully deteleted quote" });
+    } else {
+      return res.status(500).json({ message: "Unable to delete quote" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 const getAllQuotes = async (req, res) => {
   try {
     const getId = req.user;
@@ -47,4 +57,5 @@ const addQuotes = async (req, res) => {
 module.exports = {
   getAllQuotes,
   addQuotes,
+  deleteQuote,
 };
