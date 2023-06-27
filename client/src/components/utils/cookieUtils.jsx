@@ -7,16 +7,16 @@ export const setCookie = (name, value, days) => {
 
 export const getCookie = (name) => {
   const cookieString = document.cookie;
-  const cookies = cookieString.split("; ");
+  const cookies = cookieString.split('; ');
   for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].split("=");
+    const cookie = cookies[i].split('=');
     const cookieName = decodeURIComponent(cookie[0]);
     if (cookieName === name) {
       const cookieValue = decodeURIComponent(cookie[1]);
       return cookieValue;
     }
   }
-  return "";
+  return '';
 };
 
 export const deleteCookie = (name) => {
