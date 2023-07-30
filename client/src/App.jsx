@@ -1,10 +1,10 @@
-import './App.css';
-import Signin from './components/auth/signin';
-import Signup from './components/auth/signup';
-import Library from './pages/favoritQuote';
-import QuoteGenerator from './pages/quoteGenerator';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { ErrorProvider } from './components/utils/errorContext';
+import "./App.css";
+import Signin from "./components/auth/signin";
+import Signup from "./components/auth/signup";
+import FavoriteQuotesLibrary from "./components/quoteFavorite/favoritQuotesLibrary";
+import QuoteGenerator from "./components/quoteGenerator/quoteGenerator";
+import { Routes, Route } from "react-router-dom";
+import { ErrorProvider } from "./components/utils/errorContext";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/quote-generator" element={<QuoteGenerator />} />
-          <Route path="/favorite" element={<Library />} />
+          <Route path="/favorite" element={<FavoriteQuotesLibrary />} />
         </Routes>
       </ErrorProvider>
     </>

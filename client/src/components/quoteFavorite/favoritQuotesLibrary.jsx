@@ -1,12 +1,12 @@
-import { fetchAllData, deleteData } from "../components/utils/apiUtils";
+import { fetchAllData, deleteData } from "../utils/apiUtils";
 import { useState, useEffect } from "react";
-import Spinner from "../components/utils/spinner";
-import NavBar from "../components/navbar";
-import CardContainer from "./cardContainer";
-import CardFavorites from "./cardFavorite";
-import Card from "./card";
+import Spinner from "../utils/spinner";
+import NavBar from "../navbar";
+import FavoriteQuotesContainer from "./favoriteQuotesContainer";
+import FavoriteQuoteList from "./favoriteQuoteList ";
+import Card from "../card";
 
-const Library = () => {
+const FavoriteQuotesLibrary = () => {
   const url = "http://localhost:3500/quote";
   const [isLoading, setIsLoading] = useState(false);
   const [quoteData, setQuoteData] = useState([]);
@@ -18,8 +18,7 @@ const Library = () => {
     setDeletedId(id);
     setIsDeleting(true);
     deleteData(url, id)
-      .then((data) => {
-        console.log(data.message);
+      .then(() => {
         setShouldReload(true);
       })
       .catch((error) => {
@@ -30,7 +29,6 @@ const Library = () => {
   const getAllFavoriteQuotes = () => {
     fetchAllData(url)
       .then((data) => {
-        console.log(data);
         setQuoteData(data);
       })
       .catch((error) => {
@@ -55,31 +53,30 @@ const Library = () => {
     <div className="w-full h-screen bg-gray-900 flex flex-col relative">
       <NavBar />
       <div>
-        {console.log(quoteData.length)}
         {isLoading ? (
           <Spinner />
         ) : quoteData.length === 0 ? (
-          <CardContainer>
+          <FavoriteQuotesContainer>
             <Card>
               <p className="mb-10 !leading-relaxed text-xl md:text-2xl italic text-blue-400">
                 No quote data available.
               </p>
             </Card>
-          </CardContainer>
+          </FavoriteQuotesContainer>
         ) : (
-          <CardContainer>
-            <CardFavorites
+          <FavoriteQuotesContainer>
+            <FavoriteQuoteList
               deleteQuoteData={deleteQuoteData}
               quoteData={quoteData}
               isDeleting={isDeleting}
               setIsDeleting={setIsDeleting}
               deletedId={deletedId}
             />
-          </CardContainer>
+          </FavoriteQuotesContainer>
         )}
       </div>
     </div>
   );
 };
 
-export default Library;
+export default FavoriteQuotesLibrary;
