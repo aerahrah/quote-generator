@@ -1,26 +1,36 @@
-import { Link } from 'react-router-dom';
-import { deleteCookie } from './utils/cookieUtils';
-import { useNavigate } from 'react-router-dom';
-
-const NavBar = () => {
+import { deleteCookie } from "./utils/cookieUtils";
+import { useNavigate } from "react-router-dom";
+const NavBar = ({ activeSection, setActiveSection }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    deleteCookie('token');
-    navigate('/');
+    deleteCookie("token");
+    navigate("/");
   };
+
   return (
     <div className="bg-gray-800 flex justify-around min-h-nav items-center shadow-md text-gray-200 text capitalize">
-      <Link className="text-3xl font-bold" to="/generate">
-        QG
-      </Link>
+      <h1 className="text-2xl font-bold">QG</h1>
       <ul className="flex text-xl w-96 justify-evenly">
-        <li className="hover:opacity-70">
-          <Link to="/favorite">favorite</Link>
+        <li
+          className={`hover:opacity-70 hover:cursor-pointer p-1  ${
+            activeSection === "favoriteQuoteLibrary" ? "border-b-[1px]" : ""
+          }`}
+          onClick={() => setActiveSection("favoriteQuoteLibrary")}
+        >
+          favorite
         </li>
-        <li className="hover:opacity-70">
-          <Link to="/quote-generator">generate</Link>
+        <li
+          className={`hover:opacity-70 hover:cursor-pointer p-1 ${
+            activeSection === "generateQuote" ? "border-b-[1px]" : ""
+          }`}
+          onClick={() => setActiveSection("generateQuote")}
+        >
+          generate
         </li>
-        <li className="hover:opacity-70 cursor-pointer" onClick={handleLogout}>
+        <li
+          className="hover:opacity-70 cursor-pointer p-1"
+          onClick={handleLogout}
+        >
           Logout
         </li>
       </ul>

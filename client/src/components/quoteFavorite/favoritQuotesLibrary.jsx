@@ -1,7 +1,6 @@
 import { fetchAllData, deleteData } from "../utils/apiUtils";
 import { useState, useEffect } from "react";
 import Spinner from "../utils/spinner";
-import NavBar from "../navbar";
 import FavoriteQuotesContainer from "./favoriteQuotesContainer";
 import FavoriteQuoteList from "./favoriteQuoteList ";
 import Card from "../card";
@@ -50,31 +49,28 @@ const FavoriteQuotesLibrary = () => {
   }, [shouldReload]);
 
   return (
-    <div className="w-full h-screen bg-gray-900 flex flex-col relative">
-      <NavBar />
-      <div>
-        {isLoading ? (
-          <Spinner />
-        ) : quoteData.length === 0 ? (
-          <FavoriteQuotesContainer>
-            <Card>
-              <p className="mb-10 !leading-relaxed text-xl md:text-2xl italic text-blue-400">
-                No quote data available.
-              </p>
-            </Card>
-          </FavoriteQuotesContainer>
-        ) : (
-          <FavoriteQuotesContainer>
-            <FavoriteQuoteList
-              deleteQuoteData={deleteQuoteData}
-              quoteData={quoteData}
-              isDeleting={isDeleting}
-              setIsDeleting={setIsDeleting}
-              deletedId={deletedId}
-            />
-          </FavoriteQuotesContainer>
-        )}
-      </div>
+    <div>
+      {isLoading ? (
+        <Spinner />
+      ) : quoteData.length === 0 ? (
+        <FavoriteQuotesContainer>
+          <Card>
+            <p className="mb-10 !leading-relaxed text-xl md:text-2xl italic text-blue-400">
+              No quote data available.
+            </p>
+          </Card>
+        </FavoriteQuotesContainer>
+      ) : (
+        <FavoriteQuotesContainer>
+          <FavoriteQuoteList
+            deleteQuoteData={deleteQuoteData}
+            quoteData={quoteData}
+            isDeleting={isDeleting}
+            setIsDeleting={setIsDeleting}
+            deletedId={deletedId}
+          />
+        </FavoriteQuotesContainer>
+      )}
     </div>
   );
 };
