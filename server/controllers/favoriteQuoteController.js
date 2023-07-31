@@ -44,7 +44,10 @@ const addQuotes = async (req, res) => {
         author: authorData,
       });
       await createQuote.save();
-      return res.status(200).send({ message: "Quote saved successfully" });
+      return res.status(200).json({
+        message: "Quote saved successfully",
+        createQuote: createQuote,
+      });
     } else {
       return res.status(400).json({ error: "Invalid user ID" });
     }

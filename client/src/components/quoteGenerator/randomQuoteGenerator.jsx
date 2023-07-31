@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { saveData, fetchData } from "../utils/apiUtils";
+import { saveData, fetchData, deleteData } from "../utils/apiUtils";
 import Timer from "../utils/messageTimeout";
-import { FaRegHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../utils/errorContext";
 import CategoryDropdown from "./categoryDropdown";
@@ -13,15 +13,18 @@ const RandomQuoteGenerator = () => {
   const navigate = useNavigate();
   const url = "http://localhost:3500/quote";
   const [quoteData, setQuoteData] = useState([]);
+  const [heartState, setHeartState] = useState("save");
   const [selectedOption, setSelectedOption] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [quoteId, setQuoteId] = useState("");
 
   const fetchDataAndUpdate = () => {
     setIsLoading(true);
     fetchData(selectedOption, url)
       .then((data) => {
         setQuoteData(data);
+        setHeartState("save");
       })
       .catch((error) => {
         if (error.message == "unauthorized") {
@@ -41,7 +44,19 @@ const RandomQuoteGenerator = () => {
   const handleSave = () => {
     saveData(quoteData, url)
       .then((responseMessage) => {
-        setMessage(responseMessage);
+        setHeartState("unsave");
+        setMessage(responseMessage.data.message);
+        setQuoteId(responseMessage.data.createQuote._id);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const handleUnsave = (id) => {
+    deleteData(url, id)
+      .then(() => {
+        setQuoteId("");
+        setHeartState("save");
       })
       .catch((error) => {
         console.error(error);
@@ -78,9 +93,27 @@ const RandomQuoteGenerator = () => {
               </div>
               <Timer message={message} setMessage={setMessage} />
             </div>
-            <button className="absolute top-4 right-4" onClick={handleSave}>
-              <FaRegHeart size={"24px"} color="#0ea5e9"></FaRegHeart>
-            </button>
+            {heartState === "save" && (
+              <button className="absolute top-4 right-4" onClick={handleSave}>
+                <FaRegHeart
+                  className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+                  size={"24px"}
+                  color="#0ea5e9"
+                />
+              </button>
+            )}
+            {heartState === "unsave" && (
+              <button
+                className="absolute top-4 right-4"
+                onClick={() => handleUnsave(quoteId)}
+              >
+                <FaHeart
+                  className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+                  size={"24px"}
+                  color="#0ea5e9"
+                />
+              </button>
+            )}
 
             <button
               className="btn bg-green-400 text-gray-700 w-36 self-center text-lg font-semibold"

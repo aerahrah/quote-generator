@@ -1,4 +1,4 @@
-import Axios from './axiosUtils';
+import Axios from "./axiosUtils";
 
 export const saveData = async (quoteData, url) => {
   try {
@@ -6,9 +6,9 @@ export const saveData = async (quoteData, url) => {
       quoteData: quoteData[0].quote,
       authorData: quoteData[0].author,
     });
-    return response.data.message;
+    return response;
   } catch (error) {
-    throw new Error('Request failed:', error.message);
+    throw new Error("Request failed:", error.message);
   }
 };
 
@@ -30,7 +30,7 @@ export const fetchAllData = async (url) => {
     const response = await Axios.get(`${url}/get-all`);
     return response.data;
   } catch (error) {
-    console.log('Request failed:', error.response.data.message);
+    console.log("Request failed:", error);
   }
 };
 
@@ -40,6 +40,6 @@ export const deleteData = async (url, id) => {
     console.log(response);
     return response.data;
   } catch (error) {
-    console.log('Request failed:', error.response.data.message);
+    console.log("Request failed:", error.response.data.message);
   }
 };

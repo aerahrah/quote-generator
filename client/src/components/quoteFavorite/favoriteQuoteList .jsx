@@ -1,4 +1,3 @@
-import Card from "../card";
 import FavoriteQuoteItem from "./favoriteQuoteItem";
 import { CSSTransition } from "react-transition-group";
 

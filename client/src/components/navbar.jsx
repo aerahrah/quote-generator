@@ -10,7 +10,7 @@ const NavBar = ({ activeSection, setActiveSection }) => {
   return (
     <div className="bg-gray-800 flex justify-around min-h-nav items-center shadow-md text-gray-200 text capitalize">
       <h1 className="text-2xl font-bold">QG</h1>
-      <ul className="flex text-xl w-96 justify-evenly">
+      <ul className="flex text-xl w-[40%] justify-end gap-10">
         <li
           className={`hover:opacity-70 hover:cursor-pointer p-1  ${
             activeSection === "favoriteQuoteLibrary" ? "border-b-[1px]" : ""
@@ -28,7 +28,7 @@ const NavBar = ({ activeSection, setActiveSection }) => {
           generate
         </li>
         <li
-          className="hover:opacity-70 cursor-pointer p-1"
+          className=" hover:text-red-400 cursor-pointer p-1"
           onClick={handleLogout}
         >
           Logout
