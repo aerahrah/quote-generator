@@ -1,9 +1,9 @@
-const FavoriteQuote = require("../model/favoriteQuote");
+const QuoteLibrary = require("../model/QuoteLibrary");
 
 const deleteQuote = async (req, res) => {
   try {
     const quoteId = req.params.id;
-    const deleteById = await FavoriteQuote.deleteOne({ _id: quoteId });
+    const deleteById = await QuoteLibrary.deleteOne({ _id: quoteId });
 
     if (deleteById.deletedCount === 1) {
       return res.status(200).json({ message: "Successfully deteleted quote" });
@@ -17,7 +17,7 @@ const deleteQuote = async (req, res) => {
 const getAllQuotes = async (req, res) => {
   try {
     const getId = req.user;
-    const allQuotes = await FavoriteQuote.find({ user: getId });
+    const allQuotes = await QuoteLibrary.find({ user: getId });
     if (allQuotes) {
       const allQuotesMap = allQuotes.map((quotes) => ({
         Id: quotes._id,
@@ -35,13 +35,14 @@ const getAllQuotes = async (req, res) => {
 
 const addQuotes = async (req, res) => {
   try {
-    const { quoteData, authorData } = req.body;
+    const { quoteData, authorData, favoriteQuote } = req.body;
     const getId = req.user;
     if (getId) {
-      const createQuote = new FavoriteQuote({
+      const createQuote = new QuoteLibrary({
         user: getId,
         quote: quoteData,
         author: authorData,
+        favorite: favoriteQuote,
       });
       await createQuote.save();
       return res.status(200).json({

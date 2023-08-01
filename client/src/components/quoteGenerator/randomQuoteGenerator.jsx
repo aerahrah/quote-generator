@@ -18,13 +18,13 @@ const RandomQuoteGenerator = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [quoteId, setQuoteId] = useState("");
-
   const fetchDataAndUpdate = () => {
     setIsLoading(true);
     fetchData(selectedOption, url)
       .then((data) => {
         setQuoteData(data);
         setHeartState("save");
+        setFavoriteQuote(false);
       })
       .catch((error) => {
         if (error.message == "unauthorized") {
@@ -41,10 +41,11 @@ const RandomQuoteGenerator = () => {
     fetchDataAndUpdate();
   }, [selectedOption]);
 
-  const handleSave = () => {
-    saveData(quoteData, url)
+  const handleSave = (favoriteQuote) => {
+    saveData(quoteData, favoriteQuote, url)
       .then((responseMessage) => {
         setHeartState("unsave");
+        console.log(responseMessage);
         setMessage(responseMessage.data.message);
         setQuoteId(responseMessage.data.createQuote._id);
       })
@@ -94,7 +95,10 @@ const RandomQuoteGenerator = () => {
               <Timer message={message} setMessage={setMessage} />
             </div>
             {heartState === "save" && (
-              <button className="absolute top-4 right-4" onClick={handleSave}>
+              <button
+                className="absolute top-4 right-4"
+                onClick={() => handleSave(true)}
+              >
                 <FaRegHeart
                   className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                   size={"24px"}

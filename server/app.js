@@ -8,7 +8,7 @@ require("dotenv").config();
 app.use(express.json());
 app.use(cors());
 const auth = require("./router/authRouter");
-const quoteGenerator = require("./router/quoteRouter");
+const quoteGenerator = require("./router/getQuoteRouter");
 const quoteCRUD = require("./router/quoteCRUDRouter");
 
 app.use("/auth", auth);

@@ -1,6 +1,6 @@
 const axios = require("axios");
 require("dotenv").config();
-const printHello = async (req, res) => {
+const generateQuote = async (req, res) => {
   try {
     const { selectedValue } = req.query;
     console.log(selectedValue);
@@ -23,4 +23,4 @@ const printHello = async (req, res) => {
   }
 };
 
-module.exports = printHello;
+module.exports = generateQuote;

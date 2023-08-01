@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const authenticate = require("../middleware/authValidation");
-const printHello = require("../controllers/quoteController");
+const generateQuote = require("../controllers/getQuoteController");
 
-router.get("/generate", authenticate, printHello);
+router.get("/generate", authenticate, generateQuote);
 
 module.exports = router;

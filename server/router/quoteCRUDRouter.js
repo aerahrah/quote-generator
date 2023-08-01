@@ -5,7 +5,7 @@ const {
   getAllQuotes,
   addQuotes,
   deleteQuote,
-} = require("../controllers/favoriteQuoteController");
+} = require("../controllers/quoteLibraryController");
 
 router.post("/add", authenticate, addQuotes);
 router.get("/get-all", authenticate, getAllQuotes);
