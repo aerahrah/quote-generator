@@ -24,6 +24,7 @@ const RandomQuoteGenerator = () => {
       .then((data) => {
         setQuoteData(data);
         setHeartState("save");
+        setMessage("");
         setFavoriteQuote(false);
       })
       .catch((error) => {
@@ -75,28 +76,9 @@ const RandomQuoteGenerator = () => {
           <Spinner />
         ) : (
           <div className="flex flex-col text-gray-200 ">
-            <div className="flex flex-col">
-              <p className="mt-5 mb-10 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
-                "{quoteData[0].quote}"
-              </p>
-              <p className="mb-10 text-md md:text-lg font-thin flex self-end text-blue-300">
-                - {quoteData[0].author}
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div
-                className={`m-auto w-72 transition duration-200 ${
-                  message ? "scale-100" : "scale-0"
-                } mb-6`}
-              >
-                {message && <p>{message}</p>}
-              </div>
-              <Timer message={message} setMessage={setMessage} />
-            </div>
             {heartState === "save" && (
               <button
-                className="absolute top-4 right-4"
+                className="absolute top-[8px] right-[8px]"
                 onClick={() => handleSave(true)}
               >
                 <FaRegHeart
@@ -108,7 +90,7 @@ const RandomQuoteGenerator = () => {
             )}
             {heartState === "unsave" && (
               <button
-                className="absolute top-4 right-4"
+                className="absolute top-[8px] right-[8px]"
                 onClick={() => handleUnsave(quoteId)}
               >
                 <FaHeart
@@ -119,12 +101,32 @@ const RandomQuoteGenerator = () => {
               </button>
             )}
 
-            <button
-              className="btn bg-green-400 text-gray-700 w-36 self-center text-lg font-semibold"
-              onClick={fetchDataAndUpdate}
-            >
-              Next
-            </button>
+            <div>
+              <div className="flex flex-col mb-24">
+                <p className="mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
+                  "{quoteData[0].quote}"
+                </p>
+                <p className="text-md md:text-lg font-thin flex self-end text-blue-300">
+                  - {quoteData[0].author}
+                </p>
+                <div className="text-center self-center absolute bottom-[1rem] ">
+                  <div
+                    className={`w-72 transition duration-200 ${
+                      message ? "scale-100" : "scale-0"
+                    } mb-6`}
+                  >
+                    {message && <p>{message}</p>}
+                  </div>
+                  <Timer message={message} setMessage={setMessage} />
+                  <button
+                    className=" btn bg-green-400 text-gray-700 text-md md:text-lg font-semibold px-8 mx-auto rounded-xl"
+                    onClick={fetchDataAndUpdate}
+                  >
+                    New Quote
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </Card>

@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const Timer = ({ message, setMessage }) => {
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        setMessage('');
-      }, 2000);
+        setMessage("");
+      }, 1000);
       return () => {
         clearTimeout(timer);
       };

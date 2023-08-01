@@ -31,14 +31,14 @@ const Signup = () => {
         <div className="flex flex-col bg-gray-800 px-10 py-12 rounded-lg shadow-xl">
           <h2 className="text-4xl mb-6 uppercase font-bold">Sign up</h2>
           <input
-            className="input-box my-3 focus:border-blue-500 focus:border-2"
+            className="input-box my-3 "
             type="text"
             placeholder="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
-            className="input-box focus:border-blue-500 focus:border-2 mb-6"
+            className="input-box mb-6"
             type="password"
             placeholder="password"
             value={password}

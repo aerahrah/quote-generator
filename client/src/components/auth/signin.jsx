@@ -35,14 +35,14 @@ const Signin = () => {
           {<ErrorMessage />}
           <h1 className="text-4xl uppercase mb-6 font-semibold">Sign In</h1>
           <input
-            className="input-box my-3 focus:border-blue-500 focus:border-2"
+            className="input-box my-3"
             type="text"
             value={username}
             placeholder="username"
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
-            className="input-box focus:border-blue-500 focus:border-2 mb-6"
+            className="input-box mb-6"
             type="password"
             value={password}
             placeholder="password"

@@ -12,20 +12,20 @@ const FavoriteQuotesLibrary = () => {
   const [rerenderFavorite, setRerenderFavorite] = useState(false);
 
   const deleteQuoteData = (id) => {
+    setIsLoading(true);
     deleteData(url, id)
       .then(() => {
-        setRerenderFavorite(true);
+        setRerenderFavorite(!rerenderFavorite);
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(setIsLoading(false));
+      });
   };
 
   const getAllFavoriteQuotes = () => {
+    setIsLoading(true);
     fetchAllData(url)
       .then((data) => {
-        setIsLoading(true);
         setQuoteData(data);
       })
       .catch((error) => {
@@ -46,11 +46,9 @@ const FavoriteQuotesLibrary = () => {
         <Spinner />
       ) : quoteData.length === 0 ? (
         <FavoriteQuotesContainer>
-          <Card>
-            <p className="mb-10 !leading-relaxed text-xl md:text-2xl italic text-blue-400">
-              No quote data available.
-            </p>
-          </Card>
+          <p className=" !leading-relaxed text-xl md:text-2xl italic text-blue-400 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 bg-gray-800 p-36 shadow-xl rounded-lg">
+            No favorite quote.
+          </p>
         </FavoriteQuotesContainer>
       ) : (
         <FavoriteQuotesContainer>
