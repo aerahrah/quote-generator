@@ -1,6 +1,6 @@
 const Spinner = () => {
   return (
-    <>
+    <div className="transform absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
       <svg
         aria-hidden="true"
         className="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
@@ -17,7 +17,7 @@ const Spinner = () => {
           fill="currentFill"
         />
       </svg>
-    </>
+    </div>
   );
 };
 

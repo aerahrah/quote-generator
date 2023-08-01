@@ -35,7 +35,7 @@ export default {
       "3/4": "75%",
       full: "100%",
       sm: "380px",
-      nav: "60px",
+      nav: "70px",
     },
     height: {
       sm: "70vh",

@@ -9,25 +9,23 @@ const FavoriteQuotesLibrary = () => {
   const url = "http://localhost:3500/quote";
   const [isLoading, setIsLoading] = useState(false);
   const [quoteData, setQuoteData] = useState([]);
-  const [shouldReload, setShouldReload] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [deletedId, setDeletedId] = useState(null);
+  const [rerenderFavorite, setRerenderFavorite] = useState(false);
 
   const deleteQuoteData = (id) => {
-    setDeletedId(id);
-    setIsDeleting(true);
     deleteData(url, id)
       .then(() => {
-        setShouldReload(true);
+        setRerenderFavorite(true);
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
+      .finally(setIsLoading(false));
   };
 
   const getAllFavoriteQuotes = () => {
     fetchAllData(url)
       .then((data) => {
+        setIsLoading(true);
         setQuoteData(data);
       })
       .catch((error) => {
@@ -40,16 +38,10 @@ const FavoriteQuotesLibrary = () => {
 
   useEffect(() => {
     getAllFavoriteQuotes();
-  }, [shouldReload]);
-
-  useEffect(() => {
-    if (shouldReload) {
-      setShouldReload(false);
-    }
-  }, [shouldReload]);
+  }, [rerenderFavorite]);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-900 py-4">
       {isLoading ? (
         <Spinner />
       ) : quoteData.length === 0 ? (
@@ -65,9 +57,7 @@ const FavoriteQuotesLibrary = () => {
           <FavoriteQuoteList
             deleteQuoteData={deleteQuoteData}
             quoteData={quoteData}
-            isDeleting={isDeleting}
-            setIsDeleting={setIsDeleting}
-            deletedId={deletedId}
+            setRerenderFavorite={setRerenderFavorite}
           />
         </FavoriteQuotesContainer>
       )}

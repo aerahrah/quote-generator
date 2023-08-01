@@ -1,6 +1,6 @@
 const CategoryDropdown = ({ selectedOption, setSelectedOption }) => {
   return (
-    <div className="w-96 m-auto flex justify-center items-center text-lg text-gray-200 mb-6">
+    <div className="w-full m-auto flex justify-center items-center text-lg text-gray-200 mb-6">
       <label htmlFor="selectInput" className="mr-2">
         Quote Category:
       </label>

@@ -1,28 +1,10 @@
 import FavoriteQuoteItem from "./favoriteQuoteItem";
-import { CSSTransition } from "react-transition-group";
 
-const FavoriteQuoteList = ({
-  quoteData,
-  deleteQuoteData,
-  setIsDeleting,
-  deletedId,
-}) => {
-  const handleOnExited = () => {
-    setIsDeleting(false);
-  };
-
+const FavoriteQuoteList = ({ quoteData, deleteQuoteData }) => {
   return (
-    <div className="flex flex-col">
+    <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-3 xl:columns-4  h-auto h-auto">
       {quoteData.map((data) => (
-        <CSSTransition
-          key={data.Id}
-          in={deletedId == data.Id}
-          timeout={300}
-          classNames="fade-scale"
-          onExited={handleOnExited}
-        >
-          <FavoriteQuoteItem deleteQuoteData={deleteQuoteData} data={data} />
-        </CSSTransition>
+        <FavoriteQuoteItem deleteQuoteData={deleteQuoteData} data={data} />
       ))}
     </div>
   );
