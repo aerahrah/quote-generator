@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Spinner from "../utils/spinner";
 import FavoriteQuotesContainer from "./favoriteQuotesContainer";
 import FavoriteQuoteList from "./favoriteQuoteList ";
-import Card from "../card";
 
 const FavoriteQuotesLibrary = () => {
   const url = "http://localhost:3500/quote";

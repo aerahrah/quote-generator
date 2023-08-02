@@ -1,6 +1,29 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
-const AddQuoteModal = ({ isModalCreateOpen, setIsModalCreateOpen }) => {
+import { saveData } from "../utils/apiUtils";
+const AddQuoteModal = ({
+  isModalCreateOpen,
+  setIsModalCreateOpen,
+  useState,
+}) => {
+  const url = "http://localhost:3500/quote";
+  const [quoteData, setQuoteData] = useState({
+    author: "",
+    quote: "",
+  });
+  const handleSaveOwnQuote = (favoriteQuote) => {
+    saveData(quoteData, favoriteQuote, url)
+      .then((data) => {
+        setQuoteData({
+          author: "",
+          quote: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setIsModalCreateOpen(false);
+  };
   return (
     <div>
       <Transition appear show={isModalCreateOpen} as={Fragment}>
@@ -27,19 +50,52 @@ const AddQuoteModal = ({ isModalCreateOpen, setIsModalCreateOpen }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-white p-4 rounded-lg">
-                  <div className="flex justify-between px-6">
+                <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-gray-800 p-4 px-6 rounded-lg text-gray-300">
+                  <div className="flex flex-col gap-4 mb-6">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-start font-semibold text-lg">
+                        Author:
+                      </label>
+                      <input
+                        className="p-2 rounded-md bg-gray-900 outline-0"
+                        type="text"
+                        value={quoteData.author}
+                        onChange={(e) =>
+                          setQuoteData({ ...quoteData, author: e.target.value })
+                        }
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-start font-semibold text-lg">
+                        Quote:
+                      </label>
+                      <textarea
+                        className="p-2 rounded-md bg-gray-900 outline-0"
+                        value={quoteData.quote}
+                        onChange={(e) =>
+                          setQuoteData({
+                            ...quoteData,
+                            quote: e.target.value,
+                          })
+                        }
+                        rows={7}
+                        cols={60}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center">
                     <button
-                      className="hover:text-red-500 transform hover:scale-[1.02] "
+                      className="hover:text-red-500 transform hover:scale-[1.02] bg-gray-900  py-2 px-10 rounded-lg  transition duration-[30ms]"
                       onClick={() => setIsModalCreateOpen(false)}
                     >
                       Cancel
                     </button>
                     <button
-                      className="hover:text-blue-500 transform hover:scale-[1.02] "
-                      //   onClick={handleCreateTask}
+                      className="hover:text-blue-500 transform hover:scale-[1.02] bg-gray-900  py-2 px-10 rounded-lg  transition duration-[30ms]"
+                      onClick={() => handleSaveOwnQuote(false)}
                     >
-                      Create
+                      Add
                     </button>
                   </div>
                 </Dialog.Panel>

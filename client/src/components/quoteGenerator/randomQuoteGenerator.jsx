@@ -12,7 +12,10 @@ const RandomQuoteGenerator = () => {
   const { setError } = useContext(ErrorContext);
   const navigate = useNavigate();
   const url = "http://localhost:3500/quote";
-  const [quoteData, setQuoteData] = useState([]);
+  const [quoteData, setQuoteData] = useState({
+    author: "",
+    quote: "",
+  });
   const [heartState, setHeartState] = useState("save");
   const [selectedOption, setSelectedOption] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +25,12 @@ const RandomQuoteGenerator = () => {
     setIsLoading(true);
     fetchData(selectedOption, url)
       .then((data) => {
-        setQuoteData(data);
+        setQuoteData({
+          ...quoteData,
+          author: data[0].author,
+          quote: data[0].quote,
+        });
+
         setHeartState("save");
         setMessage("");
         setFavoriteQuote(false);
@@ -46,7 +54,6 @@ const RandomQuoteGenerator = () => {
     saveData(quoteData, favoriteQuote, url)
       .then((responseMessage) => {
         setHeartState("unsave");
-        console.log(responseMessage);
         setMessage(responseMessage.data.message);
         setQuoteId(responseMessage.data.createQuote._id);
       })
@@ -104,10 +111,10 @@ const RandomQuoteGenerator = () => {
             <div>
               <div className="flex flex-col mb-24">
                 <p className="mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
-                  "{quoteData[0].quote}"
+                  "{quoteData.quote}"
                 </p>
                 <p className="text-md md:text-lg font-thin flex self-end text-blue-300">
-                  - {quoteData[0].author}
+                  - {quoteData.author}
                 </p>
                 <div className="text-center self-center absolute bottom-[1rem] ">
                   <div

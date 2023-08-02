@@ -2,6 +2,7 @@ import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import AddQuoteModal from "./addQuoteModal";
 const AddQuote = () => {
+
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   return (
     <div>
@@ -14,6 +15,7 @@ const AddQuote = () => {
       <AddQuoteModal
         isModalCreateOpen={isModalCreateOpen}
         setIsModalCreateOpen={setIsModalCreateOpen}
+        useState={useState}
       />
     </div>
   );

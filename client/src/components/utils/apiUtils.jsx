@@ -3,8 +3,8 @@ import Axios from "./axiosUtils";
 export const saveData = async (quoteData, favoriteQuote, url) => {
   try {
     const response = await Axios.post(`${url}/add`, {
-      quoteData: quoteData[0].quote,
-      authorData: quoteData[0].author,
+      quoteData: quoteData.quote,
+      authorData: quoteData.author,
       favoriteQuote: favoriteQuote,
     });
     return response;
