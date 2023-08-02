@@ -78,7 +78,7 @@ const RandomQuoteGenerator = () => {
           <div className="flex flex-col text-gray-200 ">
             {heartState === "save" && (
               <button
-                className="absolute top-[8px] right-[8px]"
+                className="absolute top-[12px] right-[12px]"
                 onClick={() => handleSave(true)}
               >
                 <FaRegHeart
@@ -90,7 +90,7 @@ const RandomQuoteGenerator = () => {
             )}
             {heartState === "unsave" && (
               <button
-                className="absolute top-[8px] right-[8px]"
+                className="absolute top-[12px] right-[12px]"
                 onClick={() => handleUnsave(quoteId)}
               >
                 <FaHeart

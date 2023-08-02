@@ -26,9 +26,9 @@ const NavBar = ({ activeSection, setActiveSection }) => {
           </li>
           <li
             className={`hover:opacity-70 hover:cursor-pointer p-1 ${
-              activeSection === "QuoteLibrary" ? "border-b-[1px]" : ""
+              activeSection === "quoteLibrary" ? "border-b-[1px]" : ""
             }`}
-            onClick={() => setActiveSection("QuoteLibrary")}
+            onClick={() => setActiveSection("quoteLibrary")}
           >
             library
           </li>

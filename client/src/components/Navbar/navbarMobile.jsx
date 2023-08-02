@@ -36,6 +36,16 @@ const NavBarMobile = ({
             </Popover.Button>
             <Popover.Button
               className={`hover:opacity-70 hover:cursor-pointer text-left p-1 w-full border-b-2  capitalize text-lg ${
+                activeSection === "quoteLibrary"
+                  ? "border-gray-500 font-semibold text-gray-800"
+                  : "border-gray-300 text-gray-700"
+              }`}
+              onClick={() => setActiveSection("quoteLibrary")}
+            >
+              library
+            </Popover.Button>
+            <Popover.Button
+              className={`hover:opacity-70 hover:cursor-pointer text-left p-1 w-full border-b-2  capitalize text-lg ${
                 activeSection === "favoriteQuoteLibrary"
                   ? "border-gray-500 font-semibold text-gray-800"
                   : "border-gray-300 text-gray-700"
