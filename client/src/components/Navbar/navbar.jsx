@@ -1,10 +1,10 @@
 import { deleteCookie } from "../utils/cookieUtils";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 import NavBarMobile from "./navbarMobile";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaRegHeart, FaSignOutAlt } from "react-icons/fa";
+import { GoLightBulb, GoBook } from "react-icons/go";
 const NavBar = ({ activeSection, setActiveSection }) => {
-  const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
   const handleLogout = () => {
     deleteCookie("token");
@@ -12,39 +12,57 @@ const NavBar = ({ activeSection, setActiveSection }) => {
   };
 
   return (
-    <div className="bg-gray-800 shadow-md min-h-nav text-gray-200 text capitalize fixed z-30 inset-x-0">
+    <div className="bg-gray-800 shadow-md min-h-nav text-gray-300 text capitalize fixed z-30 inset-x-0">
       <div className="hidden md:flex w-[80vw] justify-between mx-auto min-h-nav items-center">
         <h1 className="text-2xl font-bold">QG</h1>
-        <ul className="flex text-xl w-[40%] justify-end gap-10">
+        <ul className="flex font-thin text-lg w-[40%] items-center justify-end gap-10">
           <li
             className={`hover:opacity-70 hover:cursor-pointer p-1 ${
-              activeSection === "generateQuote" ? "border-b-[1px]" : ""
+              activeSection === "generateQuote"
+                ? "border-b-[1px] font-normal"
+                : ""
             }`}
             onClick={() => setActiveSection("generateQuote")}
           >
-            generate
+            <div className="flex gap-2 items-center">
+              <GoLightBulb className="text-gray-500" />
+              <h1> generate</h1>
+            </div>
           </li>
           <li
             className={`hover:opacity-70 hover:cursor-pointer p-1 ${
-              activeSection === "quoteLibrary" ? "border-b-[1px]" : ""
+              activeSection === "quoteLibrary"
+                ? "border-b-[1px]  font-normal"
+                : ""
             }`}
             onClick={() => setActiveSection("quoteLibrary")}
           >
-            library
+            <div className="flex gap-2 items-center">
+              <GoBook className="text-gray-500" />
+              <h1> library</h1>
+            </div>
           </li>
           <li
             className={`hover:opacity-70 hover:cursor-pointer p-1  ${
-              activeSection === "favoriteQuoteLibrary" ? "border-b-[1px]" : ""
+              activeSection === "favoriteQuoteLibrary"
+                ? "border-b-[1px]  font-normal"
+                : ""
             }`}
             onClick={() => setActiveSection("favoriteQuoteLibrary")}
           >
-            favorite
+            <div className="flex gap-2 items-center">
+              <FaRegHeart className="text-gray-500" />
+              <h1> favorite</h1>
+            </div>
           </li>
           <li
-            className=" hover:text-red-400 cursor-pointer p-1"
+            className="hover:opacity-70 hover:cursor-pointer p-1"
             onClick={handleLogout}
           >
-            Logout
+            <div className="flex gap-2 items-center ">
+              <FaSignOutAlt className="text-gray-500" />
+              <h1 className="font-normal">logout</h1>
+            </div>
           </li>
         </ul>
       </div>
@@ -52,8 +70,6 @@ const NavBar = ({ activeSection, setActiveSection }) => {
         <div className="flex justify-between items-center m-auto min-h-nav mx-6">
           <h1 className="text-2xl font-bold">QG</h1>
           <NavBarMobile
-            isNavOpen={isNavOpen}
-            setIsNavOpen={setIsNavOpen}
             handleLogout={handleLogout}
             activeSection={activeSection}
             setActiveSection={setActiveSection}

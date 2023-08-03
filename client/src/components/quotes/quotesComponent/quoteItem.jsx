@@ -1,6 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 
-const FavoriteQuoteItem = ({ deleteQuoteData, data }) => {
+const QuoteItem = ({ deleteQuoteData, data }) => {
   return (
     <ul className="flex flex-col bg-gray-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-6 md:py-8 mb-8 px-2 overflow-hidden cursor-pointer relative">
       {data.Quote && (
@@ -23,4 +23,4 @@ const FavoriteQuoteItem = ({ deleteQuoteData, data }) => {
   );
 };
 
-export default FavoriteQuoteItem;
+export default QuoteItem;

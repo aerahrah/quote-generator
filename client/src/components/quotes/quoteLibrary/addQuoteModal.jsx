@@ -1,10 +1,11 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
-import { saveData } from "../utils/apiUtils";
+import { saveData } from "../../utils/apiUtils";
 const AddQuoteModal = ({
   isModalCreateOpen,
   setIsModalCreateOpen,
   useState,
+  getAllQuotes,
 }) => {
   const url = "http://localhost:3500/quote";
   const [quoteData, setQuoteData] = useState({
@@ -18,6 +19,7 @@ const AddQuoteModal = ({
           author: "",
           quote: "",
         });
+        getAllQuotes();
       })
       .catch((err) => {
         console.log(err);
@@ -37,9 +39,9 @@ const AddQuoteModal = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black/20 backdrop-blur-sm" />
+            <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-20" />
           </Transition.Child>
-          <div className="fixed inset-0">
+          <div className="fixed inset-0 z-50">
             <div className="flex min-h-full items-center justify-center p-6 text-center">
               <Transition.Child
                 as={Fragment}
@@ -50,7 +52,7 @@ const AddQuoteModal = ({
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-gray-800 p-4 px-6 rounded-lg text-gray-300">
+                <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-gray-800 p-4 px-6 rounded-lg text-gray-300 ">
                   <div className="flex flex-col gap-4 mb-6">
                     <div className="flex flex-col gap-1">
                       <label className="text-start font-semibold text-lg">

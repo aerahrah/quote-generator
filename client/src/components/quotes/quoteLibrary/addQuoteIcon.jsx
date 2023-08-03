@@ -1,24 +1,24 @@
-import { FaPlus } from "react-icons/fa";
+import { FaPen } from "react-icons/fa";
 import { useState } from "react";
 import AddQuoteModal from "./addQuoteModal";
-const AddQuote = () => {
-
+const AddQuoteIcon = ({ getAllQuotes }) => {
   const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
   return (
     <div>
       <div
-        className="bg-gray-800 p-4 rounded-full cursor-pointer shadow hover:shadow-xl transition transform  hover:-translate-y-[3px] hover:scale-[1.02] duration-100 "
+        className="p-5 rounded-full cursor-pointer transform transition duration-100 hover:scale-[1.02]   hover:-translate-y-[3px] shadow-md hover:shadow-lg bg-gray-700 border-[1px] border-gray-900"
         onClick={() => setIsModalCreateOpen(true)}
       >
-        <FaPlus className="text-blue-400" size="2.5rem" />
+        <FaPen className="text-blue-400" size="2rem" />
       </div>
       <AddQuoteModal
         isModalCreateOpen={isModalCreateOpen}
         setIsModalCreateOpen={setIsModalCreateOpen}
         useState={useState}
+        getAllQuotes={getAllQuotes}
       />
     </div>
   );
 };
 
-export default AddQuote;
+export default AddQuoteIcon;
