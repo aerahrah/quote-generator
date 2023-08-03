@@ -13,7 +13,7 @@ const AddQuoteModal = ({
   });
   const handleSaveOwnQuote = (favoriteQuote) => {
     saveData(quoteData, favoriteQuote, url)
-      .then((data) => {
+      .then(() => {
         setQuoteData({
           author: "",
           quote: "",

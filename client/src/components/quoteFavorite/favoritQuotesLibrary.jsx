@@ -8,13 +8,11 @@ const FavoriteQuotesLibrary = () => {
   const url = "http://localhost:3500/quote";
   const [isLoading, setIsLoading] = useState(false);
   const [quoteData, setQuoteData] = useState([]);
-  const [rerenderFavorite, setRerenderFavorite] = useState(false);
 
   const deleteQuoteData = (id) => {
-    setIsLoading(true);
     deleteData(url, id)
       .then(() => {
-        setRerenderFavorite(!rerenderFavorite);
+        getAllFavoriteQuotes();
       })
       .catch((error) => {
         console.log(error);
@@ -37,7 +35,7 @@ const FavoriteQuotesLibrary = () => {
 
   useEffect(() => {
     getAllFavoriteQuotes();
-  }, [rerenderFavorite]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-900 py-4">
@@ -54,7 +52,6 @@ const FavoriteQuotesLibrary = () => {
           <FavoriteQuoteList
             deleteQuoteData={deleteQuoteData}
             quoteData={quoteData}
-            setRerenderFavorite={setRerenderFavorite}
           />
         </FavoriteQuotesContainer>
       )}

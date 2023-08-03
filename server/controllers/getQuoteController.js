@@ -6,8 +6,7 @@ const generateQuote = async (req, res) => {
     console.log(selectedValue);
     const category = selectedValue;
     console.log(category);
-    const apiKey = process.env.API_KEY; // Replace with your actual API key
-
+    const apiKey = process.env.API_KEY;
     const response = await axios.get(
       `https://api.api-ninjas.com/v1/quotes?category=${category}`,
       {

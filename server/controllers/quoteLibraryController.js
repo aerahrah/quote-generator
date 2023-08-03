@@ -23,6 +23,7 @@ const getAllQuotes = async (req, res) => {
         Id: quotes._id,
         Quote: quotes.quote,
         Author: quotes.author,
+        Favorite: quotes.favorite,
       }));
       return res.status(200).json(allQuotesMap);
     } else {

@@ -25,15 +25,14 @@ const RandomQuoteGenerator = () => {
     setIsLoading(true);
     fetchData(selectedOption, url)
       .then((data) => {
-        setQuoteData({
-          ...quoteData,
+        setQuoteData((previousQuoteData) => ({
+          ...previousQuoteData,
           author: data[0].author,
           quote: data[0].quote,
-        });
+        }));
 
         setHeartState("save");
         setMessage("");
-        setFavoriteQuote(false);
       })
       .catch((error) => {
         if (error.message == "unauthorized") {
