@@ -46,10 +46,17 @@ const addQuotes = async (req, res) => {
         favorite: favoriteQuote,
       });
       await createQuote.save();
-      return res.status(200).json({
-        message: "Quote saved successfully",
-        createQuote: createQuote,
-      });
+      if (favoriteQuote === false) {
+        return res.status(200).json({
+          message: "Quote Added to Library",
+          createQuote: createQuote,
+        });
+      } else {
+        return res.status(200).json({
+          message: "Quote Added to Favorites",
+          createQuote: createQuote,
+        });
+      }
     } else {
       return res.status(400).json({ error: "Invalid user ID" });
     }

@@ -1,7 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { saveData, fetchData, deleteData } from "../utils/apiUtils";
 import Timer from "../utils/messageTimeout";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+import {
+  FaRegHeart,
+  FaHeart,
+  FaPlusCircle,
+  FaMinusCircle,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../utils/errorContext";
 import CategoryDropdown from "./categoryDropdown";
@@ -17,10 +22,12 @@ const RandomQuoteGenerator = () => {
     quote: "",
   });
   const [heartState, setHeartState] = useState("save");
+  const [addQuoteState, setAddQuoteState] = useState("add");
   const [selectedOption, setSelectedOption] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [quoteId, setQuoteId] = useState("");
+  const [quoteIdLibrary, setQuoteIdLibrary] = useState("");
   const fetchDataAndUpdate = () => {
     setIsLoading(true);
     fetchData(selectedOption, url)
@@ -30,7 +37,7 @@ const RandomQuoteGenerator = () => {
           author: data[0].author,
           quote: data[0].quote,
         }));
-
+        setAddQuoteState("add");
         setHeartState("save");
         setMessage("");
       })
@@ -49,28 +56,51 @@ const RandomQuoteGenerator = () => {
     fetchDataAndUpdate();
   }, [selectedOption]);
 
-  const handleSave = (favoriteQuote) => {
-    saveData(quoteData, favoriteQuote, url)
-      .then((responseMessage) => {
-        setHeartState("unsave");
-        setMessage(responseMessage.data.message);
-        setQuoteId(responseMessage.data.createQuote._id);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-  const handleUnsave = (id) => {
-    deleteData(url, id)
-      .then(() => {
-        setQuoteId("");
-        setHeartState("save");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleToggleSaveFavorite = (id) => {
+    if (heartState === "save") {
+      saveData(quoteData, true, url)
+        .then((responseMessage) => {
+          setHeartState("unsave");
+          setMessage(responseMessage.data.message);
+          setQuoteId(responseMessage.data.createQuote._id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      deleteData(url, id)
+        .then(() => {
+          setQuoteId("");
+          setHeartState("save");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
+  const handleToggleSave = (id) => {
+    if (addQuoteState === "add") {
+      saveData(quoteData, false, url)
+        .then((responseMessage) => {
+          setAddQuoteState("remove");
+          setMessage(responseMessage.data.message);
+          setQuoteIdLibrary(responseMessage.data.createQuote._id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      deleteData(url, id)
+        .then(() => {
+          setQuoteIdLibrary("");
+          setAddQuoteState("add");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
   return (
     <div className="mt-32 bg-gray-900 px-4">
       <CategoryDropdown
@@ -82,34 +112,46 @@ const RandomQuoteGenerator = () => {
           <Spinner />
         ) : (
           <div className="flex flex-col text-gray-200 ">
-            {heartState === "save" && (
-              <button
-                className="absolute top-[12px] right-[12px]"
-                onClick={() => handleSave(true)}
-              >
-                <FaRegHeart
-                  className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
-                  size={"24px"}
-                  color="#0ea5e9"
-                />
-              </button>
-            )}
-            {heartState === "unsave" && (
-              <button
-                className="absolute top-[12px] right-[12px]"
-                onClick={() => handleUnsave(quoteId)}
-              >
-                <FaHeart
-                  className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
-                  size={"24px"}
-                  color="#0ea5e9"
-                />
-              </button>
-            )}
+            <div className="absolute top-[12px] right-[12px] flex gap-3 items-center">
+              {addQuoteState === "add" ? (
+                <button onClick={() => handleToggleSave(quoteIdLibrary)}>
+                  <FaPlusCircle
+                    className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+                    size={"24px"}
+                    color="#0ea5e9"
+                  />
+                </button>
+              ) : (
+                <button onClick={() => handleToggleSave(quoteIdLibrary)}>
+                  <FaMinusCircle
+                    className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+                    size={"24px"}
+                    color="#0ea5e9"
+                  />
+                </button>
+              )}
+              {heartState === "save" ? (
+                <button onClick={() => handleToggleSaveFavorite(quoteId)}>
+                  <FaRegHeart
+                    className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+                    size={"24px"}
+                    color="#0ea5e9"
+                  />
+                </button>
+              ) : (
+                <button onClick={() => handleToggleSaveFavorite(quoteId)}>
+                  <FaHeart
+                    className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+                    size={"24px"}
+                    color="#0ea5e9"
+                  />
+                </button>
+              )}
+            </div>
 
             <div>
               <div className="flex flex-col mb-24">
-                <p className="mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
+                <p className=" mt-6 md:mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
                   "{quoteData.quote}"
                 </p>
                 <p className="text-md md:text-lg font-thin flex self-end text-blue-300">
