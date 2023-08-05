@@ -65,9 +65,40 @@ const addQuotes = async (req, res) => {
     return res.status(500).json({ error: "Error adding quote" });
   }
 };
+const updateQuote = async (req, res) => {
+  try {
+    const { quoteId, quoteData, authorData, favoriteQuote } = req.body;
+    const quote = await QuoteLibrary.findById(quoteId);
+    if (!quote) {
+      return res.status(404).json({ error: "Quote not found" });
+    }
+
+    quote.quote = quoteData;
+    quote.author = authorData;
+    quote.favorite = favoriteQuote;
+
+    await quote.save();
+
+    if (favoriteQuote === false) {
+      return res.status(200).json({
+        message: "Quote updated in Library",
+        updatedQuote: quote,
+      });
+    } else {
+      return res.status(200).json({
+        message: "Quote updated in Favorites",
+        updatedQuote: quote,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error updating quote" });
+  }
+};
 
 module.exports = {
   getAllQuotes,
   addQuotes,
   deleteQuote,
+  updateQuote,
 };

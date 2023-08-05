@@ -12,7 +12,18 @@ export const saveData = async (quoteData, favoriteQuote, url) => {
     throw new Error("Request failed:", error.message);
   }
 };
-
+export const updateData = async (id, quoteData, favoriteQuote, url) => {
+  try {
+    const response = await Axios.patch(`${url}/update/${id}`, {
+      quoteData: quoteData.quote,
+      authorData: quoteData.author,
+      favoriteQuote: favoriteQuote,
+    });
+    return response;
+  } catch (error) {
+    throw new Error("Request failed:", error.message);
+  }
+};
 export const fetchData = async (selectedOption, url) => {
   try {
     const response = await Axios.get(`${url}/generate`, {
