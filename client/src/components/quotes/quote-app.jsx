@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Spinner from "../utils/spinner";
 import GetAllFavoriteQuotes from "./favoriteQuoteLibrary/getAllFavoriteQuotes";
-import { fetchAllData, deleteData } from "../utils/apiUtils";
+import { fetchAllData, deleteData, updateData } from "../utils/apiUtils";
 import GetAllQuotes from "./quoteLibrary/getAllQuotes";
 import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
 
@@ -21,11 +21,21 @@ const QuoteApp = ({ activeSection }) => {
       });
   };
 
+  const updateQuoteData = (id, quoteData, favoriteQuote) => {
+    console.log("here");
+    updateData(url, id, quoteData, favoriteQuote)
+      .then((data) => {
+        console.log(data);
+        getAllQuotes();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const getAllQuotes = () => {
     fetchAllData(url)
       .then((data) => {
         setQuoteData(data);
-        console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -55,6 +65,7 @@ const QuoteApp = ({ activeSection }) => {
               setHeartState={setHeartState}
               quoteData={quoteData}
               deleteQuoteData={deleteQuoteData}
+              updateQuoteData={updateQuoteData}
             />
           )}
           {activeSection === "quoteLibrary" && (
@@ -67,6 +78,7 @@ const QuoteApp = ({ activeSection }) => {
                 setHeartState={setHeartState}
                 quoteData={quoteData}
                 deleteQuoteData={deleteQuoteData}
+                updateQuoteData={updateQuoteData}
               />
             </div>
           )}

@@ -5,6 +5,7 @@ const GetAllQuotes = ({
   deleteQuoteData,
   heartState,
   setHeartState,
+  updateQuoteData,
 }) => {
   const notFavoriteQuotes = quoteData.filter(
     ({ Favorite }) => Favorite === false
@@ -22,6 +23,7 @@ const GetAllQuotes = ({
           quoteData={notFavoriteQuotes}
           heartState={heartState}
           setHeartState={setHeartState}
+          updateQuoteData={updateQuoteData}
         />
       )}
     </div>

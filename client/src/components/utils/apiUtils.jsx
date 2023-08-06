@@ -12,11 +12,12 @@ export const saveData = async (quoteData, favoriteQuote, url) => {
     throw new Error("Request failed:", error.message);
   }
 };
-export const updateData = async (id, quoteData, favoriteQuote, url) => {
+export const updateData = async (url, id, quoteData, favoriteQuote) => {
+  console.log(quoteData.Author);
   try {
     const response = await Axios.patch(`${url}/update/${id}`, {
-      quoteData: quoteData.quote,
-      authorData: quoteData.author,
+      quoteData: quoteData.Quote,
+      authorData: quoteData.Author,
       favoriteQuote: favoriteQuote,
     });
     return response;

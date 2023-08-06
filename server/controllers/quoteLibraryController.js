@@ -67,7 +67,8 @@ const addQuotes = async (req, res) => {
 };
 const updateQuote = async (req, res) => {
   try {
-    const { quoteId, quoteData, authorData, favoriteQuote } = req.body;
+    const { quoteData, authorData, favoriteQuote } = req.body;
+    const quoteId = req.params.id;
     const quote = await QuoteLibrary.findById(quoteId);
     if (!quote) {
       return res.status(404).json({ error: "Quote not found" });

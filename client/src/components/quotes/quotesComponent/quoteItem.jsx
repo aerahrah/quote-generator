@@ -1,7 +1,7 @@
 import { FaTrash } from "react-icons/fa";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
-const QuoteItem = ({ deleteQuoteData, data, heartState, setHeartState }) => {
+const QuoteItem = ({ deleteQuoteData, data, heartState, updateQuoteData }) => {
   return (
     <div className="flex flex-col bg-gray-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-6 md:py-8 mb-8 px-2 overflow-hidden cursor-pointer relative">
       {data.Quote && (
@@ -22,7 +22,7 @@ const QuoteItem = ({ deleteQuoteData, data, heartState, setHeartState }) => {
           ></FaTrash>
         </button>
         {heartState === "save" && (
-          <button onClick={() => handleSave(true)}>
+          <button onClick={() => updateQuoteData(data.Id, data, true)}>
             <FaRegHeart
               className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
               color="#0ea5e9"
@@ -30,7 +30,7 @@ const QuoteItem = ({ deleteQuoteData, data, heartState, setHeartState }) => {
           </button>
         )}
         {heartState === "unsave" && (
-          <button onClick={() => handleUnsave(quoteId)}>
+          <button onClick={() => updateQuoteData(data.Id, data, false)}>
             <FaHeart
               className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
               color="#0ea5e9"
