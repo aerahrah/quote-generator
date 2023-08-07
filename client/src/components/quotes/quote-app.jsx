@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
 import Spinner from "../utils/spinner";
 import GetAllFavoriteQuotes from "./favoriteQuoteLibrary/getAllFavoriteQuotes";
-import { fetchAllData, deleteData, updateData } from "../utils/apiUtils";
+import {
+  fetchAllData,
+  deleteData,
+  updateHeartStateApi,
+} from "../utils/apiUtils";
 import GetAllQuotes from "./quoteLibrary/getAllQuotes";
 import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
 
 const QuoteApp = ({ activeSection }) => {
   const url = "http://localhost:3500/quote";
   const [isLoading, setIsLoading] = useState(false);
-  const [quoteData, setQuoteData] = useState([]);
   const [heartState, setHeartState] = useState("");
-
+  const [quoteData, setQuoteData] = useState([]);
+  const [quoteUpdateDataId, setQuoteUpdateDataId] = useState("");
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [quoteUpdateData, setQuoteUpdateData] = useState({
+    author: "",
+    quote: "",
+    favorite: "",
+  });
   const deleteQuoteData = (id) => {
     deleteData(url, id)
       .then(() => {
@@ -21,17 +31,17 @@ const QuoteApp = ({ activeSection }) => {
       });
   };
 
-  const updateQuoteData = (id, quoteData, favoriteQuote) => {
-    console.log("here");
-    updateData(url, id, quoteData, favoriteQuote)
-      .then((data) => {
-        console.log(data);
+  const updateHeartState = (id, data, favoriteQuote) => {
+    updateHeartStateApi(url, id, data, favoriteQuote)
+      .then(() => {
+        setQuoteUpdateDataId("");
         getAllQuotes();
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
   const getAllQuotes = () => {
     fetchAllData(url)
       .then((data) => {
@@ -65,7 +75,14 @@ const QuoteApp = ({ activeSection }) => {
               setHeartState={setHeartState}
               quoteData={quoteData}
               deleteQuoteData={deleteQuoteData}
-              updateQuoteData={updateQuoteData}
+              updateHeartState={updateHeartState}
+              openUpdateModal={openUpdateModal}
+              setOpenUpdateModal={setOpenUpdateModal}
+              setQuoteUpdateData={setQuoteUpdateData}
+              quoteUpdateData={quoteUpdateData}
+              setQuoteUpdateDataId={setQuoteUpdateDataId}
+              quoteUpdateDataId={quoteUpdateDataId}
+              getAllQuotes={getAllQuotes}
             />
           )}
           {activeSection === "quoteLibrary" && (
@@ -78,7 +95,14 @@ const QuoteApp = ({ activeSection }) => {
                 setHeartState={setHeartState}
                 quoteData={quoteData}
                 deleteQuoteData={deleteQuoteData}
-                updateQuoteData={updateQuoteData}
+                updateHeartState={updateHeartState}
+                openUpdateModal={openUpdateModal}
+                setOpenUpdateModal={setOpenUpdateModal}
+                setQuoteUpdateData={setQuoteUpdateData}
+                quoteUpdateData={quoteUpdateData}
+                setQuoteUpdateDataId={setQuoteUpdateDataId}
+                quoteUpdateDataId={quoteUpdateDataId}
+                getAllQuotes={getAllQuotes}
               />
             </div>
           )}

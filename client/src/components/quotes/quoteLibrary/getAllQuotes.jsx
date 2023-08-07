@@ -1,11 +1,18 @@
 import QuoteList from "../quotesComponent/quoteList";
-
+import UpdateQuoteModal from "../quotesComponent/updateQuoteModal";
 const GetAllQuotes = ({
   quoteData,
   deleteQuoteData,
   heartState,
   setHeartState,
-  updateQuoteData,
+  updateHeartState,
+  openUpdateModal,
+  setOpenUpdateModal,
+  setQuoteUpdateData,
+  quoteUpdateData,
+  setQuoteUpdateDataId,
+  quoteUpdateDataId,
+  getAllQuotes,
 }) => {
   const notFavoriteQuotes = quoteData.filter(
     ({ Favorite }) => Favorite === false
@@ -23,9 +30,22 @@ const GetAllQuotes = ({
           quoteData={notFavoriteQuotes}
           heartState={heartState}
           setHeartState={setHeartState}
-          updateQuoteData={updateQuoteData}
+          updateHeartState={updateHeartState}
+          setOpenUpdateModal={setOpenUpdateModal}
+          setQuoteUpdateData={setQuoteUpdateData}
+          quoteUpdateData={quoteUpdateData}
+          setQuoteUpdateDataId={setQuoteUpdateDataId}
         />
       )}
+      <UpdateQuoteModal
+        openUpdateModal={openUpdateModal}
+        setOpenUpdateModal={setOpenUpdateModal}
+        setQuoteUpdateData={setQuoteUpdateData}
+        quoteUpdateData={quoteUpdateData}
+        quoteUpdateDataId={quoteUpdateDataId}
+        setQuoteUpdateDataId={setQuoteUpdateDataId}
+        getAllQuotes={getAllQuotes}
+      />
     </div>
   );
 };

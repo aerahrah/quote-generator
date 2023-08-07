@@ -12,8 +12,26 @@ export const saveData = async (quoteData, favoriteQuote, url) => {
     throw new Error("Request failed:", error.message);
   }
 };
-export const updateData = async (url, id, quoteData, favoriteQuote) => {
-  console.log(quoteData.Author);
+export const updateData = async (url, id, quoteData) => {
+  console.log(quoteData);
+  try {
+    const response = await Axios.patch(`${url}/update/${id}`, {
+      quoteData: quoteData.quote,
+      authorData: quoteData.author,
+      favoriteQuote: quoteData.favorite,
+    });
+    return response;
+  } catch (error) {
+    throw new Error("Request failed:", error.message);
+  }
+};
+export const updateHeartStateApi = async (
+  url,
+  id,
+  quoteData,
+  favoriteQuote
+) => {
+  console.log(quoteData);
   try {
     const response = await Axios.patch(`${url}/update/${id}`, {
       quoteData: quoteData.Quote,

@@ -5,7 +5,11 @@ const QuoteList = ({
   deleteQuoteData,
   heartState,
   setHeartState,
-  updateQuoteData,
+  updateHeartState,
+  setOpenUpdateModal,
+  setQuoteUpdateData,
+  quoteUpdateData,
+  setQuoteUpdateDataId,
 }) => {
   return (
     <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-3 xl:columns-4 h-auto">
@@ -15,8 +19,12 @@ const QuoteList = ({
           deleteQuoteData={deleteQuoteData}
           data={data}
           heartState={heartState}
-          updateQuoteData={updateQuoteData}
+          updateHeartState={updateHeartState}
           setHeartState={setHeartState}
+          setOpenUpdateModal={setOpenUpdateModal}
+          setQuoteUpdateData={setQuoteUpdateData}
+          quoteUpdateData={quoteUpdateData}
+          setQuoteUpdateDataId={setQuoteUpdateDataId}
         />
       ))}
     </div>
