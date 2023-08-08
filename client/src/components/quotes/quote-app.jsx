@@ -8,6 +8,7 @@ import {
 } from "../utils/apiUtils";
 import GetAllQuotes from "./quoteLibrary/getAllQuotes";
 import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
+import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
 
 const QuoteApp = ({ activeSection }) => {
   const url = "http://localhost:3500/quote";
@@ -16,6 +17,8 @@ const QuoteApp = ({ activeSection }) => {
   const [quoteData, setQuoteData] = useState([]);
   const [quoteUpdateDataId, setQuoteUpdateDataId] = useState("");
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [updateTrigger, setUpdateTrigger] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [quoteUpdateData, setQuoteUpdateData] = useState({
     author: "",
     quote: "",
@@ -43,7 +46,8 @@ const QuoteApp = ({ activeSection }) => {
   };
 
   const getAllQuotes = () => {
-    fetchAllData(url)
+    console.log(searchTerm);
+    fetchAllData(url, searchTerm)
       .then((data) => {
         setQuoteData(data);
       })
@@ -54,6 +58,9 @@ const QuoteApp = ({ activeSection }) => {
         setIsLoading(false);
       });
   };
+  const handleOnChange = () => {
+    setUpdateTrigger((prevTrigger) => !prevTrigger);
+  };
 
   useEffect(() => {
     if (activeSection === "quoteLibrary") {
@@ -62,13 +69,17 @@ const QuoteApp = ({ activeSection }) => {
       setHeartState("unsave");
     }
     getAllQuotes();
-  }, [activeSection]);
+  }, [activeSection, updateTrigger]);
   return (
     <div className="min-h-screen bg-gray-900 py-4">
       {isLoading ? (
         <Spinner />
       ) : (
         <div className="mt-[75px] px-4 md:px-16 lg:px-24 xl:px-36">
+          <FilterSortSearchPanel
+            setSearchTerm={setSearchTerm}
+            handleOnChange={handleOnChange}
+          />
           {activeSection === "favoriteQuoteLibrary" && (
             <GetAllFavoriteQuotes
               heartState={heartState}

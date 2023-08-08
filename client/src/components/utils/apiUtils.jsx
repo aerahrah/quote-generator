@@ -56,9 +56,14 @@ export const fetchData = async (selectedOption, url) => {
   }
 };
 
-export const fetchAllData = async (url) => {
+export const fetchAllData = async (url, filteredTask) => {
+  console.log(filteredTask);
   try {
-    const response = await Axios.get(`${url}/get-all`);
+    const response = await Axios.get(`${url}/get-all`, {
+      params: {
+        searchTerm: filteredTask,
+      },
+    });
     return response.data;
   } catch (error) {
     console.log("Request failed:", error);

@@ -17,7 +17,19 @@ const deleteQuote = async (req, res) => {
 const getAllQuotes = async (req, res) => {
   try {
     const getId = req.user;
-    const allQuotes = await QuoteLibrary.find({ user: getId });
+    const { searchTerm } = req.query;
+    console.log(searchTerm);
+    let filter = { user: getId };
+
+    if (searchTerm) {
+      filter.$or = [
+        { quote: { $regex: searchTerm, $options: "i" } },
+        { author: { $regex: searchTerm, $options: "i" } },
+      ];
+    }
+
+    const allQuotes = await QuoteLibrary.find(filter);
+    console.log(allQuotes);
     if (allQuotes) {
       const allQuotesMap = allQuotes.map((quotes) => ({
         Id: quotes._id,
