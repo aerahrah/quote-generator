@@ -37,10 +37,13 @@ const RandomQuoteGenerator = () => {
           ...previousQuoteData,
           author: data[0].author,
           quote: data[0].quote,
+          category: data[0].category,
         }));
+        console.log(data[0].category);
         setAddQuoteState("add");
         setHeartState("save");
         setMessage("");
+        setIsLoading(false);
       })
       .catch((error) => {
         if (error.message == "unauthorized") {

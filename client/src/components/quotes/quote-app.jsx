@@ -19,6 +19,7 @@ const QuoteApp = ({ activeSection }) => {
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateTrigger, setUpdateTrigger] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
   const [quoteUpdateData, setQuoteUpdateData] = useState({
     author: "",
     quote: "",
@@ -47,7 +48,7 @@ const QuoteApp = ({ activeSection }) => {
 
   const getAllQuotes = () => {
     console.log(searchTerm);
-    fetchAllData(url, searchTerm)
+    fetchAllData(url, searchTerm, filterCategory)
       .then((data) => {
         setQuoteData(data);
       })
@@ -78,6 +79,7 @@ const QuoteApp = ({ activeSection }) => {
         <div className="mt-[75px] px-4 md:px-16 lg:px-24 xl:px-36">
           <FilterSortSearchPanel
             setSearchTerm={setSearchTerm}
+            setFilterCategory={setFilterCategory}
             handleOnChange={handleOnChange}
           />
           {activeSection === "favoriteQuoteLibrary" && (

@@ -16,7 +16,7 @@ const SearchBar = ({ setSearchTerm, handleOnChange, useState, FaSearch }) => {
           value={searchTermDisplay}
           onChange={handleChangeSearchTerm}
           placeholder="Search"
-          className="outline-0 w-[50%] p-1.5 pl-8 px-2  rounded-full text-gray-300  bg-gray-950/70 shadow-inner"
+          className="outline-0 w-[50vw]  p-2 pl-8 px-2  rounded-full text-gray-300  bg-gray-950/70 shadow-inner border-[1px] border-gray-800"
         />
       </div>
     </div>

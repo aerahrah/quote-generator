@@ -5,6 +5,7 @@ export const saveData = async (quoteData, favoriteQuote, url) => {
     const response = await Axios.post(`${url}/add`, {
       quoteData: quoteData.quote,
       authorData: quoteData.author,
+      categoryData: quoteData.category,
       favoriteQuote: favoriteQuote,
     });
     return response;
@@ -31,7 +32,6 @@ export const updateHeartStateApi = async (
   quoteData,
   favoriteQuote
 ) => {
-  console.log(quoteData);
   try {
     const response = await Axios.patch(`${url}/update/${id}`, {
       quoteData: quoteData.Quote,
@@ -56,14 +56,16 @@ export const fetchData = async (selectedOption, url) => {
   }
 };
 
-export const fetchAllData = async (url, filteredTask) => {
-  console.log(filteredTask);
+export const fetchAllData = async (url, filteredTask, filterCategory) => {
+  console.log(filterCategory);
   try {
     const response = await Axios.get(`${url}/get-all`, {
       params: {
         searchTerm: filteredTask,
+        filterCategory: filterCategory,
       },
     });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log("Request failed:", error);
@@ -73,7 +75,6 @@ export const fetchAllData = async (url, filteredTask) => {
 export const deleteData = async (url, id) => {
   try {
     const response = await Axios.delete(`${url}/delete/${id}`);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.log("Request failed:", error.response.data.message);

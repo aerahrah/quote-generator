@@ -4,7 +4,7 @@ const generateQuote = async (req, res) => {
   try {
     const { selectedValue } = req.query;
     const categories = [
-      "happys",
+      "happiness",
       "anger",
       "courage",
       "fitness",
