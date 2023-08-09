@@ -1,4 +1,4 @@
-const SearchBar = ({ setSearchTerm, handleOnChange, useState }) => {
+const SearchBar = ({ setSearchTerm, handleOnChange, useState, FaSearch }) => {
   const [searchTermDisplay, setSearchTermDisplay] = useState("");
 
   const handleChangeSearchTerm = (e) => {
@@ -9,12 +9,16 @@ const SearchBar = ({ setSearchTerm, handleOnChange, useState }) => {
   };
   return (
     <div>
-      <input
-        type="text"
-        value={searchTermDisplay}
-        onChange={handleChangeSearchTerm}
-        placeholder="Search"
-      />
+      <div className="relative flex items-center w-full py-3 mr-4 md:mr-6 ">
+        <FaSearch className="text-gray-300 absolute left-[.5rem]"></FaSearch>
+        <input
+          type="text"
+          value={searchTermDisplay}
+          onChange={handleChangeSearchTerm}
+          placeholder="Search"
+          className="outline-0 w-[50%] p-1.5 pl-8 px-2  rounded-full text-gray-300  bg-gray-950/70 shadow-inner"
+        />
+      </div>
     </div>
   );
 };

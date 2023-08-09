@@ -32,6 +32,7 @@ const RandomQuoteGenerator = () => {
     setIsLoading(true);
     fetchData(selectedOption, url)
       .then((data) => {
+        console.log(data);
         setQuoteData((previousQuoteData) => ({
           ...previousQuoteData,
           author: data[0].author,

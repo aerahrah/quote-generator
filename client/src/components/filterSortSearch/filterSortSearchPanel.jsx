@@ -15,6 +15,7 @@ const FilterSortSearchPanel = ({ setSearchTerm, handleOnChange }) => {
         setSearchTerm={setSearchTerm}
         handleOnChange={handleOnChange}
         useState={useState}
+        FaSearch={FaSearch}
       />
     </div>
   );
