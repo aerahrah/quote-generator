@@ -1,17 +1,17 @@
-import { useState, useEffect, useContext } from "react";
-import { saveData, fetchData, deleteData } from "../utils/apiUtils";
-import Timer from "../utils/messageTimeout";
 import {
   FaRegHeart,
   FaHeart,
   FaPlusCircle,
   FaMinusCircle,
 } from "react-icons/fa";
+import { useState, useEffect, useContext } from "react";
+import { saveData, fetchData, deleteData } from "../utils/apiUtils";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../utils/errorContext";
 import CategoryDropdown from "./categoryDropdown";
 import Spinner from "../utils/spinner";
 import Card from "../card";
+import Timer from "../utils/messageTimeout";
 
 const RandomQuoteGenerator = () => {
   const { setError } = useContext(ErrorContext);
@@ -24,7 +24,7 @@ const RandomQuoteGenerator = () => {
   const [heartState, setHeartState] = useState("save");
   const [addQuoteState, setAddQuoteState] = useState("add");
   const [selectedOption, setSelectedOption] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [quoteId, setQuoteId] = useState("");
   const [quoteIdLibrary, setQuoteIdLibrary] = useState("");
@@ -32,7 +32,6 @@ const RandomQuoteGenerator = () => {
     setIsLoading(true);
     fetchData(selectedOption, url)
       .then((data) => {
-        console.log(data);
         setQuoteData((previousQuoteData) => ({
           ...previousQuoteData,
           author: data[0].author,
@@ -117,66 +116,60 @@ const RandomQuoteGenerator = () => {
         ) : (
           <div className="flex flex-col text-gray-200 ">
             <div className="absolute top-[12px] right-[12px] flex gap-3 items-center">
-              {addQuoteState === "add" ? (
-                <button onClick={() => handleToggleSave(quoteIdLibrary)}>
+              <button onClick={() => handleToggleSave(quoteIdLibrary)}>
+                {addQuoteState === "add" ? (
                   <FaPlusCircle
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
                     color="#0ea5e9"
                   />
-                </button>
-              ) : (
-                <button onClick={() => handleToggleSave(quoteIdLibrary)}>
+                ) : (
                   <FaMinusCircle
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
                     color="#0ea5e9"
                   />
-                </button>
-              )}
-              {heartState === "save" ? (
-                <button onClick={() => handleToggleSaveFavorite(quoteId)}>
+                )}
+              </button>
+              <button onClick={() => handleToggleSaveFavorite(quoteId)}>
+                {heartState === "save" ? (
                   <FaRegHeart
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
                     color="#0ea5e9"
                   />
-                </button>
-              ) : (
-                <button onClick={() => handleToggleSaveFavorite(quoteId)}>
+                ) : (
                   <FaHeart
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
                     color="#0ea5e9"
                   />
-                </button>
-              )}
+                )}
+              </button>
             </div>
 
-            <div>
-              <div className="flex flex-col mb-24">
-                <p className=" mt-6 md:mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
-                  "{quoteData.quote}"
-                </p>
-                <p className="text-md md:text-lg font-thin flex self-end text-blue-300">
-                  - {quoteData.author}
-                </p>
-                <div className="text-center self-center absolute bottom-[1rem] ">
-                  <div
-                    className={`w-72 transition duration-200 ${
-                      message ? "scale-100" : "scale-0"
-                    } mb-6`}
-                  >
-                    {message && <p>{message}</p>}
-                  </div>
-                  <Timer message={message} setMessage={setMessage} />
-                  <button
-                    className=" btn bg-green-400 text-gray-700 text-md md:text-lg font-semibold px-8 mx-auto rounded-xl"
-                    onClick={fetchDataAndUpdate}
-                  >
-                    New Quote
-                  </button>
+            <div className="flex flex-col mb-24">
+              <p className=" mt-6 md:mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
+                "{quoteData.quote}"
+              </p>
+              <p className="text-md md:text-lg font-thin flex self-end text-blue-300">
+                - {quoteData.author}
+              </p>
+              <div className="text-center self-center absolute bottom-[1rem] ">
+                <div
+                  className={`w-72 transition duration-200 ${
+                    message ? "scale-100" : "scale-0"
+                  } mb-6`}
+                >
+                  {message && <p>{message}</p>}
                 </div>
+                <Timer message={message} setMessage={setMessage} />
+                <button
+                  className=" btn bg-green-400 text-gray-700 text-md md:text-lg font-semibold px-8 mx-auto rounded-xl"
+                  onClick={fetchDataAndUpdate}
+                >
+                  New Quote
+                </button>
               </div>
             </div>
           </div>

@@ -18,7 +18,7 @@ const QuoteFilterCategory = ({
   return (
     <div className="mx-2 md:mr-4">
       <Popover className="relative z-10 md:hidden">
-        <Popover.Button className="md:hidden w-full p-2.5 border-[1px] rounded-lg">
+        <Popover.Button className="md:hidden w-full p-2.5 border-[1px] border-gray-800 rounded-lg">
           <FaFilter className="text-gray-600" />
         </Popover.Button>
         <QuoteFilterCategoryContent
