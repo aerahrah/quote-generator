@@ -8,7 +8,6 @@ const QuoteList = ({
   updateHeartState,
   setOpenUpdateModal,
   setQuoteUpdateData,
-  quoteUpdateData,
   setQuoteUpdateDataId,
 }) => {
   return (
@@ -23,7 +22,6 @@ const QuoteList = ({
           setHeartState={setHeartState}
           setOpenUpdateModal={setOpenUpdateModal}
           setQuoteUpdateData={setQuoteUpdateData}
-          quoteUpdateData={quoteUpdateData}
           setQuoteUpdateDataId={setQuoteUpdateDataId}
         />
       ))}

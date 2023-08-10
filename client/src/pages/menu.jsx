@@ -5,6 +5,7 @@ import QuoteApp from "../components/quotes/quote-app";
 
 const Menu = () => {
   const [activeSection, setActiveSection] = useState("generateQuote");
+
   return (
     <div className="w-full h-screen box-border bg-gray-900 flex flex-col">
       <NavBar

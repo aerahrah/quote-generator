@@ -1,6 +1,6 @@
 import { FaTrash } from "react-icons/fa";
 import { FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
-import { useState } from "react";
+
 const QuoteItem = ({
   deleteQuoteData,
   data,
@@ -8,7 +8,6 @@ const QuoteItem = ({
   updateHeartState,
   setOpenUpdateModal,
   setQuoteUpdateData,
-  quoteUpdateData,
   setQuoteUpdateDataId,
 }) => {
   return (
