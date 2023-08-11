@@ -20,6 +20,8 @@ const RandomQuoteGenerator = () => {
   const [quoteData, setQuoteData] = useState({
     author: "",
     quote: "",
+    category: "",
+    origin: "generated",
   });
   const [heartState, setHeartState] = useState("save");
   const [addQuoteState, setAddQuoteState] = useState("add");

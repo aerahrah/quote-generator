@@ -11,15 +11,20 @@ import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
 
 const QuoteApp = ({ activeSection }) => {
   const url = "http://localhost:3500/quote";
-
   const [heartState, setHeartState] = useState("");
-  const [quoteData, setQuoteData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [quoteUpdateDataId, setQuoteUpdateDataId] = useState("");
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateTrigger, setUpdateTrigger] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
+  const [filterOrigin, setFilterOrigin] = useState("");
+  const [quoteData, setQuoteData] = useState({
+    author: "",
+    quote: "",
+    favorite: "",
+    origin: "original",
+  });
   const [quoteUpdateData, setQuoteUpdateData] = useState({
     author: "",
     quote: "",
@@ -47,7 +52,7 @@ const QuoteApp = ({ activeSection }) => {
   };
 
   const getAllQuotes = () => {
-    fetchAllData(url, searchTerm, filterCategory)
+    fetchAllData(url, searchTerm, filterCategory, filterOrigin)
       .then((data) => {
         setQuoteData(data);
         setIsLoading(false);
@@ -76,10 +81,11 @@ const QuoteApp = ({ activeSection }) => {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="mt-[75px] px-4 md:px-16 lg:px-24 xl:px-36">
+        <div className="mt-[75px] px-4 md:px-12 lg:px-24 xl:px-36">
           <FilterSortSearchPanel
             setSearchTerm={setSearchTerm}
             setFilterCategory={setFilterCategory}
+            setFilterOrigin={setFilterOrigin}
             handleOnChange={handleOnChange}
           />
 

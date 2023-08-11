@@ -5,6 +5,7 @@ const QuoteLibrarySchema = new mongoose.Schema({
   quote: { type: String, required: true },
   author: { type: String, required: true },
   category: { type: String, required: false },
+  origin: { type: String, required: true },
   favorite: { type: Boolean, required: true },
 });
 

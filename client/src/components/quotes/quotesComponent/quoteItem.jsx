@@ -11,7 +11,7 @@ const QuoteItem = ({
   setQuoteUpdateDataId,
 }) => {
   return (
-    <div className="flex flex-col bg-gray-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-8 md:py-10 mb-8 px-2 overflow-hidden cursor-pointer relative">
+    <div className="flex flex-col bg-gray-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-8 md:pt-10 mb-6 px-2 overflow-hidden cursor-pointer relative">
       {data.Quote && (
         <p className="mb-4 md:mb-6 !leading-relaxed text-md md:text-lg italic text-blue-400 ">
           "{data.Quote}"
@@ -35,6 +35,7 @@ const QuoteItem = ({
                 author: data.Author,
                 quote: data.Quote,
                 favorite: data.Favorite,
+                origin: data.Origin,
               }));
               setQuoteUpdateDataId(data.Id);
               setOpenUpdateModal(true);

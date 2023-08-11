@@ -17,8 +17,7 @@ const deleteQuote = async (req, res) => {
 const getAllQuotes = async (req, res) => {
   try {
     const getId = req.user;
-    const { searchTerm, filterCategory } = req.query;
-    console.log(searchTerm);
+    const { searchTerm, filterCategory, filterOrigins } = req.query;
     let filter = { user: getId };
     if (searchTerm) {
       filter.$or = [
@@ -37,9 +36,16 @@ const getAllQuotes = async (req, res) => {
     };
 
     const categoryFilter = categoryFilters[filterCategory];
-    if (categoryFilter) {
+    if (filterOrigins === "original" || filterOrigins === "generated") {
+      if (categoryFilter) {
+        filter = { ...filter, ...categoryFilter, origin: filterOrigins };
+      } else {
+        filter = { ...filter, origin: filterOrigins };
+      }
+    } else if (categoryFilter) {
       filter = { ...filter, ...categoryFilter };
     }
+
     const allQuotes = await QuoteLibrary.find(filter);
 
     if (allQuotes) {
@@ -48,8 +54,9 @@ const getAllQuotes = async (req, res) => {
         Quote: quotes.quote,
         Author: quotes.author,
         Favorite: quotes.favorite,
+        Origin: quotes.origin,
       }));
-      console.log(allQuotes);
+
       return res.status(200).json(allQuotesMap);
     } else {
       return res.status(500).json({ error: "Internal server error" });
@@ -61,7 +68,8 @@ const getAllQuotes = async (req, res) => {
 
 const addQuotes = async (req, res) => {
   try {
-    const { quoteData, authorData, categoryData, favoriteQuote } = req.body;
+    const { quoteData, authorData, categoryData, originData, favoriteQuote } =
+      req.body;
     const getId = req.user;
     if (getId) {
       const createQuote = new QuoteLibrary({
@@ -69,6 +77,7 @@ const addQuotes = async (req, res) => {
         quote: quoteData,
         author: authorData,
         category: categoryData,
+        origin: originData,
         favorite: favoriteQuote,
       });
       await createQuote.save();

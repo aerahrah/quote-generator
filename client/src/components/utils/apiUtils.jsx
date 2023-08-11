@@ -1,11 +1,13 @@
 import Axios from "./axiosUtils";
 
 export const saveData = async (quoteData, favoriteQuote, url) => {
+  console.log(quoteData.origin);
   try {
     const response = await Axios.post(`${url}/add`, {
       quoteData: quoteData.quote,
       authorData: quoteData.author,
       categoryData: quoteData.category,
+      originData: quoteData.origin,
       favoriteQuote: favoriteQuote,
     });
     return response;
@@ -56,13 +58,19 @@ export const fetchData = async (selectedOption, url) => {
   }
 };
 
-export const fetchAllData = async (url, filteredTask, filterCategory) => {
+export const fetchAllData = async (
+  url,
+  filteredTask,
+  filterCategory,
+  filterOrigin
+) => {
   console.log(filterCategory);
   try {
     const response = await Axios.get(`${url}/get-all`, {
       params: {
         searchTerm: filteredTask,
         filterCategory: filterCategory,
+        filterOrigins: filterOrigin,
       },
     });
     console.log(response.data);

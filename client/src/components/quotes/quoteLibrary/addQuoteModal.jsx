@@ -12,14 +12,16 @@ const AddQuoteModal = ({
   const [quoteData, setQuoteData] = useState({
     author: "",
     quote: "",
+    origin: "original",
   });
   const handleSaveOwnQuote = (favoriteQuote) => {
     saveData(quoteData, favoriteQuote, url)
       .then(() => {
-        setQuoteData({
+        setQuoteData((prevQuote) => ({
+          ...prevQuote,
           author: "",
           quote: "",
-        });
+        }));
         getAllQuotes();
       })
       .catch((err) => {
