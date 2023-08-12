@@ -1,19 +1,15 @@
-import { useState, useEffect, useContext } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import { setCookie, getCookie } from "../utils/cookieUtils";
-import AuthWrapper from "./authwrapper";
-import Timer from "../utils/messageTimeout";
-import { HandleGuestSignin } from "./guestAcc";
-import { ErrorMessage } from "../utils/errorUtils";
+import AuthContent from "./authContent";
 
 const Signin = () => {
-  const navigate = useNavigate();
   const url = "http://localhost:3500/";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
+  const navigate = useNavigate();
   const handleSignin = async () => {
     try {
       const response = await Axios.post(`${url}auth/signin`, {
@@ -29,48 +25,16 @@ const Signin = () => {
     }
   };
   return (
-    <>
-      <AuthWrapper>
-        <div className="flex flex-col bg-gray-800 px-10 py-12 rounded-lg shadow-xl">
-          {<ErrorMessage />}
-          <h1 className="text-4xl uppercase mb-6 font-semibold">Sign In</h1>
-          <input
-            className="input-box my-3"
-            type="text"
-            value={username}
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            className="input-box mb-6"
-            type="password"
-            value={password}
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div
-            className={`w-72 transition duration-200 ${
-              message ? "scale-100" : "scale-0"
-            } mb-6`}
-          >
-            {message && <p>{message}</p>}
-          </div>
-          <Timer message={message} setMessage={setMessage} />
-          <button className="btn bg-blue-600" onClick={handleSignin}>
-            Sign in
-          </button>
-          <button
-            className="btn bg-green-600"
-            onClick={() => HandleGuestSignin(setMessage, navigate)}
-          >
-            Sign in with guest account
-          </button>
-          <Link className="text-gray-500" to="/">
-            Sign up
-          </Link>
-        </div>
-      </AuthWrapper>
-    </>
+    <AuthContent
+      username={username}
+      setUsername={setUsername}
+      password={password}
+      setPassword={setPassword}
+      authType={"signin"}
+      handleAuth={handleSignin}
+      message={message}
+      setMessage={setMessage}
+    />
   );
 };
 export default Signin;
