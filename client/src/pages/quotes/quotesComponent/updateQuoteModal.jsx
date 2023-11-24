@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
-import { updateData } from "../../utils/apiUtils";
+import { updateData } from "../../../services/api";
 import QuoteModalContent from "../quotesComponent/quoteModalContent";
 
 const UpdateQuoteModal = ({

@@ -5,13 +5,13 @@ import {
   FaMinusCircle,
 } from "react-icons/fa";
 import { useState, useEffect, useContext } from "react";
-import { saveData, fetchData, deleteData } from "../utils/apiUtils";
+import { saveData, fetchData, deleteData } from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { ErrorContext } from "../utils/errorContext";
+import { ErrorContext } from "../../components/utilsComponent/ErrorContext";
 import CategoryDropdown from "./categoryDropdown";
-import Spinner from "../utils/spinner";
-import Card from "../card";
-import Timer from "../utils/messageTimeout";
+import Spinner from "../../components/utilsComponent/spinner";
+import Card from "../../components/globalComponents/card";
+import Timer from "../../components/utilsComponent/messageTimeout";
 
 const RandomQuoteGenerator = () => {
   const { setError } = useContext(ErrorContext);

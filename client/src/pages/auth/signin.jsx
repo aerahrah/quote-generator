@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { setCookie, getCookie } from "../utils/cookieUtils";
+import { setCookie, getCookie } from "../../utils/cookieUtils";
 import AuthContent from "./authContent";
 
 const Signin = () => {

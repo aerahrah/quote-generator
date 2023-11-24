@@ -1,4 +1,4 @@
-import Axios from "./axiosUtils";
+import Axios from "../utils/axiosUtils";
 
 export const saveData = async (quoteData, favoriteQuote, url) => {
   console.log(quoteData.origin);

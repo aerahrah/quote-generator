@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import Timer from "../utils/messageTimeout";
 import { HandleGuestSignin } from "./guestAcc";
-import { ErrorMessage } from "../utils/errorUtils";
-import Footer from "../footer";
+import { ErrorMessage } from "../../components/utilsComponent/errorUtils";
+import Timer from "../../components/utilsComponent/messageTimeout";
+import Footer from "../../components/footer/footer";
 const AuthContent = ({
   username,
   setUsername,

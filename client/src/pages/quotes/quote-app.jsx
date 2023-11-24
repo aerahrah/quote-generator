@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import Spinner from "../utils/spinner";
+import Spinner from "../../components/utilsComponent/spinner";
 import {
   fetchAllData,
   deleteData,
   updateHeartStateApi,
-} from "../utils/apiUtils";
+} from "../../services/api";
 import QuoteContainer from "./quoteLibrary/quoteContainer";
 import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
 import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";

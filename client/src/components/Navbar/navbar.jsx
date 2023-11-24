@@ -1,9 +1,9 @@
-import { deleteCookie } from "../utils/cookieUtils";
+import { deleteCookie } from "../../utils/cookieUtils";
 import { useNavigate } from "react-router-dom";
-
-import NavBarMobile from "./navbarMobile";
 import { FaBars, FaRegHeart, FaSignOutAlt } from "react-icons/fa";
 import { GoLightBulb, GoBook } from "react-icons/go";
+import NavBarMobile from "./navbarMobile";
+
 const NavBar = ({ activeSection, setActiveSection }) => {
   const menuItems = [
     {

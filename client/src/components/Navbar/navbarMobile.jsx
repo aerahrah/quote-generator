@@ -1,6 +1,6 @@
 import { Popover, Transition } from "@headlessui/react";
-import { FaRegHeart, FaSignOutAlt } from "react-icons/fa";
-import { GoLightBulb, GoBook } from "react-icons/go";
+import { FaSignOutAlt } from "react-icons/fa";
+
 const NavBarMobile = ({
   handleLogout,
   activeSection,

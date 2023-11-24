@@ -1,7 +1,7 @@
-import NavBar from "../components/Navbar/navbar";
 import { useState } from "react";
-import RandomQuoteGenerator from "../components/quoteGenerator/randomQuoteGenerator";
-import QuoteApp from "../components/quotes/quote-app";
+import RandomQuoteGenerator from "./quoteGenerator/randomQuoteGenerator";
+import NavBar from "../components/Navbar/navbar";
+import QuoteApp from "../pages/quotes/quote-app";
 
 const Menu = () => {
   const [activeSection, setActiveSection] = useState("generateQuote");
