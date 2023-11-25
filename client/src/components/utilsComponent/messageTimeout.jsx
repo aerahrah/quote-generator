@@ -5,14 +5,14 @@ const Timer = ({ message, setMessage }) => {
     if (message) {
       const timer = setTimeout(() => {
         setMessage("");
-      }, 1000);
+      }, 3000);
       return () => {
         clearTimeout(timer);
       };
     }
   }, [message, setMessage]);
 
-  return null; // This component doesn't render anything
+  return null;
 };
 
 export default Timer;

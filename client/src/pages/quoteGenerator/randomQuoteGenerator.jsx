@@ -5,7 +5,7 @@ import {
   FaMinusCircle,
 } from "react-icons/fa";
 import { useState, useEffect, useContext } from "react";
-import { saveData, fetchData, deleteData } from "../../services/api";
+import { saveData, fetchData, deleteData } from "../../services/quoteApi";
 import { useNavigate } from "react-router-dom";
 import { ErrorContext } from "../../components/utilsComponent/ErrorContext";
 import CategoryDropdown from "./categoryDropdown";

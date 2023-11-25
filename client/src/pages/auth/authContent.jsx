@@ -1,70 +1,106 @@
-import { Link, useNavigate } from "react-router-dom";
-import { HandleGuestSignin } from "./guestAcc";
+import { Link } from "react-router-dom";
+import { handleGuestSignin } from "./guestAcc";
 import { ErrorMessage } from "../../components/utilsComponent/errorUtils";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 import Timer from "../../components/utilsComponent/messageTimeout";
 import Footer from "../../components/footer/footer";
-const AuthContent = ({
-  username,
-  setUsername,
-  password,
-  setPassword,
-  authType,
-  handleAuth,
-  message,
-  setMessage,
-}) => {
+
+const AuthContent = ({ authType, handleAuth, message, setMessage }) => {
   const navigate = useNavigate();
+  const schema = yup.object().shape({
+    username: yup
+      .string()
+      .required("Username is required")
+      .min(4, "Username must be at least 4 characters"),
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
   return (
     <menu className="w-full h-screen text-center p-8 text-stone-200 bg-gray-900">
-      <div className="flex items-center gap-12 flex-col justify-center w-full m-auto h-full -translate-y-8 lg:flex-row">
-        <h1 className="text-blue-400 text-6xl md:text-7xl lg:text-8xl font-black capitalize lg:w-1/2 lg:-translate-y-16 animate-pulse">
+      <div className="flex items-center gap-6 flex-col justify-center w-full m-auto h-full -translate-y-8 lg:flex-row">
+        <h1 className="text-blue-400 text-6xl md:text-7xl lg:text-8xl font-black capitalize lg:w-1/2 lg:-translate-y-8 animate-pulse">
           Quote Generator
         </h1>
-        <div className="flex flex-col bg-gray-800 px-10 py-12 rounded-lg shadow-xl">
+        <div className="flex flex-col bg-gray-800 p-6 max-w-sm w-full rounded-lg shadow-xl">
           {<ErrorMessage />}
-          <h1 className="text-4xl uppercase mb-6 font-semibold">
+          <h1 className="text-4xl uppercase mb-6 font-bold">
             {authType === "signin" ? "Sign in" : "Sign up"}
           </h1>
-          <input
-            className="input-box my-3"
-            type="text"
-            value={username}
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            className="input-box mb-6"
-            type="password"
-            value={password}
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div
-            className={`w-72 transition duration-200 ${
-              message ? "scale-100" : "scale-0"
-            } mb-6`}
+          <form
+            onSubmit={handleSubmit(handleAuth)}
+            className="flex flex-col gap-6 "
           >
-            {message && <p>{message}</p>}
-          </div>
-          <Timer message={message} setMessage={setMessage} />
+            <div className="w-full relative text-lg">
+              <input
+                className={`input-box ${
+                  errors.username ? "outline outline outline-red-500" : ""
+                }`}
+                type="text"
+                placeholder="Username"
+                {...register("username")}
+              />
+              <p className="absolute text-xs text-red-500">
+                {errors.username?.message}
+              </p>
+            </div>
+            <div className="w-full relative text-lg">
+              <input
+                className={`input-box ${
+                  errors.password ? "outline outline outline-red-500" : ""
+                }`}
+                type="password"
+                placeholder="Password"
+                {...register("password")}
+              />
+              <p className="absolute text-xs text-red-500">
+                {errors.password?.message}
+              </p>
+            </div>
+            <div
+              className={`w-full relative transition duration-200 ${
+                message ? "scale-100" : "scale-0"
+              }`}
+            >
+              {message && (
+                <p className="absolute inset-x-0 top-1/2 translate-y-[-50%]">
+                  {message}
+                </p>
+              )}
+            </div>
+            <Timer message={message} setMessage={setMessage} />
 
-          <button className="btn bg-blue-600" onClick={handleAuth}>
-            {authType === "signin" ? "Sign in" : "Sign up"}
-          </button>
-
+            <input
+              className="btn bg-blue-600 cursor-pointer"
+              type="submit"
+              value={authType === "signin" ? "Sign in" : "Sign up"}
+            />
+          </form>
           <button
             className="btn bg-green-600"
-            onClick={() => HandleGuestSignin(setMessage, navigate)}
+            onClick={() => handleGuestSignin(setMessage, navigate)}
           >
             Sign in with guest account
           </button>
           {authType === "signin" ? (
             <Link className="text-gray-500" to="/">
-              Sign up
+              Go to Sign up
             </Link>
           ) : (
             <Link className="text-gray-500" to="/signin">
-              Sign in
+              Go to Sign in
             </Link>
           )}
         </div>

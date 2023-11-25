@@ -4,7 +4,7 @@ import {
   fetchAllData,
   deleteData,
   updateHeartStateApi,
-} from "../../services/api";
+} from "../../services/quoteApi";
 import QuoteContainer from "./quoteLibrary/quoteContainer";
 import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
 import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
