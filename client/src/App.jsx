@@ -1,9 +1,8 @@
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { ErrorProvider } from "./components/utilsComponent/errorContext";
 import Signin from "./pages/auth/signin";
 import Signup from "./pages/auth/signup";
 import Menu from "./pages/menu";
-import { Routes, Route } from "react-router-dom";
-import { ErrorProvider } from "./components/utilsComponent/errorContext";
 
 function App() {
   return (

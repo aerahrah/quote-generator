@@ -9,7 +9,7 @@ export const SignIn = async (userInfo) => {
     });
     return response;
   } catch (error) {
-    throw error.response.data.message;
+    throw error;
   }
 };
 
