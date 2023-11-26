@@ -1,34 +1,20 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setCookie, getCookie } from "../../utils/cookieUtils";
+import { useDispatch } from "react-redux";
 import { SignIn } from "../../services/authApi";
-
 import AuthContent from "./authContent";
 
 const Signin = () => {
-  const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSignin = (userInfo) => {
-    SignIn(userInfo)
-      .then((data) => {
-        const { message, token } = data.data;
-        setMessage(message);
-        setCookie("token", token, 1);
-        navigate("/quote-generator");
-      })
-      .catch((error) => {
-        setMessage(error.response.data.message);
-      });
+  const handleSignin = async (userInfo) => {
+    console.log(userInfo);
+    const data = await dispatch(SignIn(userInfo));
+    if (data.type === "/auth/singin/fulfilled") {
+      navigate("/quote-generator");
+    }
   };
 
-  return (
-    <AuthContent
-      authType={"signin"}
-      handleAuth={handleSignin}
-      message={message}
-      setMessage={setMessage}
-    />
-  );
+  return <AuthContent authType={"signin"} handleAuth={handleSignin} />;
 };
 export default Signin;

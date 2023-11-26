@@ -1,29 +1,31 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "axios";
 const url = "http://localhost:3500/";
 
-export const SignIn = async (userInfo) => {
+export const SignIn = createAsyncThunk("/auth/singin", async (userInfo) => {
   try {
     const response = await Axios.post(`${url}auth/signin`, {
       username: userInfo.username,
       password: userInfo.password,
     });
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
 
-export const SignUp = async (userInfo) => {
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+});
+
+export const SignUp = createAsyncThunk("auth/signup/", async (userInfo) => {
   try {
     console.log(userInfo.username, userInfo.password);
     const response = await Axios.post(`${url}auth/signup`, {
       username: userInfo.username,
       password: userInfo.password,
     });
-    console.log(response);
-    return response;
+
+    return response.data;
   } catch (error) {
     console.log(error);
-    throw error;
+    throw error.response.data;
   }
-};
+});

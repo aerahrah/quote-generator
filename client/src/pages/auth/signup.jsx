@@ -1,30 +1,14 @@
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { SignUp } from "../../services/authApi";
 import AuthContent from "./authContent";
 
 const Signup = () => {
-  const [message, setMessage] = useState("");
-
+  const dispatch = useDispatch();
   const handleSignup = (userInfo) => {
-    console.log(userInfo);
-    SignUp(userInfo)
-      .then((data) => {
-        const { message } = data.data;
-        setMessage(message);
-      })
-      .catch((error) => {
-        setMessage(error.response.data.message);
-      });
+    dispatch(SignUp(userInfo));
   };
 
-  return (
-    <AuthContent
-      authType={"signup"}
-      handleAuth={handleSignup}
-      message={message}
-      setMessage={setMessage}
-    />
-  );
+  return <AuthContent authType={"signup"} handleAuth={handleSignup} />;
 };
 
 export default Signup;

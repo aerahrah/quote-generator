@@ -4,11 +4,20 @@ import { ErrorMessage } from "../../components/utilsComponent/errorUtils";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { clearAuthError } from "../../store/slices/authSlices";
+import {
+  selectAuthError,
+  selectAuthStatus,
+} from "../../store/selector/authSelector";
+import { useEffect } from "react";
 import * as yup from "yup";
-import Timer from "../../components/utilsComponent/messageTimeout";
 import Footer from "../../components/footer/footer";
 
-const AuthContent = ({ authType, handleAuth, message, setMessage }) => {
+const AuthContent = ({ authType, handleAuth }) => {
+  const dispatch = useDispatch();
+  const authError = useSelector(selectAuthError);
+  const authStatus = useSelector(selectAuthStatus);
   const navigate = useNavigate();
   const schema = yup.object().shape({
     username: yup
@@ -28,6 +37,14 @@ const AuthContent = ({ authType, handleAuth, message, setMessage }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  useEffect(() => {
+    if (authStatus === "failed" && authError) {
+      const timer = setTimeout(() => {
+        dispatch(clearAuthError());
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [authStatus, authError, dispatch]);
   return (
     <menu className="w-full h-screen text-center p-8 text-stone-200 bg-gray-900">
       <div className="flex items-center gap-6 flex-col justify-center w-full m-auto h-full -translate-y-8 lg:flex-row">
@@ -71,16 +88,15 @@ const AuthContent = ({ authType, handleAuth, message, setMessage }) => {
             </div>
             <div
               className={`w-full relative transition duration-200 ${
-                message ? "scale-100" : "scale-0"
+                authError ? "scale-100" : "scale-0"
               }`}
             >
-              {message && (
+              {authError && (
                 <p className="absolute inset-x-0 top-1/2 translate-y-[-50%]">
-                  {message}
+                  {authError}
                 </p>
               )}
             </div>
-            <Timer message={message} setMessage={setMessage} />
 
             <input
               className="btn bg-blue-600 cursor-pointer"
