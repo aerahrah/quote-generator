@@ -1,42 +1,31 @@
-import { FaSearch, FaListAlt, FaFilter, FaAngleDown } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { searchSelector } from "../../store/selector/searchSelector";
 import QuoteFilterCategory from "./quoteFilterCategory";
 import QuoteFilterOrigin from "./quoteFilterOrigin.jsx";
 import SearchBar from "./searchBar";
-import { useState } from "react";
 
-const FilterSortSearchPanel = ({
-  setSearchTerm,
-  handleOnChange,
-  setFilterCategory,
-  setFilterOrigin,
-}) => {
+const FilterSortSearchPanel = ({ handleOnChange }) => {
+  const { searchTerm, filterCategory, filterOrigin } =
+    useSelector(searchSelector);
   return (
     <div className={`m-0 shadow md:shadow-md flex items-center w-full`}>
       <div className="flex items-center w-full">
         <QuoteFilterOrigin
           className=" flex-1"
-          FaFilter={FaFilter}
-          FaAngleDown={FaAngleDown}
-          useState={useState}
-          setFilterOrigin={setFilterOrigin}
           handleOnChange={handleOnChange}
+          filterBy={filterOrigin}
         />
+
         <QuoteFilterCategory
           className=" flex-1"
-          FaFilter={FaFilter}
-          FaAngleDown={FaAngleDown}
-          useState={useState}
-          setFilterCategory={setFilterCategory}
-          FaListAlt={FaListAlt}
           handleOnChange={handleOnChange}
+          filterBy={filterCategory}
         />
 
         <SearchBar
           className="grow"
-          setSearchTerm={setSearchTerm}
           handleOnChange={handleOnChange}
-          useState={useState}
-          FaSearch={FaSearch}
+          searchTerm={searchTerm}
         />
       </div>
     </div>

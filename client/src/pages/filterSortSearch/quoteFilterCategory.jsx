@@ -1,13 +1,11 @@
 import { Popover, Transition } from "@headlessui/react";
+import { FaListAlt, FaAngleDown } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { setFilterCategory } from "../../store/slices/searchSlices";
 import QuoteFilterContent from "./quoteFilterContent";
-const QuoteFilterCategory = ({
-  setFilterCategory,
-  handleOnChange,
-  useState,
-  FaFilter,
-  FaListAlt,
-  FaAngleDown,
-}) => {
+
+const QuoteFilterCategory = ({ handleOnChange, filterBy }) => {
+  const dispatch = useDispatch();
   const categoryOptions = [
     { label: "all category", value: "all category" },
     { label: "happy", value: "happiness" },
@@ -17,10 +15,9 @@ const QuoteFilterCategory = ({
     { label: "love", value: "love" },
     { label: "history", value: "history" },
   ];
-  const [filterBy, setfilterBy] = useState("category");
-  const handleChangeFilter = (value) => {
-    setfilterBy(value);
-    setFilterCategory(value);
+
+  const handleChangeFilter = async (value) => {
+    dispatch(setFilterCategory(value));
     handleOnChange();
   };
 

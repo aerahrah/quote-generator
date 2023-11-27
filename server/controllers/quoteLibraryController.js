@@ -36,6 +36,7 @@ const getAllQuotes = async (req, res) => {
     };
 
     const categoryFilter = categoryFilters[filterCategory];
+
     if (filterOrigins === "original" || filterOrigins === "generated") {
       if (categoryFilter) {
         filter = { ...filter, ...categoryFilter, origin: filterOrigins };

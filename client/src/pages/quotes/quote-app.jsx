@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { searchSelector } from "../../store/selector/searchSelector";
 import Spinner from "../../components/utilsComponent/spinner";
 import {
   fetchAllData,
@@ -10,15 +12,14 @@ import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
 import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
 
 const QuoteApp = ({ activeSection }) => {
+  const { searchTerm, filterCategory, filterOrigin } =
+    useSelector(searchSelector);
   const url = "http://localhost:3500/quote";
   const [heartState, setHeartState] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [quoteUpdateDataId, setQuoteUpdateDataId] = useState("");
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateTrigger, setUpdateTrigger] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filterCategory, setFilterCategory] = useState("");
-  const [filterOrigin, setFilterOrigin] = useState("");
   const [quoteData, setQuoteData] = useState({
     author: "",
     quote: "",
@@ -82,13 +83,7 @@ const QuoteApp = ({ activeSection }) => {
         <Spinner />
       ) : (
         <div className="mt-[75px] px-4 md:px-12 lg:px-24 xl:px-36">
-          <FilterSortSearchPanel
-            setSearchTerm={setSearchTerm}
-            setFilterCategory={setFilterCategory}
-            setFilterOrigin={setFilterOrigin}
-            handleOnChange={handleOnChange}
-          />
-
+          <FilterSortSearchPanel handleOnChange={handleOnChange} />
           <div>
             {activeSection === "quoteLibrary" && (
               <div className="fixed z-10 bottom-[2rem] right-[2rem] md:bottom-[4rem] md:right-[4rem] lg:bottom-[4rem] lg:right-[6rem]">

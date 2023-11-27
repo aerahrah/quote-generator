@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { handleGuestSignin } from "./guestAcc";
 import { ErrorMessage } from "../../components/utilsComponent/errorUtils";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearAuthError } from "../../store/slices/authSlices";
+import { SignIn } from "../../services/authApi";
 import {
   selectAuthError,
   selectAuthStatus,
@@ -37,6 +37,20 @@ const AuthContent = ({ authType, handleAuth }) => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const handleGuestSignin = async () => {
+    const userInfo = {
+      username: "WiMt6FagfShTkTobAs76x9zCwgQ7MOid",
+      password: "hdUCnPLZ4oBGPhFy7Wz6DalGpJZhhJhL",
+    };
+
+    const data = await dispatch(SignIn(userInfo));
+    console.log(data);
+    if (data.type === "/auth/singin/fulfilled") {
+      navigate("/quote-generator");
+    }
+  };
+
   useEffect(() => {
     if (authStatus === "failed" && authError) {
       const timer = setTimeout(() => {
@@ -104,10 +118,7 @@ const AuthContent = ({ authType, handleAuth }) => {
               value={authType === "signin" ? "Sign in" : "Sign up"}
             />
           </form>
-          <button
-            className="btn bg-green-600"
-            onClick={() => handleGuestSignin(setMessage, navigate)}
-          >
+          <button className="btn bg-green-600" onClick={handleGuestSignin}>
             Sign in with guest account
           </button>
           {authType === "signin" ? (
