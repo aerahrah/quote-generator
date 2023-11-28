@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "axios";
 const url = "http://localhost:3500/";
 
-export const SignIn = createAsyncThunk("/auth/singin", async (userInfo) => {
+export const SignIn = createAsyncThunk("auth/singin", async (userInfo) => {
   try {
     const response = await Axios.post(`${url}auth/signin`, {
       username: userInfo.username,

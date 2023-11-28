@@ -46,7 +46,7 @@ const AuthContent = ({ authType, handleAuth }) => {
 
     const data = await dispatch(SignIn(userInfo));
     console.log(data);
-    if (data.type === "/auth/singin/fulfilled") {
+    if (data.type === "auth/singin/fulfilled") {
       navigate("/quote-generator");
     }
   };
@@ -60,14 +60,14 @@ const AuthContent = ({ authType, handleAuth }) => {
     }
   }, [authStatus, authError, dispatch]);
   return (
-    <menu className="w-full h-screen text-center p-8 text-stone-200 bg-gray-900">
-      <div className="flex items-center gap-6 flex-col justify-center w-full m-auto h-full -translate-y-8 lg:flex-row">
-        <h1 className="text-blue-400 text-6xl md:text-7xl lg:text-8xl font-black capitalize lg:w-1/2 lg:-translate-y-8 animate-pulse">
+    <menu className="w-full h-screen text-center p-4 md:p-8 text-stone-200 bg-gray-900">
+      <div className="flex items-center gap-8 lg:gap-6 flex-col justify-center w-full m-auto h-full -translate-y-8 lg:flex-row">
+        <h1 className="text-blue-400 text-5xl md:text-6xl lg:text-7xl lg:text-8xl font-black capitalize lg:w-1/2 lg:-translate-y-8 animate-pulse">
           Quote Generator
         </h1>
-        <div className="flex flex-col bg-gray-800 p-6 max-w-sm w-full rounded-lg shadow-xl">
+        <div className="flex flex-col bg-gray-800 p-5 md:p-6 max-w-sm w-full rounded-lg shadow-xl">
           {<ErrorMessage />}
-          <h1 className="text-4xl uppercase mb-6 font-bold">
+          <h1 className="text-3xl md:text-4xl uppercase mb-6 font-bold">
             {authType === "signin" ? "Sign in" : "Sign up"}
           </h1>
           <form

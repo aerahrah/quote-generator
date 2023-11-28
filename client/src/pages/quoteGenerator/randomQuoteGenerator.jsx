@@ -4,108 +4,76 @@ import {
   FaPlusCircle,
   FaMinusCircle,
 } from "react-icons/fa";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { saveData, fetchData, deleteData } from "../../services/quoteApi";
-import { useNavigate } from "react-router-dom";
-import { ErrorContext } from "../../components/utilsComponent/ErrorContext";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectQuoteStatus,
+  selectQuoteData,
+} from "../../store/selector/quoteSelector";
 import CategoryDropdown from "./categoryDropdown";
 import Spinner from "../../components/utilsComponent/spinner";
 import Card from "../../components/globalComponents/card";
 import Timer from "../../components/utilsComponent/messageTimeout";
 
 const RandomQuoteGenerator = () => {
-  const { setError } = useContext(ErrorContext);
-  const navigate = useNavigate();
-  const url = "http://localhost:3500/quote";
-  const [quoteData, setQuoteData] = useState({
-    author: "",
-    quote: "",
-    category: "",
-    origin: "generated",
-  });
+  const dispatch = useDispatch();
+  const quoteStatus = useSelector(selectQuoteStatus);
+  const quoteData = useSelector(selectQuoteData);
+  const [isLoading, setIsLoading] = useState(true);
+  const [quoteId, setQuoteId] = useState();
   const [heartState, setHeartState] = useState("save");
   const [addQuoteState, setAddQuoteState] = useState("add");
   const [selectedOption, setSelectedOption] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [quoteId, setQuoteId] = useState("");
   const [quoteIdLibrary, setQuoteIdLibrary] = useState("");
-  const fetchDataAndUpdate = () => {
+  const handleFetchData = async () => {
     setIsLoading(true);
-    fetchData(selectedOption, url)
-      .then((data) => {
-        setQuoteData((previousQuoteData) => ({
-          ...previousQuoteData,
-          author: data[0].author,
-          quote: data[0].quote,
-          category: data[0].category,
-        }));
-        console.log(data[0].category);
-        setAddQuoteState("add");
-        setHeartState("save");
-        setMessage("");
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        if (error.message == "unauthorized") {
-          setError(`Request Failed:  ${error.message}. please sign in`);
-          navigate("/signin");
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    dispatch(fetchData());
+    setAddQuoteState("add");
+    setHeartState("save");
+    setMessage("");
+    setIsLoading(false);
+  };
+
+  const handleToggleSaveFavorite = async (id) => {
+    if (heartState === "save") {
+      const data = await dispatch(
+        saveData({ ...quoteData[0], origin: "generated" }, true)
+      );
+      // setQuoteId(data.createQuote._id);
+      setHeartState("unsave");
+    } else {
+      dispatch(deleteData(id));
+      setQuoteId("");
+      setHeartState("save");
+    }
+  };
+
+  const handleToggleSave = async (id) => {
+    if (addQuoteState === "add") {
+      const data = await dispatch(
+        saveData({
+          quoteData: { ...quoteData[0], origin: "generated" },
+          favoriteQuote: false,
+        })
+      );
+      setAddQuoteState("remove");
+      console.log(quoteData);
+      console.log(data);
+      // setQuoteIdLibrary(data.createQuote._id);
+    } else {
+      dispatch(deleteData(id));
+      setQuoteIdLibrary("");
+      setAddQuoteState("add");
+    }
   };
 
   useEffect(() => {
-    fetchDataAndUpdate();
+    handleFetchData();
+    console.log(quoteStatus);
+    console.log(quoteData);
   }, [selectedOption]);
-
-  const handleToggleSaveFavorite = (id) => {
-    if (heartState === "save") {
-      saveData(quoteData, true, url)
-        .then((responseMessage) => {
-          setHeartState("unsave");
-          setMessage(responseMessage.data.message);
-          setQuoteId(responseMessage.data.createQuote._id);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
-      deleteData(url, id)
-        .then(() => {
-          setQuoteId("");
-          setHeartState("save");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
-
-  const handleToggleSave = (id) => {
-    if (addQuoteState === "add") {
-      saveData(quoteData, false, url)
-        .then((responseMessage) => {
-          setAddQuoteState("remove");
-          setMessage(responseMessage.data.message);
-          setQuoteIdLibrary(responseMessage.data.createQuote._id);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
-      deleteData(url, id)
-        .then(() => {
-          setQuoteIdLibrary("");
-          setAddQuoteState("add");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  };
   return (
     <div className="mt-32 bg-gray-900 px-4">
       <CategoryDropdown
@@ -113,8 +81,11 @@ const RandomQuoteGenerator = () => {
         setSelectedOption={setSelectedOption}
       />
       <Card>
-        {isLoading ? (
-          <Spinner />
+        {quoteStatus === "loading" || isLoading ? (
+          <div>
+            {console.log(quoteStatus)}
+            <Spinner />
+          </div>
         ) : (
           <div className="flex flex-col text-gray-200 ">
             <div className="absolute top-[12px] right-[12px] flex gap-3 items-center">
@@ -152,10 +123,10 @@ const RandomQuoteGenerator = () => {
 
             <div className="flex flex-col mb-24">
               <p className=" mt-6 md:mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
-                "{quoteData.quote}"
+                "{quoteData[0].quote}"
               </p>
               <p className="text-md md:text-lg font-thin flex self-end text-blue-300">
-                - {quoteData.author}
+                - {quoteData[0].author}
               </p>
               <div className="text-center self-center absolute bottom-[1rem] ">
                 <div
@@ -168,7 +139,7 @@ const RandomQuoteGenerator = () => {
                 <Timer message={message} setMessage={setMessage} />
                 <button
                   className=" btn bg-green-400 text-gray-700 text-md md:text-lg font-semibold px-8 mx-auto rounded-xl"
-                  onClick={fetchDataAndUpdate}
+                  onClick={handleFetchData}
                 >
                   New Quote
                 </button>

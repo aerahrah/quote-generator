@@ -23,7 +23,7 @@ const authSlice = createSlice({
         const { token } = action.payload;
         setCookie("token", token, 1);
         state.status = "succeeded";
-        state.user = action.payload.data;
+        state.user = action.payload;
         state.error = null;
       })
       .addCase(SignIn.rejected, (state, action) => {
@@ -35,7 +35,7 @@ const authSlice = createSlice({
       })
       .addCase(SignUp.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload.data;
+        state.user = action.payload;
         state.error = null;
       })
       .addCase(SignUp.rejected, (state, action) => {

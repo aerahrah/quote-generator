@@ -14,7 +14,7 @@ import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
 const QuoteApp = ({ activeSection }) => {
   const { searchTerm, filterCategory, filterOrigin } =
     useSelector(searchSelector);
-  const url = "http://localhost:3500/quote";
+
   const [heartState, setHeartState] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [quoteUpdateDataId, setQuoteUpdateDataId] = useState("");
@@ -32,7 +32,7 @@ const QuoteApp = ({ activeSection }) => {
     favorite: "",
   });
   const deleteQuoteData = (id) => {
-    deleteData(url, id)
+    deleteData(id)
       .then(() => {
         getAllQuotes();
       })
@@ -42,7 +42,7 @@ const QuoteApp = ({ activeSection }) => {
   };
 
   const updateHeartState = (id, data, favoriteQuote) => {
-    updateHeartStateApi(url, id, data, favoriteQuote)
+    updateHeartStateApi(id, data, favoriteQuote)
       .then(() => {
         setQuoteUpdateDataId("");
         getAllQuotes();
@@ -53,7 +53,7 @@ const QuoteApp = ({ activeSection }) => {
   };
 
   const getAllQuotes = () => {
-    fetchAllData(url, searchTerm, filterCategory, filterOrigin)
+    fetchAllData(searchTerm, filterCategory, filterOrigin)
       .then((data) => {
         setQuoteData(data);
         setIsLoading(false);
