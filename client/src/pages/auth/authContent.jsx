@@ -59,6 +59,7 @@ const AuthContent = ({ authType, handleAuth }) => {
       return () => clearTimeout(timer);
     }
   }, [authStatus, authError, dispatch]);
+
   return (
     <menu className="w-full h-screen text-center p-4 md:p-8 text-stone-200 bg-gray-900">
       <div className="flex items-center gap-8 lg:gap-6 flex-col justify-center w-full m-auto h-full -translate-y-8 lg:flex-row">

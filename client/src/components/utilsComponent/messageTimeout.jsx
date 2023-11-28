@@ -1,16 +1,17 @@
 import { useEffect } from "react";
-
-const Timer = ({ message, setMessage }) => {
+import { useDispatch } from "react-redux";
+const Timer = ({ message, clearMessageFunction }) => {
+  const dispatch = useDispatch();
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        setMessage("");
-      }, 3000);
+        dispatch(clearMessageFunction());
+      }, 2000);
       return () => {
         clearTimeout(timer);
       };
     }
-  }, [message, setMessage]);
+  }, [message, dispatch]);
 
   return null;
 };

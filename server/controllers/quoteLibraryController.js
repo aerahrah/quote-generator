@@ -6,7 +6,7 @@ const deleteQuote = async (req, res) => {
     const deleteById = await QuoteLibrary.deleteOne({ _id: quoteId });
 
     if (deleteById.deletedCount === 1) {
-      return res.status(200).json({ message: "Successfully deteleted quote" });
+      return res.status(200).json({ message: "Removed quote" });
     } else {
       return res.status(500).json({ message: "Unable to delete quote" });
     }
