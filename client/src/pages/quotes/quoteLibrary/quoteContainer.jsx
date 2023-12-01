@@ -1,7 +1,7 @@
 import QuoteList from "../quotesComponent/quoteList";
 import UpdateQuoteModal from "../quotesComponent/updateQuoteModal";
+import { useDispatch, useSelector } from "react-redux";
 const QuoteContainer = ({
-  quoteData,
   deleteQuoteData,
   heartState,
   setHeartState,
@@ -15,6 +15,7 @@ const QuoteContainer = ({
   getAllQuotes,
   favoriteMode,
 }) => {
+  const quoteData = useSelector((state) => state.fetchAllQuote.data);
   const filteredQuote = quoteData.filter(({ Favorite }) =>
     favoriteMode ? Favorite : !Favorite
   );

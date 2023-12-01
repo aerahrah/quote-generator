@@ -6,7 +6,6 @@ const AddQuoteModal = ({
   isModalCreateOpen,
   setIsModalCreateOpen,
   useState,
-  getAllQuotes,
 }) => {
   const url = "http://localhost:3500/quote";
   const [quoteData, setQuoteData] = useState({
@@ -22,7 +21,6 @@ const AddQuoteModal = ({
           author: "",
           quote: "",
         }));
-        getAllQuotes();
       })
       .catch((err) => {
         console.log(err);

@@ -55,20 +55,6 @@ const quoteSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
-
-      .addCase(fetchAllData.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchAllData.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.data = action.payload;
-        state.error = null;
-      })
-      .addCase(fetchAllData.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      })
-
       .addCase(deleteData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.message = action.payload.message;

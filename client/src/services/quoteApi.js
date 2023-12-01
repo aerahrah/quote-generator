@@ -70,7 +70,7 @@ export const fetchData = createAsyncThunk(
 
 export const fetchAllData = createAsyncThunk(
   "fetch",
-  async (filteredTask, filterCategory, filterOrigin) => {
+  async ({ filteredTask, filterCategory, filterOrigin }) => {
     console.log(filterCategory);
     try {
       const response = await Axios.get(`${url}/get-all`, {

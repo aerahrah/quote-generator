@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
 import { searchSelector } from "../../store/selector/searchSelector";
+import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../components/utilsComponent/spinner";
 import {
   fetchAllData,
@@ -12,20 +12,17 @@ import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
 import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
 
 const QuoteApp = ({ activeSection }) => {
+  const dispatch = useDispatch();
   const { searchTerm, filterCategory, filterOrigin } =
     useSelector(searchSelector);
 
+  const fetchAllQuoteStatus = useSelector(
+    (state) => state.fetchAllQuote.status
+  );
   const [heartState, setHeartState] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [quoteUpdateDataId, setQuoteUpdateDataId] = useState("");
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateTrigger, setUpdateTrigger] = useState(false);
-  const [quoteData, setQuoteData] = useState({
-    author: "",
-    quote: "",
-    favorite: "",
-    origin: "original",
-  });
   const [quoteUpdateData, setQuoteUpdateData] = useState({
     author: "",
     quote: "",
@@ -45,26 +42,17 @@ const QuoteApp = ({ activeSection }) => {
     updateHeartStateApi(id, data, favoriteQuote)
       .then(() => {
         setQuoteUpdateDataId("");
-        getAllQuotes();
+        handlefetchAllQuotes();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const getAllQuotes = () => {
-    fetchAllData(searchTerm, filterCategory, filterOrigin)
-      .then((data) => {
-        setQuoteData(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+  const handlefetchAllQuotes = async () => {
+    dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
   };
+
   const handleOnChange = () => {
     setUpdateTrigger((prevTrigger) => !prevTrigger);
   };
@@ -75,25 +63,27 @@ const QuoteApp = ({ activeSection }) => {
     } else if (activeSection === "favoriteQuoteLibrary") {
       setHeartState("unsave");
     }
-    getAllQuotes();
-  }, [activeSection, updateTrigger, isLoading]);
+
+    handlefetchAllQuotes();
+  }, [activeSection, updateTrigger]);
+
   return (
     <div className="min-h-screen bg-gray-900 py-4">
-      {isLoading ? (
+      {fetchAllQuoteStatus === "loading" ? (
         <Spinner />
       ) : (
         <div className="mt-[75px] px-4 md:px-12 lg:px-24 xl:px-36">
           <FilterSortSearchPanel handleOnChange={handleOnChange} />
+
           <div>
             {activeSection === "quoteLibrary" && (
               <div className="fixed z-10 bottom-[2rem] right-[2rem] md:bottom-[4rem] md:right-[4rem] lg:bottom-[4rem] lg:right-[6rem]">
-                <AddQuoteIcon getAllQuotes={getAllQuotes} />
+                <AddQuoteIcon />
               </div>
             )}
             <QuoteContainer
               heartState={heartState}
               setHeartState={setHeartState}
-              quoteData={quoteData}
               deleteQuoteData={deleteQuoteData}
               updateHeartState={updateHeartState}
               openUpdateModal={openUpdateModal}
@@ -102,7 +92,6 @@ const QuoteApp = ({ activeSection }) => {
               quoteUpdateData={quoteUpdateData}
               setQuoteUpdateDataId={setQuoteUpdateDataId}
               quoteUpdateDataId={quoteUpdateDataId}
-              getAllQuotes={getAllQuotes}
               favoriteMode={
                 activeSection === "favoriteQuoteLibrary" ? true : false
               }

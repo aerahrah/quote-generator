@@ -15,7 +15,6 @@ const AddQuoteIcon = ({ getAllQuotes }) => {
         isModalCreateOpen={isModalCreateOpen}
         setIsModalCreateOpen={setIsModalCreateOpen}
         useState={useState}
-        getAllQuotes={getAllQuotes}
       />
     </div>
   );
