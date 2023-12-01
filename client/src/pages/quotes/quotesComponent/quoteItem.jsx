@@ -1,15 +1,25 @@
 import { FaTrash } from "react-icons/fa";
 import { FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
-
-const QuoteItem = ({
-  deleteQuoteData,
-  data,
-  heartState,
-  updateHeartState,
-  setOpenUpdateModal,
+import { useDispatch, useSelector } from "react-redux";
+import { deleteData, fetchAllData } from "../../../services/quoteApi";
+import { searchSelector } from "../../../store/selector/searchSelector";
+import {
   setQuoteUpdateData,
-  setQuoteUpdateDataId,
-}) => {
+  toggleUpdateModalOpen,
+} from "../../../store/slices/quoteSlices/updateQuoteSlice";
+const QuoteItem = ({ data, heartState, updateHeartState }) => {
+  const dispatch = useDispatch();
+  const { searchTerm, filterCategory, filterOrigin } =
+    useSelector(searchSelector);
+  const handleDeleteQuote = async (id) => {
+    try {
+      await dispatch(deleteData(id));
+      dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col bg-gray-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-8 md:pt-10 mb-6 px-2 overflow-hidden cursor-pointer relative">
       {data.Quote && (
@@ -24,21 +34,14 @@ const QuoteItem = ({
       )}
       <div className="absolute inset-x-0 top-[12px] flex gap-2 justify-between w-[90%] mx-auto">
         <div className="flex gap-2">
-          <button onClick={() => deleteQuoteData(data.Id)}>
+          <button onClick={() => handleDeleteQuote(data.Id)}>
             <FaTrash className="hover:text-red-500 text-red-500 md:text-gray-400 transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"></FaTrash>
           </button>
           <button
             onClick={() => {
               console.log("click");
-              setQuoteUpdateData((prevQuoteUpdateData) => ({
-                ...prevQuoteUpdateData,
-                author: data.Author,
-                quote: data.Quote,
-                favorite: data.Favorite,
-                origin: data.Origin,
-              }));
-              setQuoteUpdateDataId(data.Id);
-              setOpenUpdateModal(true);
+              dispatch(setQuoteUpdateData(data));
+              dispatch(toggleUpdateModalOpen());
             }}
           >
             <FaEdit className="hover:text-green-500 text-green-500 md:text-gray-400 transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"></FaEdit>

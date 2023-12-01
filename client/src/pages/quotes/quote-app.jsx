@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import { searchSelector } from "../../store/selector/searchSelector";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../components/utilsComponent/spinner";
-import {
-  fetchAllData,
-  deleteData,
-  updateHeartStateApi,
-} from "../../services/quoteApi";
+import { fetchAllData, updateHeartStateApi } from "../../services/quoteApi";
 import QuoteContainer from "./quoteLibrary/quoteContainer";
 import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
 import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
@@ -19,24 +15,9 @@ const QuoteApp = ({ activeSection }) => {
   const fetchAllQuoteStatus = useSelector(
     (state) => state.fetchAllQuote.status
   );
+
   const [heartState, setHeartState] = useState("");
-  const [quoteUpdateDataId, setQuoteUpdateDataId] = useState("");
-  const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateTrigger, setUpdateTrigger] = useState(false);
-  const [quoteUpdateData, setQuoteUpdateData] = useState({
-    author: "",
-    quote: "",
-    favorite: "",
-  });
-  const deleteQuoteData = (id) => {
-    deleteData(id)
-      .then(() => {
-        getAllQuotes();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const updateHeartState = (id, data, favoriteQuote) => {
     updateHeartStateApi(id, data, favoriteQuote)
@@ -84,14 +65,7 @@ const QuoteApp = ({ activeSection }) => {
             <QuoteContainer
               heartState={heartState}
               setHeartState={setHeartState}
-              deleteQuoteData={deleteQuoteData}
               updateHeartState={updateHeartState}
-              openUpdateModal={openUpdateModal}
-              setOpenUpdateModal={setOpenUpdateModal}
-              setQuoteUpdateData={setQuoteUpdateData}
-              quoteUpdateData={quoteUpdateData}
-              setQuoteUpdateDataId={setQuoteUpdateDataId}
-              quoteUpdateDataId={quoteUpdateDataId}
               favoriteMode={
                 activeSection === "favoriteQuoteLibrary" ? true : false
               }

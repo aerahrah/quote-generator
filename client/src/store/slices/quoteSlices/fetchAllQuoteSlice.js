@@ -17,7 +17,6 @@ const fetchAllQuoteSlice = createSlice({
       .addCase(fetchAllData.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.data = action.payload;
-
         state.error = null;
       })
       .addCase(fetchAllData.rejected, (state, action) => {

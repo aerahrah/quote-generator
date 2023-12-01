@@ -1,22 +1,19 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
 import { updateData } from "../../../services/quoteApi";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleUpdateModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import QuoteModalContent from "../quotesComponent/quoteModalContent";
 
-const UpdateQuoteModal = ({
-  getAllQuotes,
-  openUpdateModal,
-  setOpenUpdateModal,
-  setQuoteUpdateData,
-  quoteUpdateData,
-  quoteUpdateDataId,
-  setQuoteUpdateDataId,
-}) => {
-  const url = "http://localhost:3500/quote";
-
-  const updateQuoteData = (id) => {
-    console.log(quoteUpdateDataId);
-    updateData(url, id, quoteUpdateData)
+const UpdateQuoteModal = () => {
+  const dispatch = useDispatch();
+  const { isUpdateModalOpen } = useSelector((state) => state.updateQuote);
+  const handleToggleModal = () => {
+    dispatch(toggleUpdateModalOpen());
+  };
+  const handleUpdateQuote = (id) => {
+    console.log("click");
+    updateData(id, quoteUpdateData)
       .then(() => {
         setQuoteUpdateData({
           author: "",
@@ -34,14 +31,11 @@ const UpdateQuoteModal = ({
 
   return (
     <div>
-      <Transition appear show={openUpdateModal} as={Fragment}>
-        <Dialog as="div" onClose={() => setOpenUpdateModal(false)}>
+      <Transition appear show={isUpdateModalOpen} as={Fragment}>
+        <Dialog as="div" onClose={handleToggleModal}>
           <QuoteModalContent
-            setIsModalCreateOpen={setOpenUpdateModal}
-            updateQuoteData={updateQuoteData}
-            quoteData={quoteUpdateData}
-            setQuoteData={setQuoteUpdateData}
-            quoteUpdateDataId={quoteUpdateDataId}
+            handleToggleModal={handleToggleModal}
+            handleAddOrUpdateQuote={handleUpdateQuote}
             modalType={"update"}
           />
         </Dialog>

@@ -2,17 +2,9 @@ import QuoteList from "../quotesComponent/quoteList";
 import UpdateQuoteModal from "../quotesComponent/updateQuoteModal";
 import { useDispatch, useSelector } from "react-redux";
 const QuoteContainer = ({
-  deleteQuoteData,
   heartState,
   setHeartState,
   updateHeartState,
-  openUpdateModal,
-  setOpenUpdateModal,
-  setQuoteUpdateData,
-  quoteUpdateData,
-  setQuoteUpdateDataId,
-  quoteUpdateDataId,
-  getAllQuotes,
   favoriteMode,
 }) => {
   const quoteData = useSelector((state) => state.fetchAllQuote.data);
@@ -31,25 +23,13 @@ const QuoteContainer = ({
         </div>
       ) : (
         <QuoteList
-          deleteQuoteData={deleteQuoteData}
           quoteData={filteredQuote}
           heartState={heartState}
           setHeartState={setHeartState}
           updateHeartState={updateHeartState}
-          setOpenUpdateModal={setOpenUpdateModal}
-          setQuoteUpdateData={setQuoteUpdateData}
-          setQuoteUpdateDataId={setQuoteUpdateDataId}
         />
       )}
-      <UpdateQuoteModal
-        openUpdateModal={openUpdateModal}
-        setOpenUpdateModal={setOpenUpdateModal}
-        setQuoteUpdateData={setQuoteUpdateData}
-        quoteUpdateData={quoteUpdateData}
-        quoteUpdateDataId={quoteUpdateDataId}
-        setQuoteUpdateDataId={setQuoteUpdateDataId}
-        getAllQuotes={getAllQuotes}
-      />
+      <UpdateQuoteModal />
     </div>
   );
 };
