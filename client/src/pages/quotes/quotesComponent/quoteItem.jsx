@@ -11,6 +11,7 @@ const QuoteItem = ({ data, heartState, updateHeartState }) => {
   const dispatch = useDispatch();
   const { searchTerm, filterCategory, filterOrigin } =
     useSelector(searchSelector);
+    
   const handleDeleteQuote = async (id) => {
     try {
       await dispatch(deleteData(id));

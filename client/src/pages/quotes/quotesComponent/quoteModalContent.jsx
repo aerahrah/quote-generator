@@ -42,7 +42,7 @@ const QuoteModalContent = ({
       >
         <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-20" />
       </Transition.Child>
-      <div className="fixed inset-0 z-50">
+      <div className="fixed inset-0 z-30">
         <div className="flex min-h-full items-center justify-center p-6 text-center">
           <Transition.Child
             as={Fragment}
@@ -53,10 +53,19 @@ const QuoteModalContent = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-gray-800 p-4 px-6 rounded-lg text-gray-300 ">
+            <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-gray-800 p-4 px-6 rounded-lg text-gray-300 z-50">
               <form
-                className="flex flex-col gap-4 mb-6"
-                onSubmit={handleSubmit(handleAddOrUpdateQuote)}
+                className="flex flex-col gap-4"
+                onSubmit={handleSubmit((formData) =>
+                  handleAddOrUpdateQuote({
+                    id: quoteData.Id,
+                    formData: {
+                      ...formData,
+                      favorite: quoteData.Favorite,
+                      origin: quoteData.Origin,
+                    },
+                  })
+                )}
               >
                 <div className="flex flex-col gap-1">
                   <label className="text-start font-semibold text-lg">
@@ -65,13 +74,13 @@ const QuoteModalContent = ({
                   <div className="w-full relative text-lg">
                     <input
                       className={`${
-                        errors.quote ? "outline outline outline-red-500" : ""
+                        errors.author ? "outline outline outline-red-500" : ""
                       } w-full p-2 rounded-md bg-gray-900 outline-0`}
                       type="text"
                       {...register("author")}
                     />
                     <p className="absolute text-xs text-red-500">
-                      {errors.password?.message}
+                      {errors.author?.message}
                     </p>
                   </div>
                 </div>
@@ -90,7 +99,7 @@ const QuoteModalContent = ({
                     />
 
                     <p className="absolute text-xs text-red-500">
-                      {errors.password?.message}
+                      {errors.quote?.message}
                     </p>
                   </div>
                 </div>

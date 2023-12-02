@@ -1,8 +1,37 @@
 import { FaPen } from "react-icons/fa";
 import { useState } from "react";
-import AddQuoteModal from "./addQuoteModal";
-const AddQuoteIcon = ({ getAllQuotes }) => {
-  const [isModalCreateOpen, setIsModalCreateOpen] = useState(false);
+import { saveData } from "../../../services/quoteApi";
+import { Transition, Dialog } from "@headlessui/react";
+import { Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleAddModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
+import QuoteModalContent from "../quotesComponent/quoteModalContent";
+
+const AddQuoteIcon = () => {
+  const dispatch = useDispatch();
+  const { isAddModalOpen } = useSelector((state) => state.updateQuote);
+  const handleToggleModal = () => {
+    dispatch(toggleAddModalOpen());
+  };
+  const [quoteData, setQuoteData] = useState({
+    author: "",
+    quote: "",
+    origin: "original",
+  });
+  const handleAddQuote = (favoriteQuote) => {
+    saveData(quoteData, favoriteQuote, url)
+      .then(() => {
+        setQuoteData((prevQuote) => ({
+          ...prevQuote,
+          author: "",
+          quote: "",
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setIsModalCreateOpen(false);
+  };
   return (
     <div>
       <div
@@ -11,11 +40,18 @@ const AddQuoteIcon = ({ getAllQuotes }) => {
       >
         <FaPen className="text-blue-400" size="2rem" />
       </div>
-      <AddQuoteModal
-        isModalCreateOpen={isModalCreateOpen}
-        setIsModalCreateOpen={setIsModalCreateOpen}
-        useState={useState}
-      />
+
+      <div>
+        <Transition appear show={isAddModalOpen} as={Fragment}>
+          <Dialog as="div" onClose={handleToggleModal}>
+            <QuoteModalContent
+              handleToggleModal={handleToggleModal}
+              handleAddOrUpdateQuote={handleAddQuote}
+              modalType={"add"}
+            />
+          </Dialog>
+        </Transition>
+      </div>
     </div>
   );
 };

@@ -1,32 +1,33 @@
 import { Transition, Dialog } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { updateData } from "../../../services/quoteApi";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleUpdateModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
+import { searchSelector } from "../../../store/selector/searchSelector";
 import QuoteModalContent from "../quotesComponent/quoteModalContent";
+import { clearQuoteUpdateData } from "../../../store/slices/quoteSlices/updateQuoteSlice";
+import { fetchAllData } from "../../../services/quoteApi";
 
 const UpdateQuoteModal = () => {
   const dispatch = useDispatch();
+  const { searchTerm, filterCategory, filterOrigin } =
+    useSelector(searchSelector);
+
   const { isUpdateModalOpen } = useSelector((state) => state.updateQuote);
+
   const handleToggleModal = () => {
     dispatch(toggleUpdateModalOpen());
   };
-  const handleUpdateQuote = (id) => {
-    console.log("click");
-    updateData(id, quoteUpdateData)
-      .then(() => {
-        setQuoteUpdateData({
-          author: "",
-          quote: "",
-          favorite: "",
-        });
-        setQuoteUpdateDataId("");
-        setOpenUpdateModal(false);
-        getAllQuotes();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+  const handleUpdateQuote = async ({ id, formData }) => {
+    try {
+      await dispatch(updateData({ id, formData }));
+      dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
+      dispatch(clearQuoteUpdateData());
+      handleToggleModal();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

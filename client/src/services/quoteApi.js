@@ -23,19 +23,23 @@ export const saveData = createAsyncThunk(
     }
   }
 );
-export const updateData = createAsyncThunk("update", async (id, quoteData) => {
-  console.log(quoteData);
-  try {
-    const response = await Axios.patch(`${url}/update/${id}`, {
-      quoteData: quoteData.quote,
-      authorData: quoteData.author,
-      favoriteQuote: quoteData.favorite,
-    });
-    return response;
-  } catch (error) {
-    throw new Error("Request failed:", error.message);
+export const updateData = createAsyncThunk(
+  "update",
+  async ({ id, formData }) => {
+    console.log(formData);
+    try {
+      const response = await Axios.patch(`${url}/update/${id}`, {
+        quoteData: formData.quote,
+        authorData: formData.author,
+        favoriteQuote: formData.favorite,
+      });
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      throw new Error("Request failed:", error.message);
+    }
   }
-});
+);
 export const updateHeartStateApi = createAsyncThunk(
   "updateHeart",
   async (id, quoteData, favoriteQuote) => {

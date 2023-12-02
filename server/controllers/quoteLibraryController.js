@@ -119,12 +119,10 @@ const updateQuote = async (req, res) => {
     if (favoriteQuote === false) {
       return res.status(200).json({
         message: "Quote updated in Library",
-        updatedQuote: quote,
       });
     } else {
       return res.status(200).json({
         message: "Quote updated in Favorites",
-        updatedQuote: quote,
       });
     }
   } catch (error) {

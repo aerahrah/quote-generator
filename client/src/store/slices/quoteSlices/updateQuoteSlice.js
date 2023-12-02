@@ -4,6 +4,7 @@ const updateQuoteSlice = createSlice({
   name: "search",
   initialState: {
     isUpdateModalOpen: false,
+    isAddModalOpen: false,
     quoteData: "",
     message: "",
     status: "",
@@ -12,6 +13,9 @@ const updateQuoteSlice = createSlice({
   reducers: {
     toggleUpdateModalOpen: (state) => {
       state.isUpdateModalOpen = !state.isUpdateModalOpen;
+    },
+    toggleAddModalOpen: (state) => {
+      state.isAddModalOpen = !state.isAddModalOpen;
     },
     setQuoteUpdateData: (state, action) => {
       state.quoteData = action.payload;
@@ -39,8 +43,9 @@ const updateQuoteSlice = createSlice({
 
 export const {
   toggleUpdateModalOpen,
-
-  setQuoteId,
+  toggleAddModalOpen,
   setQuoteUpdateData,
+  clearQuoteUpdateData,
 } = updateQuoteSlice.actions;
+
 export default updateQuoteSlice.reducer;
