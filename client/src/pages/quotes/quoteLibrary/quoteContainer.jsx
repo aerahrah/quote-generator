@@ -1,5 +1,5 @@
 import QuoteList from "../quotesComponent/quoteList";
-import UpdateQuoteModal from "../quotesComponent/updateQuoteModal";
+import UpdateQuoteModal from "../quotesComponent/updateQuote";
 import { useDispatch, useSelector } from "react-redux";
 const QuoteContainer = ({
   heartState,

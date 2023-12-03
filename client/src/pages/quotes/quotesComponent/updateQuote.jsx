@@ -4,7 +4,7 @@ import { updateData } from "../../../services/quoteApi";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleUpdateModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import { searchSelector } from "../../../store/selector/searchSelector";
-import QuoteModalContent from "../quotesComponent/quoteModalContent";
+import QuoteModalContent from "./quoteModalContent";
 import { clearQuoteUpdateData } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import { fetchAllData } from "../../../services/quoteApi";
 

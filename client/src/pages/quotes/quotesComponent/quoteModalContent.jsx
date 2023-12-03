@@ -56,16 +56,26 @@ const QuoteModalContent = ({
             <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-gray-800 p-4 px-6 rounded-lg text-gray-300 z-50">
               <form
                 className="flex flex-col gap-4"
-                onSubmit={handleSubmit((formData) =>
-                  handleAddOrUpdateQuote({
-                    id: quoteData.Id,
-                    formData: {
-                      ...formData,
-                      favorite: quoteData.Favorite,
-                      origin: quoteData.Origin,
-                    },
-                  })
-                )}
+                onSubmit={handleSubmit((formData) => {
+                  console.log("Handling submit", formData);
+                  modalType === "update"
+                    ? handleAddOrUpdateQuote({
+                        id: quoteData.Id,
+                        formData: {
+                          ...formData,
+                          favorite: quoteData.Favorite,
+                          origin: quoteData.Origin,
+                        },
+                      })
+                    : handleAddOrUpdateQuote({
+                        id: quoteData.Id,
+                        quoteData: {
+                          ...formData,
+                          favorite: false,
+                          origin: "original",
+                        },
+                      });
+                })}
               >
                 <div className="flex flex-col gap-1">
                   <label className="text-start font-semibold text-lg">

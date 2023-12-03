@@ -43,8 +43,11 @@ const RandomQuoteGenerator = () => {
     if (heartState === "save") {
       await dispatch(
         saveData({
-          quoteData: { ...staticQuoteData, origin: "generated" },
-          favoriteQuote: true,
+          quoteData: {
+            ...staticQuoteData,
+            origin: "generated",
+            favorite: true,
+          },
         })
       );
       setHeartState("unsave");
@@ -60,8 +63,11 @@ const RandomQuoteGenerator = () => {
     if (addQuoteState === "add") {
       await dispatch(
         saveData({
-          quoteData: { ...staticQuoteData, origin: "generated" },
-          favoriteQuote: false,
+          quoteData: {
+            ...staticQuoteData,
+            origin: "generated",
+            favorite: false,
+          },
         })
       );
       setAddQuoteState("remove");

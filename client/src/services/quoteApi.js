@@ -7,14 +7,14 @@ export const saveData = createAsyncThunk(
   "add",
   async ({ quoteData, favoriteQuote }) => {
     console.log(quoteData);
-    console.log(favoriteQuote);
+
     try {
       const response = await Axios.post(`${url}/add`, {
         quoteData: quoteData.quote,
         authorData: quoteData.author,
         categoryData: quoteData.category,
         originData: quoteData.origin,
-        favoriteQuote: favoriteQuote,
+        favoriteQuote: quoteData.favorite,
       });
       console.log(response);
       return response.data;

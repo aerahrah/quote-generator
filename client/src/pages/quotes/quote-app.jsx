@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { searchSelector } from "../../store/selector/searchSelector";
 import { useDispatch, useSelector } from "react-redux";
-import Spinner from "../../components/utilsComponent/spinner";
 import { fetchAllData, updateHeartStateApi } from "../../services/quoteApi";
+import Spinner from "../../components/utilsComponent/spinner";
 import QuoteContainer from "./quoteLibrary/quoteContainer";
-import AddQuoteIcon from "./quoteLibrary/addQuoteIcon";
+import AddQuoteIcon from "./quoteLibrary/addQuote";
 import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
 
 const QuoteApp = ({ activeSection }) => {
