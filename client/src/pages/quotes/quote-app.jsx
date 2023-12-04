@@ -3,6 +3,7 @@ import { searchSelector } from "../../store/selector/searchSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllData } from "../../services/quoteApi";
 import { setHeartState } from "../../store/slices/quoteSlices/updateQuoteSlice";
+import { handleRefetchData } from "../../store/slices/quoteSlices/fetchAllQuoteSlice";
 import Spinner from "../../components/utilsComponent/spinner";
 import QuoteContainer from "./quoteLibrary/quoteContainer";
 import AddQuoteIcon from "./quoteLibrary/addQuote";
@@ -12,12 +13,7 @@ const QuoteApp = ({ activeSection }) => {
   const dispatch = useDispatch();
   const { searchTerm, filterCategory, filterOrigin } =
     useSelector(searchSelector);
-
-  const fetchAllQuoteStatus = useSelector(
-    (state) => state.fetchAllQuote.status
-  );
-
-  const [updateTrigger, setUpdateTrigger] = useState(false);
+  const { refetchData, status } = useSelector((state) => state.fetchAllQuote);
 
   const handlefetchAllQuotes = async () => {
     try {
@@ -27,8 +23,8 @@ const QuoteApp = ({ activeSection }) => {
     }
   };
 
-  const handleOnChange = () => {
-    setUpdateTrigger((prevTrigger) => !prevTrigger);
+  const handleRefetchQuote = () => {
+    dispatch(handleRefetchData());
   };
 
   useEffect(() => {
@@ -39,15 +35,15 @@ const QuoteApp = ({ activeSection }) => {
     }
 
     handlefetchAllQuotes();
-  }, [activeSection, updateTrigger]);
+  }, [activeSection, refetchData]);
 
   return (
     <div className="min-h-screen bg-gray-900 py-4">
-      {fetchAllQuoteStatus === "loading" ? (
+      {status === "loading" ? (
         <Spinner />
       ) : (
         <div className="mt-[75px] px-4 md:px-12 lg:px-24 xl:px-36">
-          <FilterSortSearchPanel handleOnChange={handleOnChange} />
+          <FilterSortSearchPanel handleOnChange={handleRefetchQuote} />
           <div>
             {activeSection === "quoteLibrary" && (
               <div className="fixed z-10 bottom-[2rem] right-[2rem] md:bottom-[4rem] md:right-[4rem] lg:bottom-[4rem] lg:right-[6rem]">

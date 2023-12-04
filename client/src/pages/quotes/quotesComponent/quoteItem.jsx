@@ -6,22 +6,20 @@ import {
   fetchAllData,
   updateHeartStateApi,
 } from "../../../services/quoteApi";
-import { searchSelector } from "../../../store/selector/searchSelector";
 import {
   setQuoteUpdateData,
   toggleUpdateModalOpen,
 } from "../../../store/slices/quoteSlices/updateQuoteSlice";
+import { handleRefetchData } from "../../../store/slices/quoteSlices/fetchAllQuoteSlice";
 
 const QuoteItem = ({ data }) => {
   const dispatch = useDispatch();
   const { heartState } = useSelector((state) => state.updateQuote);
-  const { searchTerm, filterCategory, filterOrigin } =
-    useSelector(searchSelector);
 
   const handleDeleteQuote = async (id) => {
     try {
       await dispatch(deleteData(id));
-      dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
+      dispatch(handleRefetchData());
     } catch (error) {
       console.log(error);
     }
@@ -30,7 +28,7 @@ const QuoteItem = ({ data }) => {
   const handleUpdateHeartState = async ({ quoteData }) => {
     try {
       await dispatch(updateHeartStateApi({ quoteData }));
-      dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
+      dispatch(handleRefetchData());
     } catch (error) {
       console.log(error);
     }

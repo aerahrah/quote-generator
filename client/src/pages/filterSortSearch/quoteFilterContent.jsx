@@ -1,9 +1,6 @@
-const QuoteFilterContent = ({
-  handleChangeFilter,
-  Popover,
-  Transition,
-  filterOptions,
-}) => {
+import { Popover, Transition } from "@headlessui/react";
+
+const QuoteFilterContent = ({ handleChangeFilter, filterOptions }) => {
   return (
     <Transition
       enter="transition duration-100 ease-out"

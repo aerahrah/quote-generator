@@ -42,8 +42,6 @@ const QuoteFilterOrigin = ({ handleOnChange, filterBy }) => {
         </Popover.Button>
         <QuoteFilterContent
           handleChangeFilter={handleChangeFilter}
-          Popover={Popover}
-          Transition={Transition}
           filterOptions={originOptions}
         />
       </Popover>

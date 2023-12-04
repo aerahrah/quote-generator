@@ -45,8 +45,6 @@ const QuoteFilterCategory = ({ handleOnChange, filterBy }) => {
         </Popover.Button>
         <QuoteFilterContent
           handleChangeFilter={handleChangeFilter}
-          Popover={Popover}
-          Transition={Transition}
           filterOptions={categoryOptions}
         />
       </Popover>

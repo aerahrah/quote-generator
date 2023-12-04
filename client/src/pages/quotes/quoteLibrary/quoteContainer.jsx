@@ -1,9 +1,7 @@
 import QuoteList from "../quotesComponent/quoteList";
-import UpdateQuoteModal from "../quotesComponent/updateQuote";
+import UpdateQuoteModal from "./updateQuote";
 import { useDispatch, useSelector } from "react-redux";
-const QuoteContainer = ({
-  favoriteMode,
-}) => {
+const QuoteContainer = ({ favoriteMode }) => {
   const quoteData = useSelector((state) => state.fetchAllQuote.data);
   const filteredQuote = quoteData.filter(({ Favorite }) =>
     favoriteMode ? Favorite : !Favorite
@@ -19,9 +17,7 @@ const QuoteContainer = ({
           <p className="whitespace-nowrap	"> {noQuoteMessage} </p>
         </div>
       ) : (
-        <QuoteList
-          quoteData={filteredQuote}
-        />
+        <QuoteList quoteData={filteredQuote} />
       )}
       <UpdateQuoteModal />
     </div>

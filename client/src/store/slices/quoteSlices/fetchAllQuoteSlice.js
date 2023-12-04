@@ -4,11 +4,16 @@ import { fetchAllData } from "../../../services/quoteApi";
 const fetchAllQuoteSlice = createSlice({
   name: "fetchAllQuote",
   initialState: {
+    refetchData: false,
     data: null,
     status: "loading",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    handleRefetchData: (state) => {
+      state.refetchData = !state.refetchData;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllData.pending, (state) => {
@@ -26,4 +31,5 @@ const fetchAllQuoteSlice = createSlice({
   },
 });
 
+export const { handleRefetchData } = fetchAllQuoteSlice.actions;
 export default fetchAllQuoteSlice.reducer;

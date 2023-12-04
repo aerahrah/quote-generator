@@ -3,16 +3,13 @@ import { Fragment, useState } from "react";
 import { updateData } from "../../../services/quoteApi";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleUpdateModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
-import { searchSelector } from "../../../store/selector/searchSelector";
-import QuoteModalContent from "./quoteModalContent";
 import { clearQuoteUpdateData } from "../../../store/slices/quoteSlices/updateQuoteSlice";
+import { handleRefetchData } from "../../../store/slices/quoteSlices/fetchAllQuoteSlice";
 import { fetchAllData } from "../../../services/quoteApi";
+import QuoteModalContent from "../quotesComponent/quoteModalContent";
 
 const UpdateQuoteModal = () => {
   const dispatch = useDispatch();
-  const { searchTerm, filterCategory, filterOrigin } =
-    useSelector(searchSelector);
-
   const { isUpdateModalOpen } = useSelector((state) => state.updateQuote);
 
   const handleToggleModal = () => {
@@ -22,7 +19,7 @@ const UpdateQuoteModal = () => {
   const handleUpdateQuote = async ({ id, formData }) => {
     try {
       await dispatch(updateData({ id, formData }));
-      dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
+      dispatch(handleRefetchData());
       dispatch(clearQuoteUpdateData());
       handleToggleModal();
     } catch (error) {
