@@ -3,26 +3,21 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const url = "http://localhost:3500/quote";
 
-export const saveData = createAsyncThunk(
-  "add",
-  async ({ quoteData, favoriteQuote }) => {
-    console.log(quoteData);
-
-    try {
-      const response = await Axios.post(`${url}/add`, {
-        quoteData: quoteData.quote,
-        authorData: quoteData.author,
-        categoryData: quoteData.category,
-        originData: quoteData.origin,
-        favoriteQuote: quoteData.favorite,
-      });
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      throw new Error("Request failed:", error.message);
-    }
+export const saveData = createAsyncThunk("add", async ({ quoteData }) => {
+  try {
+    const response = await Axios.post(`${url}/add`, {
+      quoteData: quoteData.quote,
+      authorData: quoteData.author,
+      categoryData: quoteData.category,
+      originData: quoteData.origin,
+      favoriteQuote: quoteData.favorite,
+    });
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    throw new Error("Request failed:", error.message);
   }
-);
+});
 export const updateData = createAsyncThunk(
   "update",
   async ({ id, formData }) => {
@@ -42,14 +37,14 @@ export const updateData = createAsyncThunk(
 );
 export const updateHeartStateApi = createAsyncThunk(
   "updateHeart",
-  async (id, quoteData, favoriteQuote) => {
+  async ({ quoteData }) => {
     try {
-      const response = await Axios.patch(`${url}/update/${id}`, {
+      const response = await Axios.patch(`${url}/update/${quoteData.Id}`, {
         quoteData: quoteData.Quote,
         authorData: quoteData.Author,
-        favoriteQuote: favoriteQuote,
+        favoriteQuote: quoteData.Favorite,
       });
-      return response;
+      return response.data;
     } catch (error) {
       throw new Error("Request failed:", error.message);
     }

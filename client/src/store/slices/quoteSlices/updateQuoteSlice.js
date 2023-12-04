@@ -5,6 +5,7 @@ const updateQuoteSlice = createSlice({
   initialState: {
     isUpdateModalOpen: false,
     isAddModalOpen: false,
+    heartState: "",
     quoteData: "",
     message: "",
     status: "",
@@ -16,6 +17,9 @@ const updateQuoteSlice = createSlice({
     },
     toggleAddModalOpen: (state) => {
       state.isAddModalOpen = !state.isAddModalOpen;
+    },
+    setHeartState: (state, action) => {
+      state.heartState = action.payload;
     },
     setQuoteUpdateData: (state, action) => {
       state.quoteData = action.payload;
@@ -37,6 +41,18 @@ const updateQuoteSlice = createSlice({
       .addCase(updateData.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(updateHeartStateApi.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateHeartStateApi.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.message = action.payload;
+        state.error = null;
+      })
+      .addCase(updateHeartStateApi.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
@@ -46,6 +62,7 @@ export const {
   toggleAddModalOpen,
   setQuoteUpdateData,
   clearQuoteUpdateData,
+  setHeartState,
 } = updateQuoteSlice.actions;
 
 export default updateQuoteSlice.reducer;

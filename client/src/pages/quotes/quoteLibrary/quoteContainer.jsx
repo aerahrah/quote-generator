@@ -2,9 +2,6 @@ import QuoteList from "../quotesComponent/quoteList";
 import UpdateQuoteModal from "../quotesComponent/updateQuote";
 import { useDispatch, useSelector } from "react-redux";
 const QuoteContainer = ({
-  heartState,
-  setHeartState,
-  updateHeartState,
   favoriteMode,
 }) => {
   const quoteData = useSelector((state) => state.fetchAllQuote.data);
@@ -24,9 +21,6 @@ const QuoteContainer = ({
       ) : (
         <QuoteList
           quoteData={filteredQuote}
-          heartState={heartState}
-          setHeartState={setHeartState}
-          updateHeartState={updateHeartState}
         />
       )}
       <UpdateQuoteModal />

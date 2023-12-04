@@ -3,7 +3,6 @@ import {
   saveData,
   deleteData,
   updateData,
-  fetchAllData,
 } from "../../../services/quoteApi";
 const quoteSlice = createSlice({
   name: "quote",

@@ -33,10 +33,14 @@ const RandomQuoteGenerator = () => {
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleFetchData = async () => {
-    dispatch(fetchData());
-    setAddQuoteState("add");
-    setHeartState("save");
-    dispatch(clearMessage());
+    try {
+      dispatch(fetchData());
+      setAddQuoteState("add");
+      setHeartState("save");
+      dispatch(clearMessage());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleToggleSaveFavorite = async (id) => {

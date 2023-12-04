@@ -1,26 +1,31 @@
 import { FaPen } from "react-icons/fa";
-import { saveData } from "../../../services/quoteApi";
+import { saveData, fetchAllData } from "../../../services/quoteApi";
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAddModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
+import { searchSelector } from "../../../store/selector/searchSelector";
 import QuoteModalContent from "../quotesComponent/quoteModalContent";
 
 const AddQuoteIcon = () => {
   const dispatch = useDispatch();
   const { isAddModalOpen } = useSelector((state) => state.updateQuote);
+  const { searchTerm, filterCategory, filterOrigin } =
+    useSelector(searchSelector);
   const handleToggleModal = () => {
     dispatch(toggleAddModalOpen());
   };
 
-  const handleAddQuote = (userInfo) => {
+  const handleAddQuote = async (userInfo) => {
     try {
-      dispatch(saveData(userInfo));
+      await dispatch(saveData(userInfo));
+      dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
       handleToggleModal();
     } catch (error) {
       console.log(error);
     }
   };
+
 
   return (
     <div>
