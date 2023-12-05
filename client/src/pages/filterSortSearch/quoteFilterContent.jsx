@@ -14,7 +14,7 @@ const QuoteFilterContent = ({ handleChangeFilter, filterOptions }) => {
         {filterOptions.map((category) => (
           <Popover.Button
             key={category.value}
-            className="hover:font-semibold hover:border-blue-950 border-b-[1px] border-gray-800 hover:bg-gray-700 min-w-[120px] w-full whitespace-nowrap px-4 text-left pb-1 capitalize"
+            className="hover:border-blue-950 border-b-[1px] outline-0 border-gray-800 hover:bg-gray-700 min-w-[120px] w-full whitespace-nowrap px-6 text-left py-1/2 capitalize"
             onClick={() => handleChangeFilter(category.value)}
           >
             {category.label}

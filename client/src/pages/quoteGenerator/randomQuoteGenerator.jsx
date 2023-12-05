@@ -30,11 +30,15 @@ const RandomQuoteGenerator = () => {
 
   const [heartState, setHeartState] = useState("save");
   const [addQuoteState, setAddQuoteState] = useState("add");
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState("all category");
 
   const handleFetchData = async () => {
     try {
-      dispatch(fetchData());
+      if (selectedOption === "all category") {
+        dispatch(fetchData());
+      } else {
+        dispatch(fetchData(selectedOption));
+      }
       setAddQuoteState("add");
       setHeartState("save");
       dispatch(clearMessage());

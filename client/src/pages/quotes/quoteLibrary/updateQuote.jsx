@@ -18,6 +18,7 @@ const UpdateQuoteModal = () => {
 
   const handleUpdateQuote = async ({ id, formData }) => {
     try {
+      console.log(formData);
       await dispatch(updateData({ id, formData }));
       dispatch(handleRefetchData());
       dispatch(clearQuoteUpdateData());

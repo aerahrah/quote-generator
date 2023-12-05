@@ -21,12 +21,13 @@ export const saveData = createAsyncThunk("add", async ({ quoteData }) => {
 export const updateData = createAsyncThunk(
   "update",
   async ({ id, formData }) => {
-    console.log(formData);
+    console.log(formData.category);
     try {
       const response = await Axios.patch(`${url}/update/${id}`, {
         quoteData: formData.quote,
         authorData: formData.author,
         favoriteQuote: formData.favorite,
+        categoryQuote: formData.category,
       });
       console.log(response);
       return response.data;

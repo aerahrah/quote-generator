@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSelector } from "react-redux";
+import { categoryOptions } from "../../../utils/filterOptions";
 import * as yup from "yup";
 
 const QuoteModalContent = ({
@@ -14,6 +15,7 @@ const QuoteModalContent = ({
   const schema = yup.object().shape({
     author: yup.string().required("author is required"),
     quote: yup.string().required("quote must not be empty"),
+    category: yup.string().required("author is required"),
   });
 
   console.log(quoteData);
@@ -24,8 +26,9 @@ const QuoteModalContent = ({
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      author: quoteData.Author,
-      quote: quoteData.Quote,
+      author: modalType === "update" ? quoteData.Author : "",
+      quote: modalType === "update" ? quoteData.Quote : "",
+      category: modalType === "update" ? quoteData.Category : "all category",
     },
   });
 
@@ -57,7 +60,6 @@ const QuoteModalContent = ({
               <form
                 className="flex flex-col gap-4"
                 onSubmit={handleSubmit((formData) => {
-                  console.log("Handling submit", formData);
                   modalType === "update"
                     ? handleAddOrUpdateQuote({
                         id: quoteData.Id,
@@ -95,6 +97,28 @@ const QuoteModalContent = ({
                   </div>
                 </div>
                 <div className="flex flex-col gap-1">
+                  <label className="text-start font-semibold text-lg ">
+                    Category:
+                  </label>
+                  <div className="block self-start relative text-lg bg-gray-900 outline-0 px-1 py-1 rounded-md">
+                    <select
+                      id="selectInput"
+                      {...register("category")}
+                      className="bg-transparent capitalize focus:outline-none"
+                    >
+                      {categoryOptions.map(({ label, value }) => (
+                        <option
+                          key={value}
+                          className="bg-gray-800 capitalize"
+                          value={value}
+                        >
+                          {label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1">
                   <label className="text-start font-semibold text-lg">
                     Quote:
                   </label>
@@ -113,21 +137,20 @@ const QuoteModalContent = ({
                     </p>
                   </div>
                 </div>
-                <div className="flex justify-between items-center">
-                  <button
-                    className="hover:text-red-500 transform hover:scale-[1.02] bg-gray-900  py-2 px-10 rounded-lg  transition duration-[30ms]"
-                    onClick={handleToggleModal}
-                  >
-                    Cancel
-                  </button>
-
+                <div className="flex justify-end items-center ">
                   <input
-                    className="hover:text-blue-500 transform hover:scale-[1.02] bg-gray-900  py-2 px-10 rounded-lg  transition duration-[30ms]"
+                    className="hover:text-blue-500 transform hover:scale-[1.02] bg-gray-900  py-2 px-8 sm:px-10 md:px-12 rounded-lg  transition duration-[30ms] capitalize  md:w-36"
                     type="submit"
                     value={modalType === "update" ? "update" : "add"}
                   />
                 </div>
               </form>
+              <button
+                className="absolute bottom-[1rem] hover:text-red-500 transform hover:scale-[1.02] bg-gray-900 md:w-36 py-2 px-8 sm:px-10 md:px-12 rounded-lg  transition duration-[30ms]"
+                onClick={handleToggleModal}
+              >
+                Cancel
+              </button>
             </Dialog.Panel>
           </Transition.Child>
         </div>

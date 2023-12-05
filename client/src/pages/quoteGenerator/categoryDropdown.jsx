@@ -1,37 +1,24 @@
+import { Popover, Transition } from "@headlessui/react";
+import { categoryOptions } from "../../utils/filterOptions";
+import { FaAngleDown } from "react-icons/fa";
+import QuoteFilterContent from "../filterSortSearch/quoteFilterContent";
+
 const CategoryDropdown = ({ selectedOption, setSelectedOption }) => {
   return (
-    <div className="w-full m-auto flex justify-center items-center text-lg text-gray-200 mb-6">
-      <label htmlFor="selectInput" className="mr-2">
-        Quote Category:
-      </label>
-      <select
-        id="selectInput"
-        value={selectedOption}
-        onChange={(e) => setSelectedOption(e.target.value)}
-        className="rounded px-2 py-1 bg-transparent focus:outline-none"
-      >
-        <option className="bg-gray-800" value="">
-          Random
-        </option>
-        <option className="bg-gray-800" value="happiness">
-          Happy
-        </option>
-        <option className="bg-gray-800" value="anger">
-          Anger
-        </option>
-        <option className="bg-gray-800" value="courage">
-          Courage
-        </option>
-        <option className="bg-gray-800" value="fitness">
-          Fitness
-        </option>
-        <option className="bg-gray-800" value="love">
-          Love
-        </option>
-        <option className="bg-gray-800" value="history">
-          History
-        </option>
-      </select>
+    <div className="w-full m-auto flex justify-center gap-1 items-center text-lg text-gray-200 mb-6">
+      <label htmlFor="selectInput">Quote Category:</label>
+      <Popover className="relative z-10">
+        <Popover.Button className="w-full border-[1px] border-gray-800 text-gray-300  bg-gray-950/70 rounded-full p-2">
+          <div className="flex items-center justify-between">
+            <p className="capitalize px-1">{selectedOption}</p>
+            <FaAngleDown />
+          </div>
+        </Popover.Button>
+        <QuoteFilterContent
+          handleChangeFilter={setSelectedOption}
+          filterOptions={categoryOptions}
+        />
+      </Popover>
     </div>
   );
 };
