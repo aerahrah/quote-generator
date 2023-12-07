@@ -6,10 +6,13 @@ import App from "./App.jsx";
 import "./index.css";
 import store from "./store/store.js";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>
-);
+const Root = () => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  );
+};
+ReactDOM.createRoot(document.getElementById("root")).render(<Root />);

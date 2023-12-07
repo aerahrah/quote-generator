@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { setSearchTerm } from "../../store/slices/searchSlices";
+import { setSearchTerm } from "../../../store/slices/searchSlices";
 
 const SearchBar = ({ handleOnChange, searchTerm }) => {
   const dispatch = useDispatch();

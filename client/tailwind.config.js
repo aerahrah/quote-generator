@@ -10,15 +10,9 @@ export default {
   theme: {
     screens: {
       sm: "348px",
-      // => @media (min-width: 640px) { ... }
       md: "648px",
-      // => @media (min-width: 768px) { ... }
-
       lg: "1024px",
-      // => @media (min-width: 1024px) { ... }
-
       xl: "1280px",
-      // => @media (min-width: 1280px) { ... }
     },
     minWidth: {
       0: "0",
@@ -67,4 +61,5 @@ export default {
     },
   },
   plugins: [require("tailwind-scrollbar")],
+  darkMode: "class",
 };

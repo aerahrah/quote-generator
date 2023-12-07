@@ -7,7 +7,7 @@ import { handleRefetchData } from "../../store/slices/quoteSlices/fetchAllQuoteS
 import Spinner from "../../components/utilsComponent/spinner";
 import QuoteContainer from "./quoteLibrary/quoteContainer";
 import AddQuoteIcon from "./quoteLibrary/addQuote";
-import FilterSortSearchPanel from "../filterSortSearch/filterSortSearchPanel";
+import FilterSortSearchPanel from "./filterSortSearch/filterSortSearchPanel";
 
 const QuoteApp = ({ activeSection }) => {
   const dispatch = useDispatch();

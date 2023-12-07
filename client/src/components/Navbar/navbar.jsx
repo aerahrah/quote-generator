@@ -2,6 +2,7 @@ import { deleteCookie } from "../../utils/cookieUtils";
 import { useNavigate } from "react-router-dom";
 import { FaBars, FaRegHeart, FaSignOutAlt } from "react-icons/fa";
 import { GoLightBulb, GoBook } from "react-icons/go";
+import ToggleDarkMode from "../darkMode/toggleDarkMode";
 import NavBarMobile from "./navbarMobile";
 
 const NavBar = ({ activeSection, setActiveSection }) => {
@@ -33,6 +34,7 @@ const NavBar = ({ activeSection, setActiveSection }) => {
       <div className="hidden md:flex w-[80vw] justify-between mx-auto min-h-nav items-center">
         <h1 className="text-2xl font-bold">QG</h1>
         <ul className="flex font-thin text-lg w-[40%] items-center justify-end gap-10">
+          <ToggleDarkMode />
           {menuItems.map(({ section, icon, label }) => (
             <li
               key={section}

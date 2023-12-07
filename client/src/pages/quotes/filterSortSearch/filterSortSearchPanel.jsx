@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { searchSelector } from "../../store/selector/searchSelector";
+import { searchSelector } from "../../../store/selector/searchSelector";
 import QuoteFilterCategory from "./quoteFilterCategory";
 import QuoteFilterOrigin from "./quoteFilterOrigin.jsx";
 import SearchBar from "./searchBar";

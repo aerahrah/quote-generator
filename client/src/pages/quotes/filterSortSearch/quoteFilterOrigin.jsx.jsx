@@ -1,8 +1,8 @@
 import { Popover, Transition } from "@headlessui/react";
 import { FaFilter, FaAngleDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { setFilterOrigin } from "../../store/slices/searchSlices";
-import { originOptions } from "../../utils/filterOptions";
+import { setFilterOrigin } from "../../../store/slices/searchSlices";
+import { originOptions } from "../../../utils/filterOptions";
 import QuoteFilterContent from "./quoteFilterContent";
 
 const QuoteFilterOrigin = ({ handleOnChange, filterBy }) => {

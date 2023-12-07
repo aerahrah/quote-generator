@@ -1,7 +1,7 @@
-import { Popover, Transition } from "@headlessui/react";
+import { Popover } from "@headlessui/react";
 import { categoryOptions } from "../../utils/filterOptions";
 import { FaAngleDown } from "react-icons/fa";
-import QuoteFilterContent from "../filterSortSearch/quoteFilterContent";
+import QuoteFilterContent from "../quotes/filterSortSearch/quoteFilterContent";
 
 const CategoryDropdown = ({ selectedOption, setSelectedOption }) => {
   return (
