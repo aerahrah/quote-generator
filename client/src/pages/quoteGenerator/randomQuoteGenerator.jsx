@@ -90,7 +90,7 @@ const RandomQuoteGenerator = () => {
   }, [selectedOption]);
 
   return (
-    <div className="mt-32 bg-gray-900 px-4">
+    <div className="pt-32 h-full bg-neutral-50 dark:bg-neutral-900 px-4">
       <CategoryDropdown
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}

@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply mb-3 p-2 rounded shadow-sm hover:bg-opacity-75 focus:shadow-md transition duration-100 ease-in-out;
+    @apply mb-3 p-2 rounded shadow-sm dark:hover:bg-opacity-75 focus:shadow-md transition duration-100 ease-in-out;
   }
   .input-box {
     @apply text-gray-800 w-full p-2 rounded outline outline-1 outline-blue-500 shadow-inner;
