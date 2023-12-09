@@ -21,15 +21,15 @@ const NavBarMobile = ({
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <Popover.Panel className="md:hidden absolute right-0 top-[1rem] p-4 rounded-md mt-3 w-screen max-w-xs transform bg-gray-900 shadow-md border-[1px] border-gray-800">
+        <Popover.Panel className="md:hidden absolute right-0 top-[1rem] p-4 rounded-md mt-3 w-[85vw] max-w-xs transform text-neutral-700 bg-neutral-50 dark:bg-neutral-800 dark:text-neutral-300  shadow-md">
           <div className="flex flex-col items-start z-30 gap-4">
             {menuItems.map(({ section, icon, label }) => (
               <Popover.Button
                 key={section}
                 className={`hover:opacity-70 hover:cursor-pointer text-left p-1 w-full border-b-[1px] capitalize text-lg  ${
                   activeSection === section
-                    ? "border-gray-500 font-semibold text-gray-400"
-                    : "border-gray-700 text-gray-500"
+                    ? "border-neutral-500 font-semibold text-neutral-700 dark:text-neutral-300"
+                    : "border-neutral-700 text-neutral-500"
                 }`}
                 onClick={() => setActiveSection(section)}
               >
@@ -41,11 +41,11 @@ const NavBarMobile = ({
             ))}
 
             <Popover.Button
-              className=" hover:text-red-400 text-left capitalize cursor-pointer p-1 mt-4  text-gray-500 text-lg "
+              className=" hover:text-red-400 text-left capitalize cursor-pointer p-1 mt-4  text-neutral-500 text-lg "
               onClick={handleLogout}
             >
               <div className="flex gap-2 items-center ">
-                <FaSignOutAlt className="text-gray-500" />
+                <FaSignOutAlt className="text-neutral-500" />
                 <h1 className="font-normal">logout</h1>
               </div>
             </Popover.Button>

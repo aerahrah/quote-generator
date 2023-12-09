@@ -64,11 +64,11 @@ const AuthContent = ({ authType, handleAuth }) => {
     <div className="bg-neutral-50 text-neutral-700 dark:text-neutral-300 dark:bg-neutral-900">
       <menu className="w-full mx-auto h-screen text-center p-4 md:p-8 max-w-[1064px]">
         <div className="flex items-center gap-8 lg:gap-12 flex-col justify-center w-full m-auto h-full -translate-y-8 lg:flex-row ">
-          <div className="w-full flex flex-col gap-8 items-start">
+          <div className="w-full flex flex-col gap-8 lg:items-start items-center">
             <h1 className="text-blue-950 dark:text-blue-400 text-5xl md:text-6xl lg:text-7xl font-black capitalize ">
               QuoteHarbor
             </h1>
-            <p className="max-w-[40rem] text-lg text-start ml-2">
+            <p className="max-w-[40rem] text-lg text-center  lg:text-start ml-2">
               Elevate your day with inspirational quotes. Curate your favorite
               quotes, personalize your collection, and discover wisdom that
               resonates with you.

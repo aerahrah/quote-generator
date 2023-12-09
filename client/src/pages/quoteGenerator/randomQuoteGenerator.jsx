@@ -3,6 +3,8 @@ import {
   FaHeart,
   FaPlusCircle,
   FaMinusCircle,
+  FaQuoteLeft,
+  FaQuoteRight,
 } from "react-icons/fa";
 import {
   selectQuote,
@@ -14,6 +16,7 @@ import {
   clearQuoteId,
   clearFavoriteQuoteId,
 } from "../../store/slices/quoteSlices/quoteSlices";
+import { getCategoryColor } from "../../utils/getCategoryColor";
 import { useState, useEffect } from "react";
 import { saveData, fetchData, deleteData } from "../../services/quoteApi";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,7 +93,7 @@ const RandomQuoteGenerator = () => {
   }, [selectedOption]);
 
   return (
-    <div className="pt-32 h-full bg-neutral-50 dark:bg-neutral-900 px-4">
+    <div className="pt-28 h-full bg-neutral-100 dark:bg-neutral-900 px-4">
       <CategoryDropdown
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
@@ -108,13 +111,13 @@ const RandomQuoteGenerator = () => {
                   <FaPlusCircle
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
-                    color="#0ea5e9"
+                    color={getCategoryColor(staticQuoteData.category)}
                   />
                 ) : (
                   <FaMinusCircle
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
-                    color="#0ea5e9"
+                    color={getCategoryColor(staticQuoteData.category)}
                   />
                 )}
               </button>
@@ -123,26 +126,42 @@ const RandomQuoteGenerator = () => {
                   <FaRegHeart
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
-                    color="#0ea5e9"
+                    color={getCategoryColor(staticQuoteData.category)}
                   />
                 ) : (
                   <FaHeart
                     className="transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
                     size={"24px"}
-                    color="#0ea5e9"
+                    color={getCategoryColor(staticQuoteData.category)}
                   />
                 )}
               </button>
             </div>
 
             <div className="flex flex-col mb-24">
-              <p className=" mt-6 md:mt-2 mb-8 !leading-relaxed text-xl md:text-2xl italic text-blue-400 ">
-                "{staticQuoteData.quote}"
+              <p
+                className=" mt-6 md:mt-2 mb-8 !leading-relaxed text-xl md:text-2xl"
+                style={{
+                  color: getCategoryColor(staticQuoteData.category),
+                }}
+              >
+                <span>
+                  <FaQuoteLeft className="inline h-5 w-5 mb-2" />
+                </span>
+                <span className="mx-3">{staticQuoteData.quote}</span>
+                <span>
+                  <FaQuoteRight className="inline h-5 w-5 mb-2" />
+                </span>
               </p>
-              <p className="text-md md:text-lg font-thin flex self-end text-blue-300">
+              <p
+                className="text-md md:text-lg font-thin flex self-end"
+                style={{
+                  color: getCategoryColor(staticQuoteData.category),
+                }}
+              >
                 - {staticQuoteData.author}
               </p>
-              <div className="text-center self-center absolute bottom-[1rem] ">
+              <div className="text-center self-center absolute bottom-[1rem] text-neutral-700 dark:text-neutral-300">
                 <div
                   className={`w-72 transition duration-200 ${
                     message ? "scale-100" : "scale-0"
@@ -152,7 +171,10 @@ const RandomQuoteGenerator = () => {
                 </div>
                 <Timer message={message} clearMessageFunction={clearMessage} />
                 <button
-                  className=" btn bg-green-400 text-gray-700 text-md md:text-lg font-semibold px-8 mx-auto rounded-xl"
+                  className=" btn text-neutral-100 text-md md:text-lg font-semibold px-8 mx-auto rounded-full"
+                  style={{
+                    background: getCategoryColor(staticQuoteData.category),
+                  }}
                   onClick={handleFetchData}
                 >
                   New Quote

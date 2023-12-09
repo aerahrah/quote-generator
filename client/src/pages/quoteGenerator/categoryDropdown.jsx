@@ -5,10 +5,10 @@ import QuoteFilterContent from "../quotes/filterSortSearch/quoteFilterContent";
 
 const CategoryDropdown = ({ selectedOption, setSelectedOption }) => {
   return (
-    <div className="w-full m-auto flex justify-center gap-1 items-center text-lg text-gray-200 mb-6">
+    <div className="w-full m-auto flex justify-center gap-2 items-center text-lg text-neutral-700 dark:text-neutral-300 mb-6">
       <label htmlFor="selectInput">Quote Category:</label>
       <Popover className="relative z-10">
-        <Popover.Button className="w-full border-[1px] border-gray-800 text-gray-300  bg-gray-950/70 rounded-full p-2">
+        <Popover.Button className="w-full ring-1 ring-neutral-300 dark:ring-neutral-700 rounded-full p-2">
           <div className="flex items-center justify-between">
             <p className="capitalize px-1">{selectedOption}</p>
             <FaAngleDown />
