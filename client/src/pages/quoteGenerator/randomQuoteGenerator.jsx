@@ -104,7 +104,7 @@ const RandomQuoteGenerator = () => {
             <Spinner />
           </div>
         ) : (
-          <div className="flex flex-col text-gray-200 ">
+          <div className="flex flex-col ">
             <div className="absolute top-[12px] right-[12px] flex gap-3 items-center">
               <button onClick={() => handleToggleSave(quoteId)}>
                 {addQuoteState === "add" ? (

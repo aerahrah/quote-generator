@@ -8,7 +8,7 @@ const FilterSortSearchPanel = ({ handleOnChange }) => {
   const { searchTerm, filterCategory, filterOrigin } =
     useSelector(searchSelector);
   return (
-    <div className={`m-0 shadow md:shadow-md flex items-center w-full`}>
+    <div className={`m-0 flex items-center w-full`}>
       <div className="flex items-center w-full">
         <QuoteFilterOrigin
           className=" flex-1"

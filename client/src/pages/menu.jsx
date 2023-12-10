@@ -7,7 +7,7 @@ const Menu = () => {
   const [activeSection, setActiveSection] = useState("generateQuote");
 
   return (
-    <div className="w-full h-screen box-border bg-gray-900 flex flex-col">
+    <div className="w-full h-screen box-border bg-neutral-100 dark:bg-neutral-900 flex flex-col">
       <NavBar
         activeSection={activeSection}
         setActiveSection={setActiveSection}

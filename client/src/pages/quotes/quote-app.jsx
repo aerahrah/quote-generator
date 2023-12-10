@@ -38,7 +38,7 @@ const QuoteApp = ({ activeSection }) => {
   }, [activeSection, refetchData]);
 
   return (
-    <div className="min-h-screen bg-gray-900 py-4">
+    <div className="min-h-screen bg-neutral-100 dark:bg-neutral-900 py-4">
       {status === "loading" ? (
         <Spinner />
       ) : (

@@ -1,11 +1,7 @@
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteData,
-  fetchAllData,
-  updateHeartStateApi,
-} from "../../../services/quoteApi";
+import { deleteData, updateHeartStateApi } from "../../../services/quoteApi";
 import {
   setQuoteUpdateData,
   toggleUpdateModalOpen,
@@ -34,10 +30,16 @@ const QuoteItem = ({ data }) => {
     }
   };
   return (
-    <div className="flex flex-col bg-gray-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-8 md:pt-10 mb-6 px-2 overflow-hidden cursor-pointer relative">
+    <div className="flex flex-col bg-white dark:bg-neutral-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-8 md:pt-10 mb-5 px-2 overflow-hidden cursor-pointer relative">
       {data.Quote && (
-        <p className="mb-4 md:mb-6 !leading-relaxed text-md md:text-lg italic text-blue-400 ">
-          "{data.Quote}"
+        <p className="mb-4 md:mb-6 !leading-relaxed text-md md:text-lg text-blue-400 ">
+          <span>
+            <FaQuoteLeft className="inline h-2.5 w-2.5 mb-2" />
+          </span>
+          <span className="mx-1.5">{data.Quote}</span>
+          <span>
+            <FaQuoteRight className="inline h-2.5 w-2.5 mb-2" />
+          </span>
         </p>
       )}
       {data.Author && (

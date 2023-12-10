@@ -16,7 +16,7 @@ const QuoteFilterCategory = ({ handleOnChange, filterBy }) => {
   return (
     <div className="mr-2 md:mr-4">
       <Popover className="relative z-10 sm:hidden">
-        <Popover.Button className="sm:hidden w-full p-2.5 border-[1px] bg-gray-950/70 border-gray-800 rounded-lg">
+        <Popover.Button className="sm:hidden w-full p-2.5 border-[1px] text-neutral-700 bg-neutral-200 border-neutral-300 dark:text-neutral-300 dark:bg-neutral-950/70 dark:border-neutral-800 rounded-lg">
           <FaListAlt className="text-gray-300" />
         </Popover.Button>
         <QuoteFilterContent
@@ -27,7 +27,7 @@ const QuoteFilterCategory = ({ handleOnChange, filterBy }) => {
         />
       </Popover>
       <Popover className="relative z-10">
-        <Popover.Button className=" w-full p-2 border-[1px] border-gray-800 text-gray-300  bg-gray-950/70 outline-0 rounded-full hidden sm:block">
+        <Popover.Button className=" w-full p-2 border-[1px] text-neutral-700 bg-neutral-200 border-neutral-300 dark:text-neutral-300 dark:bg-neutral-950/70 dark:border-neutral-800 outline-0 rounded-full hidden sm:block">
           <div className="flex items-center justify-between">
             <p className="capitalize whitespace-nowrap w-[90px] outline-0">
               {filterBy}

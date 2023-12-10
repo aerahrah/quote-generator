@@ -28,10 +28,10 @@ const AddQuoteIcon = () => {
   return (
     <div>
       <div
-        className="p-5 rounded-full cursor-pointer transform transition duration-100 hover:scale-[1.02]   hover:-translate-y-[3px] shadow-md hover:shadow-lg bg-gray-700 border-[1px] border-gray-900"
+        className="p-5 rounded-full cursor-pointer transform transition duration-100 hover:scale-[1.02]   hover:-translate-y-[3px] shadow-md hover:shadow-lg bg-white dark:bg-neutral-800 ring-1 ring-neutral-300 dark:ring-neutral-700"
         onClick={handleToggleModal}
       >
-        <FaPen className="text-blue-400" size="2rem" />
+        <FaPen className="text-purple-500" size="2rem" />
       </div>
 
       <div>

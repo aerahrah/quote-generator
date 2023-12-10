@@ -30,7 +30,7 @@ const NavBar = ({ activeSection, setActiveSection }) => {
   };
 
   return (
-    <div className="bg-neutral-100 dark:bg-neutral-800/60 shadow min-h-nav  text-neutral-700 dark:text-neutral-300 text capitalize fixed z-30 inset-x-0">
+    <div className="bg-neutral-100 dark:bg-neutral-800 shadow min-h-nav  text-neutral-700 dark:text-neutral-300 text capitalize fixed z-30 inset-x-0">
       <div className="hidden md:flex w-[80vw] justify-between mx-auto min-h-nav items-center">
         <h1 className="text-2xl font-bold">QG</h1>
         <ul className="flex font-thin text-lg w-[40%] items-center justify-end gap-10">

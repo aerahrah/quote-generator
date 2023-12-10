@@ -11,15 +11,15 @@ const SearchBar = ({ handleOnChange, searchTerm }) => {
     handleOnChange();
   };
   return (
-    <div>
+    <div className="w-full">
       <div className="relative flex items-center w-full py-3 mr-4 md:mr-6 ">
-        <FaSearch className="text-gray-300 absolute left-[.5rem]"></FaSearch>
+        <FaSearch className="text-neutral-500 dark:text-neutral-300 absolute left-[.75rem]" />
         <input
           type="text"
           value={searchTerm}
           onChange={handleChangeSearchTerm}
           placeholder="Search"
-          className="outline-0 w-full md:w-[40vw] lg:w-[50vw] p-2 pl-8 px-2  rounded-full text-gray-300  bg-gray-950/70 shadow-inner border-[1px] border-gray-800"
+          className="outline-0 w-full p-2 pl-10 px-2  shadow-inner border-[1px] border-neutral-300 rounded-full text-neutral-700 bg-neutral-200 dark:text-neutral-300  dark:bg-neutral-950/70 dark:border-neutral-800"
         />
       </div>
     </div>
