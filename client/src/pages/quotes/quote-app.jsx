@@ -13,6 +13,7 @@ const QuoteApp = ({ activeSection }) => {
   const dispatch = useDispatch();
   const { searchTerm, filterCategory, filterOrigin } =
     useSelector(searchSelector);
+  const quoteData = useSelector((state) => state.fetchAllQuote.data);
   const { refetchData, status } = useSelector((state) => state.fetchAllQuote);
 
   const handlefetchAllQuotes = async () => {
@@ -43,7 +44,10 @@ const QuoteApp = ({ activeSection }) => {
         <Spinner />
       ) : (
         <div className="mt-[75px] px-4 md:px-12 lg:px-24 xl:px-36">
-          <FilterSortSearchPanel handleOnChange={handleRefetchQuote} />
+          {console.log(quoteData)}
+          {quoteData.length > 0 && (
+            <FilterSortSearchPanel handleOnChange={handleRefetchQuote} />
+          )}
           <div>
             {activeSection === "quoteLibrary" && (
               <div className="fixed z-10 bottom-[2rem] right-[2rem] md:bottom-[4rem] md:right-[4rem] lg:bottom-[4rem] lg:right-[6rem]">

@@ -57,6 +57,7 @@ const getAllQuotes = async (req, res) => {
         Favorite: quotes.favorite,
         Category: quotes.category,
         Origin: quotes.origin,
+        TextColor: quotes.textColor,
       }));
 
       return res.status(200).json(allQuotesMap);
@@ -87,7 +88,7 @@ const addQuotes = async (req, res) => {
         category: categoryData,
         origin: originData,
         favorite: favoriteQuote,
-        color: quoteColor,
+        textColor: quoteColor,
       });
       await createQuote.save();
       if (favoriteQuote === false) {

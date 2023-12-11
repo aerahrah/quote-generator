@@ -4,7 +4,7 @@ const categoryColorOptions = {
   courage: "#8b5cf6",
   fitness: "#22c55e",
   love: "#ec4899",
-  history: "#e11d48",
+  history: "#0ea5e9",
 };
 
 export const getCategoryColor = (category) => {

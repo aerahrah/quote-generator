@@ -12,6 +12,7 @@ const QuoteItem = ({ data }) => {
   const dispatch = useDispatch();
   const { heartState } = useSelector((state) => state.updateQuote);
 
+  console.log(data);
   const handleDeleteQuote = async (id) => {
     try {
       await dispatch(deleteData(id));
@@ -32,7 +33,13 @@ const QuoteItem = ({ data }) => {
   return (
     <div className="flex flex-col bg-white dark:bg-neutral-800 text-blue-950 min-w-full max-w-md md:px-4 rounded-xl shadow hover:shadow-md py-4 pt-8 md:pt-10 mb-5 px-2 overflow-hidden cursor-pointer relative">
       {data.Quote && (
-        <p className="mb-4 md:mb-6 !leading-relaxed text-md md:text-lg text-blue-400 ">
+        <p
+          className="mb-4 md:mb-6 !leading-relaxed text-md md:text-lg "
+          style={{
+            color: data.TextColor,
+          }}
+        >
+          {console.log(data.TextColor)}
           <span>
             <FaQuoteLeft className="inline h-2.5 w-2.5 mb-2" />
           </span>
@@ -43,7 +50,12 @@ const QuoteItem = ({ data }) => {
         </p>
       )}
       {data.Author && (
-        <p className="text-sm md:text-md font-thin flex self-end text-blue-300">
+        <p
+          className="text-sm md:text-md font-thin flex self-end"
+          style={{
+            color: data.TextColor,
+          }}
+        >
           - {data.Author}
         </p>
       )}
@@ -71,7 +83,10 @@ const QuoteItem = ({ data }) => {
               });
             }}
           >
-            <FaRegHeart className="text-blue-500  transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]" />
+            <FaRegHeart
+              className="text-blue-500  transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+              color={data.TextColor}
+            />
           </button>
         )}
         {heartState === "unsave" && (
@@ -82,7 +97,10 @@ const QuoteItem = ({ data }) => {
               });
             }}
           >
-            <FaHeart className="text-blue-500 transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]" />
+            <FaHeart
+              className="text-blue-500 transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"
+              color={data.TextColor}
+            />
           </button>
         )}
       </div>
