@@ -11,7 +11,9 @@ export const saveData = createAsyncThunk("add", async ({ quoteData }) => {
       categoryData: quoteData.category,
       originData: quoteData.origin,
       favoriteQuote: quoteData.favorite,
+      quoteColor: quoteData.color,
     });
+    quoteData.color;
     console.log(response);
     return response.data;
   } catch (error) {

@@ -58,6 +58,7 @@ const RandomQuoteGenerator = () => {
             ...staticQuoteData,
             origin: "generated",
             favorite: true,
+            color: getCategoryColor(staticQuoteData.category),
           },
         })
       );
@@ -78,6 +79,7 @@ const RandomQuoteGenerator = () => {
             ...staticQuoteData,
             origin: "generated",
             favorite: false,
+            color: getCategoryColor(staticQuoteData.category),
           },
         })
       );

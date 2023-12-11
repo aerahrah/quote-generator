@@ -70,8 +70,14 @@ const getAllQuotes = async (req, res) => {
 
 const addQuotes = async (req, res) => {
   try {
-    const { quoteData, authorData, categoryData, originData, favoriteQuote } =
-      req.body;
+    const {
+      quoteData,
+      authorData,
+      categoryData,
+      originData,
+      favoriteQuote,
+      quoteColor,
+    } = req.body;
     const getId = req.user;
     if (getId) {
       const createQuote = new QuoteLibrary({
@@ -81,6 +87,7 @@ const addQuotes = async (req, res) => {
         category: categoryData,
         origin: originData,
         favorite: favoriteQuote,
+        color: quoteColor,
       });
       await createQuote.save();
       if (favoriteQuote === false) {
