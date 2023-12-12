@@ -27,7 +27,7 @@ const QuoteFilterOrigin = ({ handleOnChange, filterBy }) => {
         />
       </Popover>
       <Popover className="relative z-10 hidden md:block ">
-        <Popover.Button className=" w-full p-2 border-[1px]  text-neutral-700 bg-neutral-200 border-neutral-300 dark:text-neutral-300 dark:bg-neutral-950/70 outline-0 rounded-full  hidden md:block">
+        <Popover.Button className=" w-full p-2 border-[1px]  text-neutral-700 bg-neutral-200 border-neutral-300 dark:text-neutral-300 dark:bg-neutral-950/70 dark:border-neutral-800 outline-0 rounded-full  hidden md:block">
           <div className="flex items-center justify-between">
             <p className="capitalize whitespace-nowrap w-[80px] outline-0">
               {filterBy}

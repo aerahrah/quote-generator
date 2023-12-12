@@ -12,6 +12,7 @@ const QuoteModalContent = ({
   modalType,
 }) => {
   const { quoteData } = useSelector((state) => state.updateQuote);
+  const { theme } = useSelector((state) => state.theme);
   const schema = yup.object().shape({
     author: yup.string().required("author is required"),
     quote: yup.string().required("quote must not be empty"),
@@ -43,7 +44,7 @@ const QuoteModalContent = ({
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-20" />
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-20" />
       </Transition.Child>
       <div className="fixed inset-0 z-30">
         <div className="flex min-h-full items-center justify-center p-6 text-center">
@@ -56,7 +57,13 @@ const QuoteModalContent = ({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="flex flex-col w-full max-w-[35rem] bg-gray-800 p-4 px-6 rounded-lg text-gray-300 z-50">
+            <Dialog.Panel
+              className={`${
+                theme === "light"
+                  ? "bg-white text-neutral-700"
+                  : "bg-neutral-800 text-neutral-300"
+              } flex flex-col w-full max-w-[35rem] p-4 px-6 rounded-lg  z-50 shadow-lg`}
+            >
               <form
                 className="flex flex-col gap-4"
                 onSubmit={handleSubmit((formData) => {
@@ -87,8 +94,15 @@ const QuoteModalContent = ({
                     <input
                       className={`${
                         errors.author ? "outline outline outline-red-500" : ""
-                      } w-full p-2 rounded-md bg-gray-900 outline-0`}
+                      } ${
+                        theme === "light"
+                          ? "bg-neutral-100 outline-neutral-300"
+                          : "bg-neutral-900 outline-neutral-700"
+                      } w-full p-2 rounded-md outline outline-1`}
                       type="text"
+                      style={{
+                        color: quoteData.TextColor,
+                      }}
                       {...register("author")}
                     />
                     <p className="absolute text-xs text-red-500">
@@ -100,11 +114,24 @@ const QuoteModalContent = ({
                   <label className="text-start font-semibold text-lg ">
                     Category:
                   </label>
-                  <div className="block self-start relative text-lg bg-gray-900 outline-0 px-1 py-1 rounded-md">
+                  <div
+                    className={` ${
+                      theme === "light"
+                        ? "bg-neutral-100 outline-neutral-300"
+                        : "bg-neutral-900 outline-neutral-700"
+                    } block self-start relative text-lg outline outline-1 px-1 py-1 rounded-md`}
+                  >
                     <select
                       id="selectInput"
                       {...register("category")}
-                      className="bg-transparent capitalize focus:outline-none"
+                      className={`${
+                        theme === "light"
+                          ? "bg-neutral-100 outline-neutral-300"
+                          : "bg-neutral-900 outline-neutral-700"
+                      } outline-1 bg-transparent capitalize focus:outline-none`}
+                      style={{
+                        color: quoteData.TextColor,
+                      }}
                     >
                       {categoryOptions.map(({ label, value }) => (
                         <option
@@ -122,11 +149,18 @@ const QuoteModalContent = ({
                   <label className="text-start font-semibold text-lg">
                     Quote:
                   </label>
-                  <div className="w-full relative text-lg">
+                  <div className={`w-full relative text-lg`}>
                     <textarea
                       className={`${
                         errors.quote ? "outline outline outline-red-500" : ""
-                      } w-full p-2 rounded-md bg-gray-900 outline-0`}
+                      } ${
+                        theme === "light"
+                          ? "bg-neutral-100 outline-neutral-300"
+                          : "bg-neutral-900 outline-neutral-700"
+                      } w-full p-2 rounded-md bg-gray-900 outline outline-1`}
+                      style={{
+                        color: quoteData.TextColor,
+                      }}
                       rows={7}
                       cols={60}
                       {...register("quote")}
@@ -139,14 +173,22 @@ const QuoteModalContent = ({
                 </div>
                 <div className="flex justify-end items-center ">
                   <input
-                    className="hover:text-blue-500 transform hover:scale-[1.02] bg-gray-900  py-2 px-8 sm:px-10 md:px-12 rounded-lg  transition duration-[30ms] capitalize  md:w-36"
+                    className={`${
+                      theme === "light"
+                        ? "bg-blue-500 outline-neutral-300"
+                        : "bg-blue-600 outline-neutral-700"
+                    } transform hover:scale-[1.02] text-blue-50  py-2 px-8 sm:px-10 md:px-12 rounded-lg  transition duration-[100ms] capitalize  md:w-36`}
                     type="submit"
                     value={modalType === "update" ? "update" : "add"}
                   />
                 </div>
               </form>
               <button
-                className="absolute bottom-[1rem] hover:text-red-500 transform hover:scale-[1.02] bg-gray-900 md:w-36 py-2 px-8 sm:px-10 md:px-12 rounded-lg  transition duration-[30ms]"
+                className={`${
+                  theme === "light"
+                    ? "bg-neutral-100 outline-neutral-300"
+                    : "bg-neutral-900 outline-neutral-700"
+                } outline outline-1 absolute bottom-[1rem] hover:text-red-500 transform hover:scale-[1.02] bg-gray-900 md:w-36 py-2 px-8 sm:px-10 md:px-12 rounded-lg  transition duration-[100ms]`}
                 onClick={handleToggleModal}
               >
                 Cancel
