@@ -7,6 +7,17 @@ const categoryColorOptions = {
   history: "#0ea5e9",
 };
 
+const categoryColors = [
+  "happiness",
+  "anger",
+  "courage",
+  "fitness",
+  "love",
+  "history",
+];
+
 export const getCategoryColor = (category) => {
   return categoryColorOptions[category] || "#4299E1";
 };
+
+export default categoryColors;
