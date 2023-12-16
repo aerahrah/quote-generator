@@ -2,9 +2,11 @@ import { FaTrash, FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { FaRegHeart, FaHeart, FaEdit } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteData, updateHeartStateApi } from "../../../services/quoteApi";
+
 import {
   setQuoteUpdateData,
   toggleUpdateModalOpen,
+  setTextColor,
 } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import { handleRefetchData } from "../../../store/slices/quoteSlices/fetchAllQuoteSlice";
 
@@ -68,10 +70,11 @@ const QuoteItem = ({ data }) => {
             onClick={() => {
               console.log("click");
               dispatch(setQuoteUpdateData(data));
+              dispatch(setTextColor(data.TextColor));
               dispatch(toggleUpdateModalOpen());
             }}
           >
-            <FaEdit className="hover:text-green-500 text-green-500 md:text-gray-400 transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]"></FaEdit>
+            <FaEdit className="hover:text-green-500 text-green-500 md:text-gray-400 transform transition duration-100 hover:scale-[1.06] active:scale-[0.98]" />
           </button>
         </div>
 

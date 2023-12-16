@@ -112,7 +112,8 @@ const addQuotes = async (req, res) => {
 };
 const updateQuote = async (req, res) => {
   try {
-    const { quoteData, authorData, favoriteQuote, categoryQuote } = req.body;
+    const { quoteData, authorData, favoriteQuote, categoryQuote, quoteColor } =
+      req.body;
     const quoteId = req.params.id;
     const quote = await QuoteLibrary.findById(quoteId);
     if (!quote) {
@@ -123,6 +124,7 @@ const updateQuote = async (req, res) => {
     quote.author = authorData;
     quote.favorite = favoriteQuote;
     quote.category = categoryQuote;
+    quote.textColor = quoteColor;
 
     await quote.save();
 

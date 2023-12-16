@@ -30,6 +30,7 @@ export const updateData = createAsyncThunk(
         authorData: formData.author,
         favoriteQuote: formData.favorite,
         categoryQuote: formData.category,
+        quoteColor: formData.color,
       });
       console.log(response);
       return response.data;

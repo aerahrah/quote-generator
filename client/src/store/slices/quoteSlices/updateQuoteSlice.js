@@ -5,6 +5,7 @@ const updateQuoteSlice = createSlice({
   initialState: {
     isUpdateModalOpen: false,
     isAddModalOpen: false,
+    textColor: "",
     heartState: "",
     quoteData: "",
     message: "",
@@ -20,6 +21,9 @@ const updateQuoteSlice = createSlice({
     },
     setHeartState: (state, action) => {
       state.heartState = action.payload;
+    },
+    setTextColor: (state, action) => {
+      state.textColor = action.payload;
     },
     setQuoteUpdateData: (state, action) => {
       state.quoteData = action.payload;
@@ -61,6 +65,7 @@ export const {
   toggleUpdateModalOpen,
   toggleAddModalOpen,
   setQuoteUpdateData,
+  setTextColor,
   clearQuoteUpdateData,
   setHeartState,
 } = updateQuoteSlice.actions;

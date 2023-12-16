@@ -2,7 +2,8 @@ import { Transition, Dialog, Popover } from "@headlessui/react";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setTextColor } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import { categoryOptions } from "../../../utils/filterOptions";
 import { getCategoryColor } from "../../../utils/getCategoryColor";
 import categoryColors from "../../../utils/getCategoryColor";
@@ -13,8 +14,9 @@ const QuoteModalContent = ({
   handleAddOrUpdateQuote,
   modalType,
 }) => {
-  const { quoteData } = useSelector((state) => state.updateQuote);
+  const { quoteData, textColor } = useSelector((state) => state.updateQuote);
   const { theme } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
   const schema = yup.object().shape({
     author: yup.string().required("author is required"),
     quote: yup.string().required("quote must not be empty"),
@@ -35,6 +37,9 @@ const QuoteModalContent = ({
     },
   });
 
+  const handleUpdateTextColor = (color) => {
+    dispatch(setTextColor(color));
+  };
   return (
     <div>
       <Transition.Child
@@ -76,6 +81,7 @@ const QuoteModalContent = ({
                           ...formData,
                           favorite: quoteData.Favorite,
                           origin: quoteData.Origin,
+                          color: textColor,
                         },
                       })
                     : handleAddOrUpdateQuote({
@@ -84,6 +90,7 @@ const QuoteModalContent = ({
                           ...formData,
                           favorite: false,
                           origin: "original",
+                          color: textColor,
                         },
                       });
                 })}
@@ -103,7 +110,7 @@ const QuoteModalContent = ({
                       } w-full p-2 rounded-md outline outline-1`}
                       type="text"
                       style={{
-                        color: quoteData.TextColor,
+                        color: textColor,
                       }}
                       {...register("author")}
                     />
@@ -133,7 +140,7 @@ const QuoteModalContent = ({
                             : "bg-neutral-900 outline-neutral-700"
                         } outline-1 bg-transparent capitalize focus:outline-none`}
                         style={{
-                          color: quoteData.TextColor,
+                          color: textColor,
                         }}
                       >
                         {categoryOptions.map(({ label, value }) => (
@@ -154,8 +161,15 @@ const QuoteModalContent = ({
                             theme === "light"
                               ? "bg-neutral-300 outline-neutral-300"
                               : "bg-neutral-900 outline-neutral-700"
-                          } outline outline-2 !w-[2.15rem] !h-[2.15rem] rounded-full bg-red-600`}
-                        ></div>
+                          } outline outline-2 flex justify-center items-center !w-[2.15rem] !h-[2.15rem] rounded-full`}
+                        >
+                          <i
+                            className="block !w-[1.75rem] rounded-full !h-[1.75rem]"
+                            style={{
+                              backgroundColor: textColor,
+                            }}
+                          ></i>
+                        </div>
                       </Popover.Button>
                       <Popover.Panel
                         className={`${
@@ -165,22 +179,25 @@ const QuoteModalContent = ({
                         } outline outline-1 absolute transform translate-x-[50%] right-[50%] z-10 shadow-lg rounded-lg  w-[40vw] max-w-[15rem] py-6 px-3
                         `}
                       >
-                        <ul className="flex gap-3 flex-wrap w-full">
+                        <div className="flex gap-3 flex-wrap w-full">
                           {categoryColors.map((color, idx) => (
-                            <li key={idx}>
-                              <button
-                                className={`${
-                                  theme === "light"
-                                    ? "outline-neutral-300"
-                                    : "outline-neutral-700"
-                                } outline rounded-full !w-[2.5rem] !h-[2.5rem]`}
-                                style={{
-                                  backgroundColor: getCategoryColor(color),
-                                }}
-                              ></button>
-                            </li>
+                            <Popover.Button
+                              className={`${
+                                theme === "light"
+                                  ? "outline-neutral-300"
+                                  : "outline-neutral-700"
+                              } outline rounded-full !w-[2.5rem] !h-[2.5rem]`}
+                              key={idx}
+                              style={{
+                                backgroundColor: getCategoryColor(color),
+                              }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleUpdateTextColor(getCategoryColor(color));
+                              }}
+                            ></Popover.Button>
                           ))}
-                        </ul>
+                        </div>
                       </Popover.Panel>
                     </Popover>
                   </div>
@@ -199,7 +216,7 @@ const QuoteModalContent = ({
                           : "bg-neutral-900 outline-neutral-700"
                       } w-full p-2 rounded-md bg-gray-900 outline outline-1`}
                       style={{
-                        color: quoteData.TextColor,
+                        color: textColor,
                       }}
                       rows={7}
                       cols={60}
