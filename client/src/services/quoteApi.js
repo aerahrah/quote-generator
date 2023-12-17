@@ -71,25 +71,16 @@ export const fetchData = createAsyncThunk(
   }
 );
 
-export const fetchAllData = createAsyncThunk(
-  "fetch",
-  async ({ filteredTask, filterCategory, filterOrigin }) => {
-    console.log(filterCategory);
-    try {
-      const response = await Axios.get(`${url}/get-all`, {
-        params: {
-          searchTerm: filteredTask,
-          filterCategory: filterCategory,
-          filterOrigins: filterOrigin,
-        },
-      });
-      console.log(response.data);
-      return response.data;
-    } catch (error) {
-      console.log("Request failed:", error);
-    }
+export const fetchAllData = createAsyncThunk("fetch", async () => {
+  try {
+    console.log("filter");
+    const response = await Axios.get(`${url}/get-all`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Request failed:", error);
   }
-);
+});
 
 export const deleteData = createAsyncThunk("delete", async (id) => {
   try {

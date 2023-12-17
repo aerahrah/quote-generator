@@ -5,7 +5,7 @@ import { setFilterCategory } from "../../../store/slices/searchSlices";
 import { categoryOptions } from "../../../utils/filterOptions";
 import QuoteFilterContent from "./quoteFilterContent";
 
-const QuoteFilterCategory = ({ handleOnChange, filterBy }) => {
+const QuoteFilterCategory = ({ filterBy }) => {
   const dispatch = useDispatch();
 
   const handleChangeFilter = async (value) => {

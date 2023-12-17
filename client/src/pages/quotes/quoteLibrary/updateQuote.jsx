@@ -10,6 +10,7 @@ import QuoteModalContent from "../quotesComponent/quoteModalContent";
 
 const UpdateQuoteModal = () => {
   const dispatch = useDispatch();
+
   const { isUpdateModalOpen } = useSelector((state) => state.updateQuote);
 
   const handleToggleModal = () => {
@@ -18,11 +19,10 @@ const UpdateQuoteModal = () => {
 
   const handleUpdateQuote = async ({ id, formData }) => {
     try {
-      console.log(formData);
       await dispatch(updateData({ id, formData }));
+      handleToggleModal();
       dispatch(handleRefetchData());
       dispatch(clearQuoteUpdateData());
-      handleToggleModal();
     } catch (error) {
       console.log(error);
     }

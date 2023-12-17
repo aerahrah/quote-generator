@@ -9,13 +9,14 @@ import QuoteModalContent from "../quotesComponent/quoteModalContent";
 
 const AddQuoteIcon = () => {
   const dispatch = useDispatch();
+
   const { isAddModalOpen } = useSelector((state) => state.updateQuote);
 
   const handleAddQuote = async (userInfo) => {
     try {
       await dispatch(saveData(userInfo));
-      dispatch(handleRefetchData());
       handleToggleModal();
+      dispatch(handleRefetchData());
     } catch (error) {
       console.log(error);
     }

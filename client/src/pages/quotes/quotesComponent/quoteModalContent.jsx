@@ -192,7 +192,6 @@ const QuoteModalContent = ({
                                 backgroundColor: getCategoryColor(color),
                               }}
                               onClick={(e) => {
-                                e.preventDefault();
                                 handleUpdateTextColor(getCategoryColor(color));
                               }}
                             ></Popover.Button>

@@ -17,36 +17,8 @@ const deleteQuote = async (req, res) => {
 const getAllQuotes = async (req, res) => {
   try {
     const getId = req.user;
-    const { searchTerm, filterCategory, filterOrigins } = req.query;
+  
     let filter = { user: getId };
-    if (searchTerm) {
-      filter.$or = [
-        { quote: { $regex: searchTerm, $options: "i" } },
-        { author: { $regex: searchTerm, $options: "i" } },
-      ];
-    }
-
-    const categoryFilters = {
-      happiness: { category: "happiness" },
-      anger: { category: "anger" },
-      courage: { category: "courage" },
-      fitness: { category: "fitness" },
-      love: { category: "love" },
-      history: { category: "history" },
-    };
-
-    const categoryFilter = categoryFilters[filterCategory];
-
-    if (filterOrigins === "original" || filterOrigins === "generated") {
-      if (categoryFilter) {
-        filter = { ...filter, ...categoryFilter, origin: filterOrigins };
-      } else {
-        filter = { ...filter, origin: filterOrigins };
-      }
-    } else if (categoryFilter) {
-      filter = { ...filter, ...categoryFilter };
-    }
-
     const allQuotes = await QuoteLibrary.find(filter);
 
     if (allQuotes) {

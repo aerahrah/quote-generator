@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { searchSelector } from "../../store/selector/searchSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllData } from "../../services/quoteApi";
 import { setHeartState } from "../../store/slices/quoteSlices/updateQuoteSlice";
@@ -11,21 +10,16 @@ import FilterSortSearchPanel from "./filterSortSearch/filterSortSearchPanel";
 
 const QuoteApp = ({ activeSection }) => {
   const dispatch = useDispatch();
-  const { searchTerm, filterCategory, filterOrigin } =
-    useSelector(searchSelector);
+
   const quoteData = useSelector((state) => state.fetchAllQuote.data);
   const { refetchData, status } = useSelector((state) => state.fetchAllQuote);
 
   const handlefetchAllQuotes = async () => {
     try {
-      dispatch(fetchAllData({ searchTerm, filterCategory, filterOrigin }));
+      dispatch(fetchAllData());
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleRefetchQuote = () => {
-    dispatch(handleRefetchData());
   };
 
   useEffect(() => {
@@ -44,10 +38,7 @@ const QuoteApp = ({ activeSection }) => {
         <Spinner />
       ) : (
         <div className="mt-[75px] px-4 md:px-12 lg:px-24 xl:px-36">
-          {console.log(quoteData)}
-          {quoteData.length > 0 && (
-            <FilterSortSearchPanel handleOnChange={handleRefetchQuote} />
-          )}
+          {quoteData.length > 0 && <FilterSortSearchPanel />}
           <div>
             {activeSection === "quoteLibrary" && (
               <div className="fixed z-10 bottom-[2rem] right-[2rem] md:bottom-[4rem] md:right-[4rem] lg:bottom-[4rem] lg:right-[6rem]">
