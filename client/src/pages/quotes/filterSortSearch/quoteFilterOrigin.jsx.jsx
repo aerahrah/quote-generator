@@ -10,7 +10,6 @@ const QuoteFilterOrigin = ({ filterBy }) => {
 
   const handleChangeFilter = (value) => {
     dispatch(setFilterOrigin(value));
-    handleOnChange();
   };
 
   return (

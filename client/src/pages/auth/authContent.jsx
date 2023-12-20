@@ -47,7 +47,7 @@ const AuthContent = ({ authType, handleAuth }) => {
     const data = await dispatch(SignIn(userInfo));
     console.log(data);
     if (data.type === "auth/singin/fulfilled") {
-      navigate("/quote-generator");
+      navigate("/generate");
     }
   };
 

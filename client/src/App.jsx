@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/quote-generator" element={<Menu />} />
+          <Route path="/*" element={<Menu />} />
         </Routes>
       </ErrorProvider>
     </div>

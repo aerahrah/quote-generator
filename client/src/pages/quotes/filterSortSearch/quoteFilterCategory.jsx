@@ -10,7 +10,6 @@ const QuoteFilterCategory = ({ filterBy }) => {
 
   const handleChangeFilter = async (value) => {
     dispatch(setFilterCategory(value));
-    handleOnChange();
   };
 
   return (

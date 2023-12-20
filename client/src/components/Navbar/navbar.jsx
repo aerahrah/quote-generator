@@ -1,29 +1,17 @@
 import { deleteCookie } from "../../utils/cookieUtils";
 import { useNavigate } from "react-router-dom";
-import { FaBars, FaRegHeart, FaSignOutAlt } from "react-icons/fa";
-import { GoLightBulb, GoBook } from "react-icons/go";
+import { Link } from "react-router-dom";
+import { FaSignOutAlt } from "react-icons/fa";
+import { navLinks } from "./navbarLinks";
+import { useLocation } from "react-router-dom";
 import ToggleDarkMode from "../darkMode/toggleDarkMode";
 import NavBarMobile from "./navbarMobile";
 
-const NavBar = ({ activeSection, setActiveSection }) => {
-  const menuItems = [
-    {
-      section: "generateQuote",
-      icon: <GoLightBulb className="text-neutral-700 dark:text-neutral-300" />,
-      label: "generate",
-    },
-    {
-      section: "quoteLibrary",
-      icon: <GoBook className="text-neutral-700 dark:text-neutral-300" />,
-      label: "library",
-    },
-    {
-      section: "favoriteQuoteLibrary",
-      icon: <FaRegHeart className="text-neutral-700 dark:text-neutral-300" />,
-      label: "favorite",
-    },
-  ];
+const NavBar = () => {
+  const { pathname } = useLocation();
+  const activeSection = pathname.substring(1);
   const navigate = useNavigate();
+
   const handleLogout = () => {
     deleteCookie("token");
     navigate("/");
@@ -35,7 +23,7 @@ const NavBar = ({ activeSection, setActiveSection }) => {
         <h1 className="text-2xl font-bold">QG</h1>
         <ul className="flex font-thin text-lg w-[40%] items-center justify-end gap-10">
           <ToggleDarkMode />
-          {menuItems.map(({ section, icon, label }) => (
+          {navLinks.map(({ section, icon, label }) => (
             <li
               key={section}
               className={`hover:text-neutral-900 hover:cursor-pointer hover:dark:text-neutral-400 p-1 ${
@@ -43,12 +31,13 @@ const NavBar = ({ activeSection, setActiveSection }) => {
                   ? "border-b-[1px] border-neutral-400 font-normal"
                   : ""
               }`}
-              onClick={() => setActiveSection(section)}
             >
-              <div className="flex gap-2 items-center ">
-                {icon}
-                <h1> {label}</h1>
-              </div>
+              <Link to={section}>
+                <div className="flex gap-2 items-center ">
+                  {icon}
+                  <h1> {label}</h1>
+                </div>
+              </Link>
             </li>
           ))}
           <li
@@ -68,9 +57,6 @@ const NavBar = ({ activeSection, setActiveSection }) => {
           <NavBarMobile
             handleLogout={handleLogout}
             activeSection={activeSection}
-            setActiveSection={setActiveSection}
-            FaBars={FaBars}
-            menuItems={menuItems}
           ></NavBarMobile>
         </div>
       </div>

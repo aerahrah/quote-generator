@@ -7,7 +7,7 @@ const QuoteLibrarySchema = new mongoose.Schema({
   category: { type: String, required: false },
   origin: { type: String, required: true },
   favorite: { type: Boolean, required: true },
-  textColor: { type: String, required: true },
+  textColor: { type: String, required: false },
 });
 
 const QuoteLibrary = mongoose.model("QuoteLibrary", QuoteLibrarySchema);

@@ -11,7 +11,6 @@ const QuoteContainer = ({ favoriteMode }) => {
     useSelector(searchSelector);
 
   const filterQuote = () => {
-    console.log(quoteData);
     let filteredQuotes = quoteData;
 
     if (searchTerm) {

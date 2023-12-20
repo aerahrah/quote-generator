@@ -1,13 +1,9 @@
 import { Popover, Transition } from "@headlessui/react";
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt, FaBars } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { navLinks } from "./navbarLinks";
 
-const NavBarMobile = ({
-  handleLogout,
-  activeSection,
-  setActiveSection,
-  FaBars,
-  menuItems,
-}) => {
+const NavBarMobile = ({ handleLogout, activeSection }) => {
   return (
     <Popover className="relative z-30 md:hidden ">
       <Popover.Button className="p-2 border-[1px] rounded-md">
@@ -23,7 +19,7 @@ const NavBarMobile = ({
       >
         <Popover.Panel className="md:hidden absolute right-0 top-[1rem] p-4 rounded-md mt-3 w-[85vw] max-w-xs transform text-neutral-700 bg-neutral-50 dark:bg-neutral-800 dark:text-neutral-300  shadow-md">
           <div className="flex flex-col items-start z-30 gap-4">
-            {menuItems.map(({ section, icon, label }) => (
+            {navLinks.map(({ section, icon, label }) => (
               <Popover.Button
                 key={section}
                 className={`hover:opacity-70 hover:cursor-pointer text-left p-1 w-full border-b-[1px] capitalize text-lg  ${
@@ -31,12 +27,13 @@ const NavBarMobile = ({
                     ? "border-neutral-500 font-semibold text-neutral-700 dark:text-neutral-300"
                     : "border-neutral-700 text-neutral-500"
                 }`}
-                onClick={() => setActiveSection(section)}
               >
-                <div className="flex gap-2 items-center">
-                  {icon}
-                  <h1> {label}</h1>
-                </div>
+                <Link to={activeSection}>
+                  <div className="flex gap-2 items-center">
+                    {icon}
+                    <h1> {label}</h1>
+                  </div>
+                </Link>
               </Popover.Button>
             ))}
 

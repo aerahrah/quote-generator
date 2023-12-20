@@ -11,7 +11,7 @@ const Signin = () => {
     console.log(userInfo);
     const data = await dispatch(SignIn(userInfo));
     if (data.type === "/auth/singin/fulfilled") {
-      navigate("/quote-generator");
+      navigate("/generate");
     }
   };
 

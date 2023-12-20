@@ -14,7 +14,6 @@ const QuoteItem = ({ data }) => {
   const dispatch = useDispatch();
   const { heartState } = useSelector((state) => state.updateQuote);
 
-  console.log(data);
   const handleDeleteQuote = async (id) => {
     try {
       await dispatch(deleteData(id));
@@ -41,7 +40,6 @@ const QuoteItem = ({ data }) => {
             color: data.TextColor,
           }}
         >
-          {console.log(data.TextColor)}
           <span>
             <FaQuoteLeft className="inline h-2.5 w-2.5 mb-2" />
           </span>
@@ -68,7 +66,6 @@ const QuoteItem = ({ data }) => {
           </button>
           <button
             onClick={() => {
-              console.log("click");
               dispatch(setQuoteUpdateData(data));
               dispatch(setTextColor(data.TextColor));
               dispatch(toggleUpdateModalOpen());

@@ -47,7 +47,10 @@ export const updateHeartStateApi = createAsyncThunk(
         quoteData: quoteData.Quote,
         authorData: quoteData.Author,
         favoriteQuote: quoteData.Favorite,
+        categoryQuote: quoteData.Category,
+        quoteColor: quoteData.TextColor,
       });
+      console.log(response);
       return response.data;
     } catch (error) {
       throw new Error("Request failed:", error.message);

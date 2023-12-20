@@ -7,8 +7,6 @@ const SearchBar = ({ searchTerm }) => {
 
   const handleChangeSearchTerm = (e) => {
     dispatch(setSearchTerm(e.target.value));
-
-    handleOnChange();
   };
   return (
     <div className="w-full">
