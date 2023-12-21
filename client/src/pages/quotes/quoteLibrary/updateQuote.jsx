@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleUpdateModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import { clearQuoteUpdateData } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import { handleRefetchData } from "../../../store/slices/quoteSlices/fetchAllQuoteSlice";
-import { fetchAllData } from "../../../services/quoteApi";
-import QuoteModalContent from "../quotesComponent/quoteModalContent";
+import QuoteModalContent from "../quotesComponent/quoteModalContent/quoteModalContent";
 
 const UpdateQuoteModal = () => {
   const dispatch = useDispatch();

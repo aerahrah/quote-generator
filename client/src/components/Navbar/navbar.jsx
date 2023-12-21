@@ -19,9 +19,9 @@ const NavBar = () => {
 
   return (
     <div className="bg-white dark:bg-neutral-800 shadow min-h-nav text-neutral-700 dark:text-neutral-300 text capitalize fixed z-30 inset-x-0">
-      <div className="hidden md:flex w-[80vw] justify-between mx-auto min-h-nav items-center">
-        <h1 className="text-2xl font-bold">QG</h1>
-        <ul className="flex font-thin text-lg w-[40%] items-center justify-end gap-10">
+      <div className="hidden md:flex w-[95vw] max-w-[1164px] justify-between mx-auto min-h-nav items-center">
+        <h1 className="text-3xl font-extrabold">QH</h1>
+        <ul className="flex font-thin text-lg w-[40%] items-center justify-end gap-[2vw]">
           <ToggleDarkMode />
           {navLinks.map(({ section, icon, label }) => (
             <li
@@ -53,7 +53,7 @@ const NavBar = () => {
       </div>
       <div className="block md:hidden ">
         <div className="flex justify-between items-center m-auto min-h-nav mx-6">
-          <h1 className="text-2xl font-bold">QG</h1>
+          <h1 className="text-3xl font-extrabold">QH</h1>
           <NavBarMobile
             handleLogout={handleLogout}
             activeSection={activeSection}

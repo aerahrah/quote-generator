@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleAddModalOpen } from "../../../store/slices/quoteSlices/updateQuoteSlice";
 import { handleRefetchData } from "../../../store/slices/quoteSlices/fetchAllQuoteSlice";
-import QuoteModalContent from "../quotesComponent/quoteModalContent";
+import QuoteModalContent from "../quotesComponent/quoteModalContent/quoteModalContent";
 
 const AddQuoteIcon = () => {
   const dispatch = useDispatch();

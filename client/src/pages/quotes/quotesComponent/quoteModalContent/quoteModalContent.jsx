@@ -1,12 +1,10 @@
-import { Transition, Dialog, Popover } from "@headlessui/react";
+import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector, useDispatch } from "react-redux";
-import { setTextColor } from "../../../store/slices/quoteSlices/updateQuoteSlice";
-import { categoryOptions } from "../../../utils/filterOptions";
-import { getCategoryColor } from "../../../utils/getCategoryColor";
-import categoryColors from "../../../utils/getCategoryColor";
+import { useSelector } from "react-redux";
+import QuoteCategorySelector from "./quoteCategorySelector";
+import QuoteColorSelector from "./quoteColorSelector";
 import * as yup from "yup";
 
 const QuoteModalContent = ({
@@ -16,7 +14,7 @@ const QuoteModalContent = ({
 }) => {
   const { quoteData, textColor } = useSelector((state) => state.updateQuote);
   const { theme } = useSelector((state) => state.theme);
-  const dispatch = useDispatch();
+
   const schema = yup.object().shape({
     author: yup.string().required("author is required"),
     quote: yup.string().required("quote must not be empty"),
@@ -37,9 +35,6 @@ const QuoteModalContent = ({
     },
   });
 
-  const handleUpdateTextColor = (color) => {
-    dispatch(setTextColor(color));
-  };
   return (
     <div>
       <Transition.Child
@@ -124,81 +119,12 @@ const QuoteModalContent = ({
                     Category:
                   </label>
                   <div className="self-start flex gap-4 items-center">
-                    <div
-                      className={` ${
-                        theme === "light"
-                          ? "bg-neutral-100 outline-neutral-300"
-                          : "bg-neutral-900 outline-neutral-700"
-                      } block self-start relative text-lg outline outline-1 px-1 py-1 rounded-md`}
-                    >
-                      <select
-                        id="selectInput"
-                        {...register("category")}
-                        className={`${
-                          theme === "light"
-                            ? "bg-neutral-100 outline-neutral-300"
-                            : "bg-neutral-900 outline-neutral-700"
-                        } outline-1 bg-transparent capitalize focus:outline-none`}
-                        style={{
-                          color: textColor,
-                        }}
-                      >
-                        {categoryOptions.map(({ label, value }) => (
-                          <option
-                            key={value}
-                            className="bg-gray-800 capitalize"
-                            value={value}
-                          >
-                            {label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <Popover className="relative w-full">
-                      <Popover.Button className="w-full h-full">
-                        <div
-                          className={`${
-                            theme === "light"
-                              ? "bg-neutral-300 outline-neutral-300"
-                              : "bg-neutral-900 outline-neutral-700"
-                          } outline outline-2 flex justify-center items-center !w-[2.15rem] !h-[2.15rem] rounded-full`}
-                        >
-                          <i
-                            className="block !w-[1.75rem] rounded-full !h-[1.75rem]"
-                            style={{
-                              backgroundColor: textColor,
-                            }}
-                          ></i>
-                        </div>
-                      </Popover.Button>
-                      <Popover.Panel
-                        className={`${
-                          theme === "light"
-                            ? "bg-white outline-neutral-300"
-                            : "bg-neutral-900 outline-neutral-700"
-                        } outline outline-1 absolute transform translate-x-[50%] right-[50%] z-10 shadow-lg rounded-lg  w-[40vw] max-w-[15rem] py-6 px-3
-                        `}
-                      >
-                        <div className="flex gap-3 flex-wrap w-full">
-                          {categoryColors.map((color, idx) => (
-                            <Popover.Button
-                              className={`${
-                                theme === "light"
-                                  ? "outline-neutral-300"
-                                  : "outline-neutral-700"
-                              } outline rounded-full !w-[2.5rem] !h-[2.5rem]`}
-                              key={idx}
-                              style={{
-                                backgroundColor: getCategoryColor(color),
-                              }}
-                              onClick={(e) => {
-                                handleUpdateTextColor(getCategoryColor(color));
-                              }}
-                            ></Popover.Button>
-                          ))}
-                        </div>
-                      </Popover.Panel>
-                    </Popover>
+                    <QuoteCategorySelector
+                      theme={theme}
+                      textColor={textColor}
+                      register={register}
+                    />
+                    <QuoteColorSelector theme={theme} textColor={textColor} />
                   </div>
                 </div>
                 <div className="flex flex-col gap-1">

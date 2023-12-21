@@ -39,7 +39,7 @@ const QuoteApp = () => {
       {status === "loading" ? (
         <Spinner />
       ) : (
-        <div className="mt-[75px] px-4 md:px-12 lg:px-24 xl:px-36">
+        <div className="mt-[75px] mx-auto px-4 max-w-[1264px]">
           {quoteData.length > 0 && <FilterSortSearchPanel />}
           <div>
             {activeSection === "library" && (
