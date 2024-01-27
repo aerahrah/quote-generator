@@ -5,7 +5,7 @@ import QuoteApp from "../pages/quotes/quote-app";
 
 const Menu = () => {
   return (
-    <div className="w-full h-screen box-border bg-neutral-100 dark:bg-neutral-900">
+    <div className="w-full h-screen box-border bg-neutral-100  dark:bg-neutral-900">
       <NavBar />
       <Routes>
         <Route path="/generate" element={<RandomQuoteGenerator />} />

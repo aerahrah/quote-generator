@@ -1,6 +1,5 @@
 import { categoryOptions } from "../../../../utils/filterOptions";
 
-
 const QuoteCategorySelector = ({ theme, textColor, register }) => {
   return (
     <div
@@ -23,7 +22,15 @@ const QuoteCategorySelector = ({ theme, textColor, register }) => {
         }}
       >
         {categoryOptions.map(({ label, value }) => (
-          <option key={value} className="bg-gray-800 capitalize" value={value}>
+          <option
+            key={value}
+            className={`${
+              theme === "light"
+                ? "bg-neutral-100 outline-neutral-300"
+                : "bg-neutral-900 outline-neutral-700"
+            }  capitalize`}
+            value={value}
+          >
             {label}
           </option>
         ))}

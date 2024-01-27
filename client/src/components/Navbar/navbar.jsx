@@ -18,7 +18,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-neutral-800 shadow min-h-nav text-neutral-700 dark:text-neutral-300 text capitalize fixed z-30 inset-x-0">
+    <div className="bg-white dark:bg-neutral-800 shadow min-h-nav text-neutral-700 dark:text-neutral-300 text capitalize fixed z-20 inset-x-0">
       <div className="hidden md:flex w-[95vw] max-w-[1164px] justify-between mx-auto min-h-nav items-center">
         <h1 className="text-3xl font-extrabold">QH</h1>
         <ul className="flex font-thin text-lg w-[40%] items-center justify-end gap-[2vw]">

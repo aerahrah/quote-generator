@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Axios from "axios";
-const url = "http://localhost:3500/";
+
+const url = import.meta.env.VITE_API_URL;
 
 export const SignIn = createAsyncThunk("auth/singin", async (userInfo) => {
   try {
@@ -17,7 +18,6 @@ export const SignIn = createAsyncThunk("auth/singin", async (userInfo) => {
 
 export const SignUp = createAsyncThunk("auth/signup/", async (userInfo) => {
   try {
-    console.log(userInfo.username, userInfo.password);
     const response = await Axios.post(`${url}auth/signup`, {
       username: userInfo.username,
       password: userInfo.password,

@@ -8,7 +8,7 @@ const Signin = () => {
   const navigate = useNavigate();
 
   const handleSignin = async (userInfo) => {
-    console.log(userInfo);
+
     const data = await dispatch(SignIn(userInfo));
     if (data.type === "/auth/singin/fulfilled") {
       navigate("/generate");

@@ -7,7 +7,7 @@ import Menu from "./pages/menu";
 
 function App() {
   const { theme } = useSelector((state) => state.theme);
-  console.log(theme);
+
   return (
     <div className={`${theme}`}>
       <ErrorProvider>

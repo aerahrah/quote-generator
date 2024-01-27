@@ -6,12 +6,16 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
+    message: null,
     status: "idle",
     error: null,
   },
   reducers: {
     clearAuthError: (state) => {
       state.error = null;
+    },
+    clearAuthMessage: (state) => {
+      state.message = null;
     },
   },
   extraReducers: (builder) => {
@@ -24,6 +28,7 @@ const authSlice = createSlice({
         setCookie("token", token, 1);
         state.status = "succeeded";
         state.user = action.payload;
+        state.message = action.payload.message;
         state.error = null;
       })
       .addCase(SignIn.rejected, (state, action) => {
@@ -36,6 +41,7 @@ const authSlice = createSlice({
       .addCase(SignUp.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = action.payload;
+        state.message = action.payload.message;
         state.error = null;
       })
       .addCase(SignUp.rejected, (state, action) => {
@@ -45,5 +51,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { clearAuthError } = authSlice.actions;
+export const { clearAuthError, clearAuthMessage } = authSlice.actions;
 export default authSlice.reducer;

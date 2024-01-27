@@ -20,7 +20,6 @@ const fetchAllQuoteSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchAllData.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.status = "succeeded";
         state.data = action.payload;
         state.error = null;

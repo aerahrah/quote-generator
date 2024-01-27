@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  saveData,
-  deleteData,
-  updateData,
-} from "../../../services/quoteApi";
+import { saveData, deleteData, updateData } from "../../../services/quoteApi";
 const quoteSlice = createSlice({
   name: "quote",
   initialState: {
@@ -28,7 +24,7 @@ const quoteSlice = createSlice({
     builder
       .addCase(saveData.fulfilled, (state, action) => {
         const { favorite, _id } = action.payload.createQuote;
-        console.log(favorite);
+
         if (favorite) {
           state.favoriteQuoteId = _id;
         } else {
